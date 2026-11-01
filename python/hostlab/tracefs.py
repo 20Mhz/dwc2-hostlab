@@ -129,8 +129,15 @@ class TraceFS:
             return f.read()
 
     def _write(self, name: str, value: str, append: bool = False) -> None:
-        with open(self._p(name), "a" if append else "w") as f:
-            f.write(value + "\n")
+        # Not open(..., "a"): Python seeks to the end in append mode and
+        # tracefs's kprobe_events rejects lseek(SEEK_END) with EINVAL (seen on
+        # 6.12.47). Never O_TRUNC kprobe_events either: that deletes every
+        # kprobe on the system, not only hostlab's.
+        fd = os.open(self._p(name), os.O_WRONLY | (os.O_APPEND if append else os.O_TRUNC))
+        try:
+            os.write(fd, (value + "\n").encode())
+        finally:
+            os.close(fd)
 
     def current_clock(self) -> Optional[str]:
         try:

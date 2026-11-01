@@ -65,6 +65,9 @@ class FtraceSession:
         self.registered: List[str] = []
         self.failed: List[Dict[str, str]] = []
         self.missing: List[str] = []
+        # CLOCK_MONOTONIC read just before and just after each marker write;
+        # with trace_clock=mono the marker's ftrace timestamp must fall inside.
+        self.markers: List[Dict[str, Any]] = []
 
     def setup(self) -> None:
         funcs = read_filter_functions(self.tfs.path)
@@ -99,7 +102,9 @@ class FtraceSession:
         self.marker("hostlab_start")
 
     def marker(self, tag: str) -> None:
-        self.tfs.marker(f"{tag} mono_ns={_mono_ns()} real_ns={_real_ns()}")
+        before = _mono_ns()
+        self.tfs.marker(f"{tag} mono_ns={before} real_ns={_real_ns()}")
+        self.markers.append({"tag": tag, "mono_before_ns": before, "mono_after_ns": _mono_ns()})
 
     def stop(self, out_path: str) -> None:
         self.marker("hostlab_stop")
@@ -149,6 +154,10 @@ def run(args: argparse.Namespace) -> int:
                 if ftrace.missing:
                     warnings.append(f"{len(ftrace.missing)} probe symbols absent "
                                     f"(e.g. {ftrace.missing[0]}); see session.json")
+                if ftrace.failed:
+                    warnings.append(f"{len(ftrace.failed)} kprobes failed to register "
+                                    f"(e.g. {ftrace.failed[0]['probe']}: "
+                                    f"{ftrace.failed[0]['error']}); see session.json")
 
         if not args.no_usbmon:
             mon_bin = _find_tool("hostlab-mon", args.bindir)
@@ -181,6 +190,7 @@ def run(args: argparse.Namespace) -> int:
                 mon.kill()
                 warnings.append("hostlab-mon did not stop on SIGINT; killed")
         if ftrace is not None:
+            info["markers"] = ftrace.markers
             info["teardown"] = ftrace.teardown()
         with open(os.path.join(args.out, "session.json"), "w") as f:
             json.dump(info, f, indent=2, sort_keys=True)

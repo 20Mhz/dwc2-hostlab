@@ -84,6 +84,25 @@ class RunTests(unittest.TestCase):
             kp = os.path.join(root, "sys/kernel/tracing/kprobe_events")
             with open(kp) as f:
                 self.assertEqual(f.read().strip(), "")
+            self.assertEqual([m["tag"] for m in info["markers"]], ["hostlab_start", "hostlab_stop"])
+            for m in info["markers"]:
+                self.assertLessEqual(m["mono_before_ns"], m["mono_after_ns"])
+
+    def test_failed_registration_is_a_warning(self):
+        # On 6.12.47 every write failed with EINVAL and the session still
+        # looked clean; a failed registration must be reported.
+        class RejectingTraceFS(FakeTraceFS):
+            def add_kprobe(self, probe):
+                raise OSError(22, "Invalid argument")
+
+        with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as out:
+            make_dwc2_system(root)
+            with mock.patch.object(session, "TraceFS", RejectingTraceFS):
+                session.run(self._args(root, out))
+            with open(os.path.join(out, "session.json")) as f:
+                info = json.load(f)
+            self.assertEqual(info["kprobes"]["registered"], [])
+            self.assertTrue(any("failed to register" in w for w in info["warnings"]))
 
     def test_teardown_runs_when_command_fails_to_start(self):
         with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as out:
