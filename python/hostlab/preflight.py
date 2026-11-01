@@ -38,8 +38,8 @@ REV_MANUFACTURERS = {0: "Sony UK", 1: "Egoman", 2: "Embest", 3: "Sony Japan",
                      4: "Embest", 5: "Stadium"}
 REV_MEMORY_MB = {0: 256, 1: 512, 2: 1024, 3: 2048, 4: 4096, 5: 8192, 6: 16384}
 
-USB_ATTRS = ["busnum", "devnum", "devpath", "idVendor", "idProduct", "bDeviceClass",
-             "bcdUSB", "speed", "maxchild", "manufacturer", "product", "bNumConfigurations"]
+USB_ATTRS = ["busnum", "devnum", "devpath", "idVendor", "idProduct", "bDeviceClass", "bcdDevice",
+             "version", "speed", "maxchild", "manufacturer", "product", "bNumConfigurations"]
 
 
 def decode_revision(code: Optional[str]) -> Optional[Dict[str, Any]]:

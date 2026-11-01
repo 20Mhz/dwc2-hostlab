@@ -424,7 +424,7 @@ def topology_text(devs: List[Dict[str, Any]]) -> str:
     for d in devs:
         ifs = ", ".join(f"{i.get('class')}/{i.get('driver')}" for i in d.get("interfaces", []))
         lines.append(f"bus {d.get('busnum'):>3} dev {d.get('devnum'):>3}  [{d['name']}]  "
-                     f"{d.get('idVendor')}:{d.get('idProduct')}  usb {d.get('bcdUSB')}  "
+                     f"{d.get('idVendor')}:{d.get('idProduct')}  usb {d.get('version')}  "
                      f"speed {d.get('speed')} Mb/s  class {d.get('bDeviceClass')}  "
                      f"\"{d.get('manufacturer') or ''}\" \"{d.get('product') or ''}\"  "
                      f"interfaces: {ifs or '-'}")
