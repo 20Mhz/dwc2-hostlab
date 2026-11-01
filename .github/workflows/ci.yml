@@ -1,0 +1,61 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      kernel_evidence:
+        description: "Rebuild the RPi dwc2 module and check docs/evidence for drift"
+        type: boolean
+        default: false
+
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Build (gcc, -Werror)
+        run: make all
+      - name: Unit and CLI tests
+        run: make test PYTHON=python
+
+  macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test (clang; mock backend only)
+        run: make all test-c
+
+  armv6:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Static ARMv6 build, tests under qemu-arm-static -cpu arm1176
+        run: scripts/build-armv6.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hostlab-armv6
+          path: |
+            build/armv6/hostlab-ctl
+            build/armv6/hostlab-mon
+
+  kernel-evidence:
+    if: github.event_name == 'workflow_dispatch' && inputs.kernel_evidence
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dwc2.ko + usbcore objects for bcmrpi_defconfig
+        run: scripts/kernel/build-dwc2-module.sh
+      - name: Compare traceable-function lists with committed evidence
+        run: |
+          for n in dwc2 usbcore; do
+            diff <(grep -v '^#' docs/evidence/rpi-6.18.59-$n-traceable-functions.txt) \
+                 build/kernel/$n.mcount-functions
+          done
