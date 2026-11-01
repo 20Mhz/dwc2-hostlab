@@ -7,8 +7,13 @@
  * completion. Results are therefore fully deterministic.
  *
  * Semantics copied from Linux usbfs (docs/usb-control-transfers.md §5):
- *  - cancelling a pending transfer completes it with HL_ERR_CANCELLED and
- *    actual_length 0 (dwc2 does not report partial progress on dequeue);
+ *  - cancelling a transfer the HCD has not completed yet completes it with
+ *    HL_ERR_CANCELLED and actual_length 0 (dwc2 does not report partial
+ *    progress on dequeue);
+ *  - a transfer the HCD has completed but usbcore has not yet given back
+ *    (window set by hl_mock_set_giveback_delay, default 0) accepts the
+ *    cancel (returns 0) and still completes with its real status. This was
+ *    observed on a real kernel (docs/evidence/linux-vm-roothub-cancel-sweep.jsonl);
  *  - cancelling a completed-but-unreaped transfer fails with
  *    HL_ERR_NOT_PENDING (usbfs DISCARDURB returns -EINVAL);
  *  - a synchronous transfer whose latency exceeds its timeout fails with
@@ -69,6 +74,8 @@ int hl_mock_add_device(struct hl_backend *be, const struct hl_device_info *info,
 int hl_mock_push_response(struct hl_backend *be, uint8_t devnum,
 			  const struct hl_mock_response *r);
 void hl_mock_set_default_latency(struct hl_backend *be, uint64_t ns);
+/* Delay between HCD completion and giveback (usbcore BH). */
+void hl_mock_set_giveback_delay(struct hl_backend *be, uint64_t ns);
 void hl_mock_advance(struct hl_backend *be, uint64_t ns);
 uint64_t hl_mock_now(struct hl_backend *be);
 

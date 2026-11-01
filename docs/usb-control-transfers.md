@@ -164,6 +164,18 @@ cancelled exactly as in §5. In-kernel callers use `usb_start_wait_urb`
   timing-dependent and not controllable from userspace: phases follow each
   other within one hardirq (`dwc2_release_channel` re-queues immediately,
   `hcd_intr.c:770-772`).
+- **[C, observed on a non-dwc2 kernel]** A successful `USBDEVFS_DISCARDURB`
+  does **not** mean the transfer was cancelled. usbfs accepts the discard
+  while the URB is on its pending list, which lasts until the completion
+  callback runs (in BH context for `HCD_BH` controllers). A kill that lands
+  after the HCD has completed the URB cannot unlink it, and the URB is reaped
+  with its real status. Observed: 111 of 400 zero-delay discards against an
+  xHCI virtual root hub (Linux 6.8.0-117-generic aarch64, Docker Desktop VM)
+  were accepted yet completed with status 0; none ended cancelled
+  ([evidence](evidence/linux-vm-roothub-cancel-sweep.jsonl)). The
+  experimental outcome is therefore always the *reaped* status. hostlab
+  records `cancel` (ioctl result) and `status` (reaped) separately. The
+  dwc2-on-BCM2835 rates are still to be measured (M3).
 
 ---
 

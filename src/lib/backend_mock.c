@@ -15,7 +15,7 @@
 #define MOCK_MAX_PAYLOAD   256
 
 /* Simulated time for a port reset plus re-enumeration. dwc2 holds reset for
- * 50 ms (dwc2/hcd.c:3701); the remainder is a nominal enumeration cost. */
+ * 50 ms (dwc2/hcd.c:3702); the remainder is a nominal enumeration cost. */
 #define MOCK_RESET_NS (60ull * 1000 * 1000)
 
 struct mock_device {
@@ -38,13 +38,15 @@ struct mock_response {
 
 struct mock_pending {
 	struct hl_xfer *x;
-	uint64_t t_done;
+	uint64_t t_hcd_done; /* HCD has completed the URB */
+	uint64_t t_done;     /* giveback done; reapable, no longer cancellable */
 	size_t log_index;
 };
 
 struct mock_state {
 	uint64_t now;
 	uint64_t default_latency;
+	uint64_t giveback_delay;
 	struct mock_device dev[MOCK_MAX_DEVICES];
 	struct mock_response resp[MOCK_MAX_RESPONSES];
 	struct hl_mock_log_entry log[MOCK_MAX_LOG];
@@ -179,6 +181,11 @@ int hl_mock_push_response(struct hl_backend *be, uint8_t devnum,
 void hl_mock_set_default_latency(struct hl_backend *be, uint64_t ns)
 {
 	state_of(be)->default_latency = ns;
+}
+
+void hl_mock_set_giveback_delay(struct hl_backend *be, uint64_t ns)
+{
+	state_of(be)->giveback_delay = ns;
 }
 
 void hl_mock_advance(struct hl_backend *be, uint64_t ns)
@@ -438,13 +445,14 @@ static int mock_submit(struct hl_usb_dev *dev, struct hl_xfer *x,
 	x->urb_status = 0;
 	x->actual_length = deliver(&x->setup, x->data, status, payload, payload_len);
 	e.t_submit_ns = st->now;
-	e.t_done_ns = st->now + latency;
+	e.t_done_ns = st->now + latency + st->giveback_delay;
 	e.status = status;
 	e.actual_length = x->actual_length;
 
 	p = &d->pending[d->npending++];
 	p->x = x;
-	p->t_done = st->now + latency;
+	p->t_hcd_done = st->now + latency;
+	p->t_done = p->t_hcd_done + st->giveback_delay;
 	p->log_index = log_append(st, &e);
 	x->backend_priv = p;
 	return 0;
@@ -460,8 +468,12 @@ static int mock_cancel(struct hl_usb_dev *dev, struct hl_xfer *x,
 	if (p->t_done <= d->st->now)
 		return hl_fail(err, HL_ERR_NOT_PENDING, 0, "cancel",
 			       "transfer already completed");
-	p->t_done = d->st->now;
 	x->t_cancel_ns = d->st->now;
+	/* Completed by the HCD but not yet given back: usbfs still accepts the
+	 * discard, usb_kill_urb cannot unlink it, the URB keeps its real status. */
+	if (p->t_hcd_done <= d->st->now)
+		return 0;
+	p->t_done = d->st->now;
 	x->status = HL_ERR_CANCELLED;
 	x->actual_length = 0;
 	e = log_at(d->st, p->log_index);

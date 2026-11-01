@@ -148,7 +148,13 @@ uint32_t hl_usb_capabilities(struct hl_usb_dev *dev);
 int hl_usb_control(struct hl_usb_dev *dev, const struct hl_setup *setup,
 		   uint8_t *data, unsigned timeout_ms, struct hl_error *err);
 
-/* Asynchronous control transfer: submit, optionally cancel, then reap. */
+/* Asynchronous control transfer: submit, optionally cancel, then reap.
+ *
+ * hl_usb_cancel() returning 0 means only that the kill was issued while the
+ * transfer was still pending in usbfs. A transfer the HCD had already
+ * completed still finishes with its real status; the outcome is the status
+ * returned by hl_usb_reap(). HL_ERR_NOT_PENDING means it had already been
+ * given back. */
 int hl_usb_submit_control(struct hl_usb_dev *dev, struct hl_xfer *x,
 			  struct hl_error *err);
 int hl_usb_cancel(struct hl_usb_dev *dev, struct hl_xfer *x,

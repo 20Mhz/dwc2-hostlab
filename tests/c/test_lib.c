@@ -275,6 +275,28 @@ static void test_mock_cancel_too_late(void)
 	hl_mock_destroy(be);
 }
 
+static void test_mock_cancel_during_giveback(void)
+{
+	struct hl_usb_dev *dev;
+	struct hl_backend *be = mock_with_device(&dev);
+	struct hl_xfer x = { .setup = get_dev_desc }, *done;
+	uint8_t buf[64];
+	struct hl_error err;
+
+	x.data = buf;
+	hl_mock_set_giveback_delay(be, 200 * 1000);
+	CHECK_EQ(hl_usb_submit_control(dev, &x, &err), 0);
+	hl_mock_advance(be, 1100 * 1000); /* HCD done at 1.0 ms, giveback at 1.2 ms */
+	CHECK_EQ(hl_usb_cancel(dev, &x, &err), 0);
+	CHECK_EQ(hl_usb_reap(dev, -1, &done, &err), 0);
+	CHECK_EQ(x.status, HL_OK);
+	CHECK_EQ(x.actual_length, 18);
+	CHECK_EQ(x.t_cancel_ns, 1100 * 1000);
+	CHECK_EQ(x.t_reap_ns, 1200 * 1000);
+	hl_usb_close(dev);
+	hl_mock_destroy(be);
+}
+
 static void test_mock_reap_order_and_wait(void)
 {
 	struct hl_usb_dev *dev;
@@ -369,6 +391,7 @@ static const struct hl_test tests[] = {
 	{ "mock_timeout", test_mock_timeout },
 	{ "mock_cancel_pending", test_mock_cancel_pending },
 	{ "mock_cancel_too_late", test_mock_cancel_too_late },
+	{ "mock_cancel_during_giveback", test_mock_cancel_during_giveback },
 	{ "mock_reap_order_and_wait", test_mock_reap_order_and_wait },
 	{ "mock_reset", test_mock_reset },
 	{ "mock_open_errors", test_mock_open_errors },
