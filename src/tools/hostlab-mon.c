@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 		struct sigaction sa;
 		struct hl_jsonl j;
 		FILE *out = stdout;
-		long recorded = 0;
+		long recorded = 0, drain = -1;	/* drain: events left to read after a stop signal */
 		int fd;
 
 		if (!data)
@@ -144,13 +144,30 @@ int main(int argc, char **argv)
 		hl_clock_snapshot(&snap);
 		hl_clock_emit(&j, "usbmon", &snap);
 
-		while (!stop && (count < 0 || recorded < count)) {
+		for (;;) {
 			struct mon_bin_get get = { hdr, data, snaplen };
 			struct hl_mon_event ev;
 			size_t n;
 
+			if (drain < 0 && count >= 0 && recorded >= count)
+				break;
+			if (drain < 0 && stop) {
+				/* Stopped by a signal: read the events the kernel has
+				 * already queued (the session's last transfers) instead
+				 * of dropping them, but no more, so traffic arriving
+				 * meanwhile cannot keep us running. GETX does not block
+				 * while events are queued. */
+				if (ioctl(fd, MON_IOCG_STATS, &stats))
+					break;
+				drain = stats.queued;
+			}
+			if (drain == 0)
+				break;
+			if (drain > 0)
+				drain--;
+
 			if (ioctl(fd, MON_IOCX_GETX, &get)) {
-				if (errno == EINTR)
+				if (errno == EINTR && drain < 0)
 					continue;
 				fprintf(stderr, "hostlab-mon: MON_IOCX_GETX: %s\n",
 					strerror(errno));
