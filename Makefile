@@ -25,7 +25,7 @@ LIB       := $(BUILD)/libhostlab.a
 TOOLS     := $(BUILD)/hostlab-ctl $(BUILD)/hostlab-mon
 TESTS     := $(BUILD)/test_lib
 
-.PHONY: all test test-c test-py armv6 clean
+.PHONY: all test test-c test-py test-scripts armv6 clean
 all: $(LIB) $(TOOLS) $(TESTS)
 
 $(BUILD)/%.o: %.c $(wildcard include/hostlab/*.h src/lib/*.h tests/c/*.h)
@@ -41,7 +41,7 @@ $(BUILD)/hostlab-%: $(BUILD)/src/tools/hostlab-%.o $(LIB)
 $(BUILD)/test_lib: $(BUILD)/tests/c/test_lib.o $(LIB)
 	$(CC) $(CFLAGS) $(HL_CFLAGS) -o $@ $^ $(LDFLAGS)
 
-test: test-c test-py
+test: test-c test-py test-scripts
 
 test-c: $(TESTS) $(TOOLS)
 	$(TEST_RUNNER) $(BUILD)/test_lib
@@ -49,6 +49,9 @@ test-c: $(TESTS) $(TOOLS)
 
 test-py:
 	PYTHONPATH=python $(PYTHON) -m unittest discover -s python/tests
+
+test-scripts:
+	sh tests/scripts/test_enable_dwc2.sh
 
 armv6:
 	scripts/build-armv6.sh
