@@ -9,6 +9,7 @@ Inspected on 2026-11-01.
 |---|---|---|---|---|
 | mainline | https://github.com/torvalds/linux | master | `46fec1c3029b552ec63b2d01af9d43a386f043ea` (2026-11-01, "Merge tag 'sched-urgent-2026-11-01'") | Makefile: 7.3.0 |
 | rpi | https://github.com/raspberrypi/linux | rpi-6.18.y (default branch) | `b3495ea401d709af0701a85babcba5e3d788a602` (2026-10-28) | Makefile: 6.18.59 |
+| rpi-6.12.47 | https://github.com/raspberrypi/linux | (commit of the running kernel) | `359f37f0faefb712add32a39f98751aea67d5c1f` (2025-09-15) | Makefile: 6.12.47 |
 | circle | https://github.com/rsta2/circle | master | `7a81e1b480fe7d19fc1fc695b89bff0a0848f44b` (2026-09-25, "Merge branch 'hotfix-51.1.1'") | Step 51.1.1 |
 
 The trees were fetched as shallow, blob-filtered sparse checkouts containing:
@@ -24,6 +25,28 @@ A full RPi tree at the same commit is built by
 `scripts/kernel/build-dwc2-module.sh`, whose outputs (resolved `.config`,
 `dwc2.ko`, symbol table, ftrace-able function list) are recorded in
 `docs/evidence/`.
+
+### The kernel actually running on the target
+
+The Pi Zero W used for M1 runs `6.12.47+rpt-rpi-v6` (Raspberry Pi OS
+trixie package `1:6.12.47-1+rpt1`). Its Debian changelog
+(`/usr/share/doc/linux-image-6.12.47+rpt-rpi-v6/changelog.Debian.gz`) names
+"Linux commit: 359f37f0faefb712add32a39f98751aea67d5c1f", fetched sparsely
+(`drivers/usb/{dwc2,core,mon}`, the Zero W DTS and the dwc2 overlay) to
+check the M0 findings against it. Differences that matter, 6.18.59 vs 6.12.47:
+
+| File | Lines differing | Relevance |
+|---|---|---|
+| `dwc2/hcd_intr.c`, `dwc2/hcd.h` | 0 | channel state machine, phase sequencing, probe targets: identical |
+| `dwc2/hcd.c` | 111 | power/PM changes; probed prototypes and `HCD_BH` flag identical |
+| `dwc2/core.h` | 23 | backup/restore register helpers; `enum dwc2_halt_status` identical |
+| `core/hcd.c` | 69 | root-hub enqueue signature, DMA sync, giveback comment; probed functions keep their prototypes |
+
+The shipped `dwc2.ko` and the running kernel's `available_filter_functions`
+were checked directly: all 18 hostlab probe symbols are present and
+traceable (`docs/evidence/m1-20261101-partial/probe-capabilities.json`).
+`usb_kill_urb` additionally has a `usb_kill_urb.part.0` clone (GCC partial
+inlining); the probe on `usb_kill_urb` still sees every call.
 
 ## Which tree matters for the target
 

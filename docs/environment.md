@@ -25,48 +25,75 @@ scripts/kernel/build-dwc2-module.sh   # RPi dwc2.ko + traceability evidence
 
 ## Target (Pi Zero W v1.1)
 
-Requirements: Raspberry Pi OS Lite 32-bit (the analysis used kernel
-`rpi-6.18.y`), `python3` (expected to be preinstalled on Lite; check with
-`python3 --version`), SSH access over Wi-Fi. The USB port is then free for
-the device under test.
+Verified on hardware on 2026-11-01:
+
+| Item | Value |
+|---|---|
+| Board | Raspberry Pi Zero W Rev 1.1, revision code `9000c1` (BCM2835, 512 MB, Sony UK) |
+| OS | Raspberry Pi OS Lite 32-bit, Raspbian 13 (trixie) |
+| Kernel | `6.12.47+rpt-rpi-v6`, package `1:6.12.47-1+rpt1`, raspberrypi/linux `359f37f` ([references.md](references.md)) |
+| Boot partition | `/boot/firmware` (`config.txt`, `cmdline.txt`) |
+| Kernel config | `/boot/config-6.12.47+rpt-rpi-v6`; `/proc/config.gz` after `modprobe configs` |
+| Default USB driver | `dwc_otg` (built in), `dwc2.ko` and `usbmon.ko` shipped as modules |
+| Python | 3.13.5 (preinstalled); the tools need only the standard library |
+| Access | SSH over Wi-Fi (SDIO, independent of the USB controller) |
+
+The analysis in M0 used `rpi-6.18.y`. The dwc2 host code (`hcd_intr.c`,
+`hcd.h`) is identical in 6.12.47; every probed function keeps its prototype,
+`hc_num` is still the first member of `struct dwc2_host_chan` and
+`enum dwc2_halt_status` is unchanged. All 18 probe symbols exist under their
+own names in the shipped `dwc2.ko` (no `.isra`/`.constprop` clones).
+
+Stock trixie `config.txt` already contains `dtoverlay=dwc2,dr_mode=host`,
+but under `[cm5]`, so it does not apply to a Zero W. `enable-dwc2.sh` only
+counts lines with no filter or under `[all]`, `[pi0]` or `[pi0w]`.
 
 ```
 make armv6
-scripts/deploy.sh pi@pizero.local            # copies to ~/dwc2-hostlab
-ssh pi@pizero.local
-sudo ~/dwc2-hostlab/scripts/pi/enable-dwc2.sh           # shows the change
-sudo ~/dwc2-hostlab/scripts/pi/enable-dwc2.sh --apply   # backs up config.txt
+scripts/deploy.sh pizero                     # ssh alias or user@host; copies to ~/dwc2-hostlab
+ssh pizero
+cd ~/dwc2-hostlab
+bin/hostlab-preflight                        # read-only; run with sudo for debugfs/tracefs
+sudo scripts/pi/enable-dwc2.sh               # shows overlay state, changes nothing
+sudo scripts/pi/enable-dwc2.sh --apply       # backs up config.txt, appends 3 lines
 sudo reboot
 ```
 
 `dr_mode=host` keeps the core in host mode regardless of the ID pin. A
-plain micro-USB OTG adapter or cable connects the device under test; the
-port supplies VBUS from the Pi's 5 V rail, so use a powered hub for
-anything drawing much current.
+micro-USB OTG adapter on the port marked **USB** (not PWR IN) connects the
+device under test; the port supplies VBUS from the Pi's 5 V rail, so use a
+powered hub for anything drawing much current.
 
 ## First run on hardware
 
+Before the overlay, keep a baseline (used as the `dwc_otg` state):
+
 ```
-cd ~/dwc2-hostlab
+mkdir -p runs/00-dwc_otg && sudo bin/hostlab-preflight --json runs/00-dwc_otg/preflight.json
+```
+
+With dwc2 bound and a test device attached (`bin/hostlab-ctl list`):
+
+```
+sudo scripts/pi/m1-run.sh 1:2                 # BUS:DEV of the test device
+```
+
+`m1-run.sh` loads usbmon, runs the preflight, records 100
+GET_DESCRIPTOR(DEVICE) requests with kprobes and the same 100 without (for
+H8), and writes an evidence bundle to `evidence/m1-DATE/`
+([trace-format.md](trace-format.md#evidence-bundle)). Its
+`test-summary.md` lists every M1 check and hypothesis as PASS, FAIL, BLOCKED
+or INCONCLUSIVE with the file that supports it. Recovery snapshots in
+`runs/05-reverted/` and `runs/06-reapplied/` (preflight JSON taken after
+`--revert` + reboot and after `--apply` + reboot) are included when present.
+
+Manual equivalents:
+
+```
 sudo scripts/pi/prepare-session.sh           # modprobe usbmon/configs, mount debugfs/tracefs
-sudo bin/hostlab-probe --pretty > probe-dwc2.json
-bin/hostlab-ctl list                          # find the test device, e.g. 1:4
-sudo bin/hostlab-session run --out run1 -- \
-     bin/hostlab-ctl get-descriptor 1:4 --repeat 100
+sudo bin/hostlab-session run --out run1 -- bin/hostlab-ctl get-descriptor 1:2 --repeat 100
 bin/hostlab-analyze run1 --json run1/analysis.json
-sudo bin/hostlab-session run --out run2 -- \
-     bin/hostlab-ctl cancel-sweep 1:4 --delays-us 0:500:10 --repeat 5
-bin/hostlab-analyze run2 --json run2/analysis.json
 ```
-
-Check before trusting the results:
-- `probe.json`: `controller.driver == "dwc2"`, `summary.host_dma_mode`
-  (H1), `summary.host_channels` (H2), `ftrace.hostlab_probes_missing` (H9).
-- `analysis.json`: `channel_events.channel_numbers_seen` all below
-  `host_channels`; every usbmon URB also has a `urb_enqueue` time (H7);
-  `clock.ftrace_marker_offsets_ns` near 0 (H10).
-
-Also take one `probe.json` *before* enabling the overlay, i.e. on dwc_otg.
 
 ## Recovery
 
@@ -75,9 +102,9 @@ hostlab changes nothing persistent on the Pi except the optional
 
 | Situation | Action |
 |---|---|
-| Want dwc_otg back | `sudo scripts/pi/enable-dwc2.sh --revert && sudo reboot` (restores the newest backup) |
+| Want dwc_otg back | `sudo scripts/pi/enable-dwc2.sh --revert && sudo reboot`. Removes only the hostlab block (validated on hardware 2026-11-01: `config.txt` byte-identical to the pre-apply backup, dwc_otg bound after reboot) |
 | Pi boots but USB is dead | Same. SSH runs over Wi-Fi, so it is unaffected |
-| Pi does not come back on the network | Power off, put the SD card in another computer, open the FAT **boot** partition (`bootfs`), edit `config.txt`, delete the lines below `# dwc2-hostlab` (or copy a `config.txt.hostlab-*` backup over it) |
+| Pi does not come back on the network | Power off, put the SD card in another computer, open the FAT **boot** partition (`bootfs`), edit `config.txt` and delete the three lines starting at `# dwc2-hostlab` (or copy a `config.txt.hostlab-*` backup over it) |
 | A session crashed and left kprobes | `sudo bin/hostlab-session teardown` (removes only the `hostlab` group). A reboot also clears all kprobes |
 | tracefs left at `trace_clock=mono` | Harmless. `echo local | sudo tee /sys/kernel/tracing/trace_clock` restores the default |
 | Kernel oops / hang during a kprobe session | Reboot (kprobes are not persistent). Report it with `session.json` and `probe.json` |
@@ -90,7 +117,6 @@ watch it.
 
 | Blocker | Impact | Workaround / next step |
 |---|---|---|
-| No access to the Pi from the development environment | Nothing has run on real dwc2 hardware | Runbook above; results go to `docs/evidence/` |
+| No USB peripheral attached to the Pi during the 2026-11-01 session | No dwc2 channel events yet: H7, H8 and the M1 trace/analysis checks are open | Attach a device, run `scripts/pi/m1-run.sh` |
 | Docker VM kernel has no dummy_hcd / usbmon | No software-only end-to-end test | Issue draft 1 in [plan.md](plan.md#issue-drafts) |
-| Official RPi kernel may be built with a different compiler than ours | Traceable-function list may differ (H9) | `hostlab-probe` reports the real list |
 | CI workflow not executed on GitHub | Workflow syntax unverified by GitHub | Steps run locally with the same commands |

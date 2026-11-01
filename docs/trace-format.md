@@ -13,7 +13,7 @@ written at the start and end.
 | `user.jsonl` | the command (normally hostlab-ctl) | userspace events |
 | `user.stderr` | the command | diagnostics |
 | `ftrace.txt` | hostlab-session | raw tracefs `trace` text |
-| `session.json` | hostlab-session | kprobes registered / missing / failed, teardown result, warnings, exit code |
+| `session.json` | hostlab-session | kprobes registered / missing / failed, teardown result, warnings, exit code, `markers` (CLOCK_MONOTONIC read before and after each marker write) |
 | `analysis.json` | hostlab-analyze `--json` | joined report |
 
 ## Time bases
@@ -91,6 +91,53 @@ because trace text omits the group. Definitions and argument sources are in
 (`core.h:1281-1296`).
 
 Markers: `tracing_mark_write: hostlab_start|hostlab_stop mono_ns=… real_ns=…`.
+
+## Analysis (`analysis.json`)
+
+URB addresses are recycled by the slab allocator (on hardware one address
+carried 100 consecutive usbfs transfers), so each entry in `urbs` is one
+**instance**: `urb` (address) plus `instance` (n-th use of that address in
+the capture), from submit to giveback. usbmon and kprobe instances are
+paired by address and submit time (tolerance 1 ms plus the clock-snapshot
+uncertainty).
+
+`consistency` (H7): `device_urbs_in_usbmon`, `with_dwc2_enqueue`,
+`usbmon_without_enqueue`, `enqueue_without_usbmon`,
+`usbmon_unpaired_with_kprobes`, `host_channels`,
+`channel_numbers_out_of_range`, `address_reuse_max`, `trace_window_ns`.
+Only URBs submitted between the `hostlab_start` and `hostlab_stop` markers
+count, because usbmon starts recording before ftrace. Root-hub URBs (dev 1)
+never reach dwc2 and are excluded.
+
+`clock.ftrace_marker_brackets` (H10): per marker, `ftrace_minus_before_ns`,
+`after_minus_ftrace_ns`, `in_bracket`.
+
+## Evidence bundle
+
+Written by `hostlab-evidence` (bundle schema 1):
+
+| File | Content |
+|---|---|
+| `manifest.json` | hostlab revision (`-dirty` if uncommitted changes were deployed), creation and preflight times, kernel, board, OS, sessions with commands and exit codes, state snapshots, `unavailable` (file + reason), redactions, `m1_complete`, SHA-256 of every other file |
+| `hardware.json` | board and revision code, OS, kernel, controller (driver, dwc2 params), modules, boot-config overlay state |
+| `kernel-config.txt` | running kernel config with its source, or a `# UNAVAILABLE: reason` line |
+| `usb-topology.txt` | USB devices from sysfs (no serial numbers) |
+| `probe-capabilities.json` | `hostlab-probe` output of the primary session |
+| `usbmon.jsonl`, `dwc2-events.jsonl`, `analysis.json` | primary session: usbmon records, parsed ftrace events (`{src: ftrace, ev, ts_ns, cpu, task, fields}`), analysis |
+| `hypothesis-results.json` | H1-H10 and M1 checks: `status` (PASS / FAIL / BLOCKED / INCONCLUSIVE), `detail`, `criterion`, `evidence` (bundle-relative paths) |
+| `test-summary.md` | the same, readable |
+| `kernel-log.txt` | dmesg lines matching USB / dwc2 / kprobe / oops patterns |
+| `preflight.json`, `states/NAME.json` | preflight snapshots (primary and e.g. `dwc_otg`, `reverted`, `reapplied`) |
+| `sessions/NAME/` | every session: `session.json`, `probe.json`, `user.jsonl`, `usbmon.jsonl`, `dwc2-events.jsonl`, `analysis.json` |
+
+A measurement that was not taken is never an empty file: JSON files carry
+`{"available": false, "reason": ...}`, JSONL files a single
+`{"ev": "unavailable"}` record, and `manifest.unavailable` lists them.
+
+Privacy: payloads of GET_DESCRIPTOR(STRING) completions are removed
+(`data_redacted: "string_descriptor"`), kernel-log serial numbers and MAC
+addresses are masked, `/home/USER` becomes `~`; hostname and IP addresses
+are not collected.
 
 ## Versioning
 

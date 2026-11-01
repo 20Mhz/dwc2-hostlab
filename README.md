@@ -4,10 +4,13 @@ An open-source toolkit for instrumenting and studying USB **host** behaviour on
 the Synopsys DesignWare HS OTG (DWC2) controller under Linux. The primary target
 is the Raspberry Pi Zero W v1.1 (BCM2835, ARM1176JZF-S).
 
-**Status: early (v0.1.0-dev).** Source analysis is complete and the first
-non-invasive tools are built and unit-tested. **Nothing has run on a Pi yet**:
-see [docs/plan.md](docs/plan.md) for what is verified and what is still a
-hypothesis.
+**Status: early (v0.1.0-dev).** Source analysis is complete, the tools are
+built and unit-tested, and the first hardware session ran on a Pi Zero W
+(Raspberry Pi OS trixie, kernel 6.12.47) on 2026-11-01. dwc2 binding,
+kprobe registration, usbmon capture, clock alignment and overlay recovery
+are verified on hardware. Channel-level traces of a real peripheral are
+still open: no device was attached
+([bring-up log](docs/m1-bringup.md), [plan](docs/plan.md)).
 
 ## What it does
 
@@ -26,8 +29,10 @@ hypothesis.
   the phase reached at dequeue and the channel-release latency.
 
 ```
+sudo bin/hostlab-preflight                 # read-only readiness report
 sudo bin/hostlab-session run --out run1 -- bin/hostlab-ctl get-descriptor 1:4 --repeat 100
 bin/hostlab-analyze run1
+sudo scripts/pi/m1-run.sh 1:4              # full M1 run + evidence bundle
 ```
 
 ## Key findings so far
@@ -42,7 +47,9 @@ bin/hostlab-analyze run1
   but **no dynamic debug**, so all dwc2 `dev_dbg` output is compiled out. Neither
   dwc2 nor usbcore 6.18 has tracepoints.
 - usbmon's binary `id` is the kernel `struct urb *`, which gives exact joins
-  with kprobe arguments.
+  with kprobe arguments within one URB's lifetime. Addresses are recycled
+  (on hardware one address carried 100 consecutive transfers), so the
+  analyser pairs submit→giveback instances.
 - A successful `USBDEVFS_DISCARDURB` does not mean the transfer was
   cancelled. On a real kernel (xHCI root hub) 111 of 400 accepted discards
   still completed normally ([evidence](docs/evidence/linux-vm-roothub-cancel-sweep.jsonl)).
@@ -57,7 +64,7 @@ bin/hostlab-analyze run1
 | `include/hostlab/`, `src/lib/` | C library: versioned transport API (`usb_backend.h`), usbfs and mock backends, usbmon decoder, safety policy |
 | `src/tools/hostlab-ctl.c` | control transfers, cancellation sweeps, reset, device listing |
 | `src/tools/hostlab-mon.c` | usbmon binary capture → JSONL |
-| `python/hostlab/` | `probe` (capabilities), `session` (orchestrates a capture, manages kprobes), `analyze` (joins and reports) |
+| `python/hostlab/` | `probe` (capabilities), `preflight` (readiness report), `session` (orchestrates a capture, manages kprobes), `analyze` (joins and reports), `evidence` (bundle + hypothesis evaluation) |
 | `scripts/` | ARMv6 build, kernel evidence build, deploy, Pi setup/revert |
 | `docs/` | analysis, plan, environment and recovery, trace format, evidence |
 
@@ -86,7 +93,7 @@ Deployment, first hardware run and recovery: [docs/environment.md](docs/environm
 
 | Board | Driver | Status |
 |---|---|---|
-| Raspberry Pi Zero W v1.1 | dwc2 (`dtoverlay=dwc2,dr_mode=host`) | primary target, **untested on hardware** |
+| Raspberry Pi Zero W v1.1 | dwc2 (`dtoverlay=dwc2,dr_mode=host`) | primary target; binding, tracing setup and recovery verified on 6.12.47; device traffic not yet captured |
 | Raspberry Pi Zero W v1.1 | dwc_otg (default) | usbfs/usbmon layers only |
 | Any Linux host | any HCD | `hostlab-ctl`, `hostlab-mon` (usbfs/usbmon); smoke-tested on an xHCI root hub |
 
@@ -94,4 +101,5 @@ Deployment, first hardware run and recovery: [docs/environment.md](docs/environm
 
 MIT for this repository's code (provisional, see [LICENSE](LICENSE)). The
 documentation refers to GPL-2.0 kernel sources by path and line and does not
-copy them. Kernel patches proposed later would be GPL-2.0.
+copy them. Kernel patches proposed later would be GPL-2.0. Provenance
+review and open decisions: [docs/licensing.md](docs/licensing.md).
