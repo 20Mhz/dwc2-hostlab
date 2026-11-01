@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Copy hostlab to a Pi over SSH. Needs only ssh and tar on both ends (rsync is
 # not part of Raspberry Pi OS Lite).
 #

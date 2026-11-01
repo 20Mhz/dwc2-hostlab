@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
 # Run ON the Pi as root: the M1 hardware session and its evidence bundle.
 #
 #   sudo scripts/pi/m1-run.sh BUS:DEV [OUT]      (OUT default: evidence/m1-DATE)

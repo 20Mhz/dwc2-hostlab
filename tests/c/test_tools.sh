@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
 # End-to-end checks of the CLI tools against the mock backend.
 set -eu
 

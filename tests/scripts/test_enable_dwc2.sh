@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
 # Tests for scripts/pi/enable-dwc2.sh against a copy of the stock Raspberry Pi
 # OS (trixie) config.txt layout, which already has the dwc2 overlay under [cm5].
 set -u

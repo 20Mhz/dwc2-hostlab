@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Build static ARMv6 (ARM1176JZF-S) binaries and run the C test suite under
 # qemu-arm-static -cpu arm1176, inside the project's Docker image.
 #

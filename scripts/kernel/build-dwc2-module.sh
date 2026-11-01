@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Build the Raspberry Pi kernel's dwc2 module for the Pi Zero W (bcmrpi_defconfig)
 # and extract evidence about it: the resolved .config, the module, its symbol
 # table and the list of functions that carry an ftrace (mcount) call site.

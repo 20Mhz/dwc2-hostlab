@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
 # Run ON the Pi as root before a session: load the modules hostlab reads and
 # make sure debugfs/tracefs are mounted. Changes nothing persistently.
 set -eu

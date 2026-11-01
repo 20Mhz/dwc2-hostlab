@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
 # Run ON the Pi. Switch the USB controller from dwc_otg (Raspberry Pi OS
 # default) to dwc2 in host mode, or revert.
 #
