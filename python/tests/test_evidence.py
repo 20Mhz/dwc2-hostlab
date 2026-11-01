@@ -44,6 +44,41 @@ class RedactionTests(unittest.TestCase):
         self.assertEqual(out[3]["data"], "12010002")
 
 
+class KernelLogTests(unittest.TestCase):
+    def test_oops_patterns(self):
+        bad = lambda l: bool(evidence.KLOG_OOPS.search(l) or evidence.KLOG_DRIVER.search(l))
+        # Real line from the Pi Zero W boot log: must not count as a problem.
+        self.assertFalse(bad("[    5.327491] mmc-bcm2835 20300000.mmcnr: mmc_debug:0 mmc_debug2:0"))
+        self.assertTrue(bad("[ 12.0] BUG: unable to handle page fault"))
+        self.assertTrue(bad("[ 12.0] WARNING: CPU: 0 PID: 1 at drivers/usb/dwc2/hcd.c:100"))
+        self.assertTrue(bad("[ 12.0] dwc2 20980000.usb: Channel 3 halt timeout"))
+
+
+class H8Tests(unittest.TestCase):
+    def _an(self, lat, n, dev=4):
+        return {"urbs": [{"xfer": "ctrl", "dev": dev, "status": 0, "usbmon_latency_ns": lat}] * n,
+                "channel_events": {"total": 0, "channel_numbers_seen": []}, "consistency": {}}
+
+    def _eval(self, an_p, an_b, exit_p=0):
+        cmd = ["hostlab-ctl", "get-descriptor", "1:4"]
+        sessions = {"device": {"analysis": an_p, "session": {"command": cmd, "kprobes": {},
+                                                             "command_exit": exit_p}},
+                    "noprobe": {"analysis": an_b, "session": {"command": cmd, "command_exit": 0}}}
+        hyps = evidence.evaluate_hypotheses(PREFLIGHT, sessions, "device")
+        return next(h for h in hyps if h["id"] == "H8")
+
+    def test_pass_and_fail(self):
+        self.assertEqual(self._eval(self._an(110, 50), self._an(100, 50))["status"], PASS)
+        self.assertEqual(self._eval(self._an(150, 50), self._an(100, 50))["status"], "FAIL")
+
+    def test_root_hub_failed_command_or_few_samples_are_inconclusive(self):
+        self.assertEqual(self._eval(self._an(150, 50, dev=1), self._an(100, 50, dev=1))["status"],
+                         "INCONCLUSIVE")
+        self.assertEqual(self._eval(self._an(150, 5), self._an(100, 5))["status"], "INCONCLUSIVE")
+        self.assertEqual(self._eval(self._an(150, 50), self._an(100, 50), exit_p=1)["status"],
+                         "INCONCLUSIVE")
+
+
 class BundleTests(unittest.TestCase):
     def test_bundle_without_sessions_is_explicit(self):
         with tempfile.TemporaryDirectory() as d:
@@ -74,6 +109,17 @@ class BundleTests(unittest.TestCase):
         m1 = {c["id"]: c["status"] for c in res["m1_checks"]}
         self.assertEqual(m1["recovery"], BLOCKED)
         self.assertEqual(m1["stability"], BLOCKED)
+
+    def test_refuses_missing_session_dir(self):
+        with tempfile.TemporaryDirectory() as d:
+            pf = os.path.join(d, "pf.json")
+            with open(pf, "w") as f:
+                json.dump(PREFLIGHT, f)
+            args = argparse.Namespace(out=os.path.join(d, "b"), preflight=pf,
+                                      session=["device=/nonexistent/run"], state=None,
+                                      kernel_log="none", kernel_config="none")
+            with self.assertRaises(SystemExit):
+                evidence.build(args)
 
     def test_refuses_non_empty_output(self):
         with tempfile.TemporaryDirectory() as d:

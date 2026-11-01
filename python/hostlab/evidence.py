@@ -45,8 +45,11 @@ H8_MAX_OVERHEAD = 0.20
 
 KLOG_KEEP = re.compile(r"dwc2|dwc_otg|usb|hub |kprobe|hostlab|Oops|BUG:|WARNING:|"
                        r"Unable to handle|Call trace|Internal error", re.I)
-KLOG_PROBLEM = re.compile(r"Oops|BUG:|WARNING:|Unable to handle|Call trace|Internal error|"
-                          r"dwc2.*(error|timeout|fail)|kprobe.*fail", re.I)
+# Kernel oops markers are upper/mixed case and start a word ("mmc_debug:0" must
+# not match BUG:); driver complaints are matched case-insensitively.
+KLOG_OOPS = re.compile(r"\b(BUG|WARNING):|\bOops\b|Unable to handle kernel|Call trace:|"
+                       r"Internal error:")
+KLOG_DRIVER = re.compile(r"dwc2.*\b(error|timeout|fail)|kprobe.*\bfail", re.I)
 MAC = re.compile(r"\b[0-9a-f]{2}(:[0-9a-f]{2}){5}\b", re.I)
 
 
@@ -174,9 +177,20 @@ def _h(hid: str, text: str, status: str, detail: str, evidence: List[str],
             "evidence": evidence, "criterion": criterion}
 
 
-def _median_usbmon(analysis: Optional[Dict[str, Any]]) -> Optional[int]:
-    s = ((analysis or {}).get("latency") or {}).get("usbmon_submit_to_complete")
-    return s["median"] if s else None
+# H8 needs this many device control URBs on each side to compare medians.
+H8_MIN_SAMPLES = 30
+
+
+def _device_ctrl_latencies(analysis: Optional[Dict[str, Any]]) -> List[int]:
+    """usbmon submit->complete of successful control URBs to a device (not the root hub)."""
+    return sorted(u["usbmon_latency_ns"] for u in (analysis or {}).get("urbs", [])
+                  if u.get("xfer") == "ctrl" and u.get("dev") != 1 and u.get("status") == 0
+                  and "usbmon_latency_ns" in u)
+
+
+def _median(xs: List[int]) -> int:
+    n = len(xs)
+    return xs[n // 2] if n % 2 else (xs[n // 2 - 1] + xs[n // 2]) // 2
 
 
 def evaluate_hypotheses(pf: Dict[str, Any], sessions: Dict[str, Dict[str, Any]],
@@ -272,14 +286,18 @@ def evaluate_hypotheses(pf: Dict[str, Any], sessions: Dict[str, Dict[str, Any]],
                       "no session of the same command without kprobes (--no-ftrace)", [],
                       f"median usbmon latency with probes <= {1 + H8_MAX_OVERHEAD:.2f} x without"))
     else:
-        with_p, without = _median_usbmon(an), _median_usbmon(sessions[base].get("analysis"))
-        if with_p is None or not without:
-            st, d = INCONCLUSIVE, "latency medians unavailable"
+        a = _device_ctrl_latencies(an)
+        b = _device_ctrl_latencies(sessions[base].get("analysis"))
+        exits = (sj.get("command_exit"), (sessions[base].get("session") or {}).get("command_exit"))
+        if exits != (0, 0) or min(len(a), len(b)) < H8_MIN_SAMPLES:
+            st, d = INCONCLUSIVE, (f"command exits {exits}; {len(a)} vs {len(b)} successful "
+                                   f"device control URBs (need {H8_MIN_SAMPLES} each, exit 0)")
         else:
+            with_p, without = _median(a), _median(b)
             ratio = with_p / without
             st = PASS if ratio <= 1 + H8_MAX_OVERHEAD else FAIL
-            d = f"median usbmon submit->complete {with_p} ns with probes, {without} ns " \
-                f"without (ratio {ratio:.3f})"
+            d = f"median usbmon submit->complete of device control URBs: {with_p} ns with " \
+                f"probes (n={len(a)}), {without} ns without (n={len(b)}), ratio {ratio:.3f}"
         out.append(_h("H8", "kprobe overhead is small relative to transfer latency", st, d,
                       [f"sessions/{primary}/analysis.json", f"sessions/{base}/analysis.json"],
                       f"median usbmon latency with probes <= {1 + H8_MAX_OVERHEAD:.2f} x without"))
@@ -358,7 +376,7 @@ def evaluate_m1(pf: Dict[str, Any], states: Dict[str, Dict[str, Any]],
         out.append({"id": "stability", "check": "System remains stable", "status": BLOCKED,
                     "detail": f"kernel log not collected: {klog_reason}", "evidence": []})
     else:
-        bad = [l for l in klog if KLOG_PROBLEM.search(l)]
+        bad = [l for l in klog if KLOG_OOPS.search(l) or KLOG_DRIVER.search(l)]
         out.append({"id": "stability", "check": "System remains stable",
                     "status": PASS if not bad else FAIL,
                     "detail": f"{len(bad)} problem lines in the filtered kernel log"
@@ -420,6 +438,8 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
     for spec in args.session or []:
         name, _, d = spec.rpartition("=")
         name = name or os.path.basename(os.path.normpath(d))
+        if not os.path.isdir(d):
+            raise SystemExit(f"session directory {d} does not exist")
         sessions[name] = load_session(d)
     primary = next(iter(sessions), None)
     states = {}
