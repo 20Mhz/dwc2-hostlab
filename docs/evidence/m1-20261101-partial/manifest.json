@@ -1,0 +1,147 @@
+{
+  "board": "Raspberry Pi Zero W Rev 1.1",
+  "bundle_schema": 1,
+  "created_utc": "2026-11-01T23:44:13Z",
+  "files": [
+    {
+      "bytes": 35316,
+      "path": "analysis.json",
+      "sha256": "9c0656169590c63ec3c06c31ff83b63c8334bf1924e6943dc4e3e75a31c50a8f"
+    },
+    {
+      "bytes": 42476,
+      "path": "dwc2-events.jsonl",
+      "sha256": "a4e5c7c7b40dc6454cb996ba863ca4b4b2e75d116c398484c41a02947bfdc6b7"
+    },
+    {
+      "bytes": 4758,
+      "path": "hardware.json",
+      "sha256": "943267137037032215b039b0d9048c13d612eda3bb27f6c6f228404aa2899e24"
+    },
+    {
+      "bytes": 5668,
+      "path": "hypothesis-results.json",
+      "sha256": "d4639b1049ec9eddec3f308619400c725a6117cd5a4cc9ae969c4c20bbd058d6"
+    },
+    {
+      "bytes": 211975,
+      "path": "kernel-config.txt",
+      "sha256": "7c012b05e92ea0b76748496aafdd1e8625444544ceb6460fa77864b4aa33970b"
+    },
+    {
+      "bytes": 1734,
+      "path": "kernel-log.txt",
+      "sha256": "40f21831812c0a2456fcaa36c99ca8c1b3acbd345221d180a0de36c78652f0f2"
+    },
+    {
+      "bytes": 10287,
+      "path": "preflight.json",
+      "sha256": "77ae20208a01737a1b37bb7ff0065dd7efbd9c6343eca7ec1559bd0dde2def78"
+    },
+    {
+      "bytes": 5325,
+      "path": "probe-capabilities.json",
+      "sha256": "81dd9743d9776c720741784466c334310d2235952b342e88a3af9db2f77c69f4"
+    },
+    {
+      "bytes": 35316,
+      "path": "sessions/roothub/analysis.json",
+      "sha256": "9c0656169590c63ec3c06c31ff83b63c8334bf1924e6943dc4e3e75a31c50a8f"
+    },
+    {
+      "bytes": 42476,
+      "path": "sessions/roothub/dwc2-events.jsonl",
+      "sha256": "a4e5c7c7b40dc6454cb996ba863ca4b4b2e75d116c398484c41a02947bfdc6b7"
+    },
+    {
+      "bytes": 5325,
+      "path": "sessions/roothub/probe.json",
+      "sha256": "81dd9743d9776c720741784466c334310d2235952b342e88a3af9db2f77c69f4"
+    },
+    {
+      "bytes": 1405,
+      "path": "sessions/roothub/session.json",
+      "sha256": "fcfd011ce2339c910e08d5140a4910345609d046183baaf4ade41badbf3120c5"
+    },
+    {
+      "bytes": 55686,
+      "path": "sessions/roothub/usbmon.jsonl",
+      "sha256": "1f4278735601a4fede730cc24a3debd1849ff22d3d41d26a77f7657f26401afe"
+    },
+    {
+      "bytes": 25737,
+      "path": "sessions/roothub/user.jsonl",
+      "sha256": "4cf761d1ea193532e863759ac7f08c8f0e178bddb9426ac7791d904275985a57"
+    },
+    {
+      "bytes": 8531,
+      "path": "states/dwc_otg.json",
+      "sha256": "1a974635c2e1e280ffb98e9825a4d9337aeefa8a4a499a65535ba40d469383bf"
+    },
+    {
+      "bytes": 10287,
+      "path": "states/reapplied.json",
+      "sha256": "cfc8ed4446af91b96da5bb59443b02489f48cbb8d27214590cb4e35a7f8196f8"
+    },
+    {
+      "bytes": 8633,
+      "path": "states/reverted.json",
+      "sha256": "c673e2b921b580da955233df3e161e022b53d93d3bb1eadeccbfcd2bd63f7550"
+    },
+    {
+      "bytes": 2444,
+      "path": "test-summary.md",
+      "sha256": "19c4aeac203768dd8f09493b12804c9f1b06cb961f5832e083d97974396780ce"
+    },
+    {
+      "bytes": 225,
+      "path": "usb-topology.txt",
+      "sha256": "0687cea06bcd50da0132ede8e232cd2d94120ab8bddf35e2333c529a51938386"
+    },
+    {
+      "bytes": 55686,
+      "path": "usbmon.jsonl",
+      "sha256": "1f4278735601a4fede730cc24a3debd1849ff22d3d41d26a77f7657f26401afe"
+    }
+  ],
+  "hostlab_revision": "16744ac61b1669fa43d130bd2366b93e2d2e07f7",
+  "kernel_release": "6.12.47+rpt-rpi-v6",
+  "kernel_version": "Linux version 6.12.47+rpt-rpi-v6 (serge@raspberrypi.com) (arm-linux-gnueabihf-gcc-14 (Raspbian 14.2.0-19+rpi1) 14.2.0, GNU ld (GNU Binutils for Raspbian) 2.44) #1 Raspbian 1:6.12.47-1+rpt1 (2025-09-16)",
+  "m1_complete": false,
+  "os": "Raspbian GNU/Linux 13 (trixie)",
+  "preflight_utc": "2026-11-01T23:37:27Z",
+  "primary_session": "roothub",
+  "redactions": {
+    "not_collected": [
+      "serial numbers",
+      "hostname",
+      "IP/MAC addresses"
+    ],
+    "string_descriptor_payloads": {
+      "roothub": 0
+    }
+  },
+  "sessions": {
+    "roothub": {
+      "command": [
+        "bin/hostlab-ctl",
+        "get-descriptor",
+        "1:1",
+        "--allow-hub",
+        "--repeat",
+        "100"
+      ],
+      "command_exit": 0,
+      "warnings": []
+    }
+  },
+  "states": [
+    "dwc_otg",
+    "reapplied",
+    "reverted"
+  ],
+  "tool": "hostlab-evidence",
+  "trace_schema": 1,
+  "unavailable": [],
+  "version": "0.1.0-dev"
+}

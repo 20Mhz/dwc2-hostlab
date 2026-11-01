@@ -1,0 +1,318 @@
+{"cpu": 0, "ev": "tracing_mark_write", "fields": {"mono_ns": "370739932286", "real_ns": "1793576258125681061"}, "src": "ftrace", "task": "python3", "ts_ns": 370740365000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5780"}, "src": "ftrace", "task": "kworker/0:3", "ts_ns": 370824192000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5780"}, "src": "ftrace", "task": "kworker/0:3", "ts_ns": 370824245000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5780"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370824289000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc23bef00"}, "src": "ftrace", "task": "kworker/0:3", "ts_ns": 370825112000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5780"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370826739000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5780"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370827017000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5780"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370827064000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370866103000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370866490000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370866539000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370867027000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370867217000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370867263000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370867597000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370867765000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370867806000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370868005000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370868024000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370868064000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370868533000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370868690000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370868731000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370868926000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370868945000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370868987000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370869458000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370869617000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370869660000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370869857000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370869876000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370869918000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370870478000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370870645000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370870688000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370870889000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370870906000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370870947000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370871481000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370871523000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370871565000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370872260000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370872300000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370872338000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370872776000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370872940000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370872983000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370873180000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370873197000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370873238000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370873711000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370873874000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370873915000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370874108000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370874126000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370874169000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370874696000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370874866000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370874910000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370875111000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370875129000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370875170000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370875643000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370875804000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370875845000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370876040000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370876058000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370876101000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370876626000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370876790000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370876833000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370877030000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370877047000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370877088000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370877559000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370877719000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370877760000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370877955000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370877973000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370878014000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370878481000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370878639000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370878680000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370878876000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370878893000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370878935000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370879405000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370879565000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370879607000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370879803000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370879821000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370879862000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370880536000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370880578000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370880628000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370881105000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370881144000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370881188000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370881372000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370881390000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370881431000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370881973000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370882008000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370882049000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370882441000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370882600000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370882641000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370882835000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370882853000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370882894000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370883405000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370883573000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370883616000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370883816000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370883834000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370883875000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370884342000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370884500000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370884543000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370884740000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370884759000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370884800000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370885325000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370885485000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370885529000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370885725000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370885743000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370885784000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370886252000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370886412000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370886454000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370886648000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370886665000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370886707000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370887180000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370887338000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370887380000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370887575000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370887594000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370887636000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370888106000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370888267000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370888309000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370888505000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370888523000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370888565000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370889034000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370889192000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370889234000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370889432000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370889450000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370889492000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370890150000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370890188000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370890229000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370890762000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370890802000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370890849000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370891259000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370891293000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370891335000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370891728000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370891767000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370891807000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370892248000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370892416000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370892461000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370892659000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370892676000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370892719000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370893189000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370893349000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370893391000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370893588000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370893606000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370893648000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370894169000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370894334000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370894378000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370894574000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370894592000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370894634000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370895107000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370895266000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370895308000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370895503000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370895521000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370895563000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370896035000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370896196000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370896237000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370896433000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370896452000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370896494000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370896962000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370897123000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370897164000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370897360000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370897378000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370897420000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370897889000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370898049000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370898091000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370898284000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370898302000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370898342000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370898870000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370899034000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370899077000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370899274000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370899292000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370899333000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370899802000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370899959000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370900000000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370900320000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370900342000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370900392000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370900993000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370901169000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370901215000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370901420000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370901438000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370901479000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370901955000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370902114000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370902156000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370902350000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370902369000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370902410000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370902931000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370903096000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370903141000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370903338000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370903356000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370903397000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370903864000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370904023000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370904065000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370904258000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370904275000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370904316000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370904785000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370904944000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370904985000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370905180000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370905198000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370905239000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370905707000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370905867000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370905908000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370906104000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370906122000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370906164000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370906638000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370906796000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370906838000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370907034000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370907052000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370907110000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370908266000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370908439000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370908489000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370908690000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370908708000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370908748000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370909221000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370909381000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370909423000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370909667000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370909687000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370909733000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370910309000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370910334000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370910390000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370910900000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370911066000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370911111000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370911312000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370911329000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370911371000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370911844000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370912001000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370912043000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370912236000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370912254000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370912295000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370912832000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370912869000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370912913000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370913305000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370913463000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370913505000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370913700000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370913718000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370913760000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370914227000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370914385000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370914427000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370914622000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370914640000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370914682000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370915152000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370915311000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370915353000}
+{"cpu": 0, "ev": "hl_kill", "fields": {"urb": "0xc23bef00"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370915611000}
+{"cpu": 0, "ev": "hl_unlink", "fields": {"status": "-2", "urb": "0xc23bef00"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370915621000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "-2", "urb": "0xc23bef00"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 370915629000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc23bef00"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 370915676000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 371023001000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "0", "urb": "0xc36b5680"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 371023057000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc36b5680"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 371023106000}
+{"cpu": 0, "ev": "hl_submit", "fields": {"urb": "0xc23bef00"}, "src": "ftrace", "task": "hostlab-ctl", "ts_ns": 371023500000}
+{"cpu": 0, "ev": "hl_kill", "fields": {"urb": "0xc23bef00"}, "src": "ftrace", "task": "kworker/0:3", "ts_ns": 371024107000}
+{"cpu": 0, "ev": "hl_unlink", "fields": {"status": "-2", "urb": "0xc23bef00"}, "src": "ftrace", "task": "kworker/0:3", "ts_ns": 371024122000}
+{"cpu": 0, "ev": "hl_giveback", "fields": {"status": "-2", "urb": "0xc23bef00"}, "src": "ftrace", "task": "kworker/0:3", "ts_ns": 371024133000}
+{"cpu": 0, "ev": "hl_giveback_bh", "fields": {"urb": "0xc23bef00"}, "src": "ftrace", "task": "ksoftirqd/0", "ts_ns": 371024175000}
+{"cpu": 0, "ev": "tracing_mark_write", "fields": {"mono_ns": "371024980301", "real_ns": "1793576258410725075"}, "src": "ftrace", "task": "python3", "ts_ns": 371025274000}

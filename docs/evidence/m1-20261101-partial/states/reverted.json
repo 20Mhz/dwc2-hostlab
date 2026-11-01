@@ -1,0 +1,319 @@
+{
+  "board": {
+    "cpu": "ARMv6-compatible processor rev 7 (v6l)",
+    "model": "Raspberry Pi Zero W Rev 1.1",
+    "revision": {
+      "board_revision": "1.1",
+      "code": "9000c1",
+      "decoded": true,
+      "manufacturer": "Sony UK",
+      "memory_mb": 512,
+      "processor": "BCM2835",
+      "type": "Zero W"
+    }
+  },
+  "boot_config": {
+    "dwc2_overlay_effective": false,
+    "dwc2_overlay_lines": [
+      {
+        "applies": false,
+        "line": 46,
+        "section": "[cm5]",
+        "text": "dtoverlay=dwc2,dr_mode=host"
+      }
+    ],
+    "hostlab_backups": [
+      "config.txt.hostlab-20261101-201732",
+      "config.txt.hostlab-prerevert-20261101-202831"
+    ],
+    "hostlab_block": false,
+    "path": "/boot/firmware/config.txt"
+  },
+  "checks": [
+    {
+      "detail": "Raspberry Pi Zero W Rev 1.1 (revision 9000c1)",
+      "id": "board",
+      "needed_for_dwc2": false,
+      "status": "ok"
+    },
+    {
+      "detail": "dwc2=m usbmon=m kprobe_events=y, from /boot/config-6.12.47+rpt-rpi-v6",
+      "id": "kernel_config",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "no dtoverlay=dwc2 for this board; run scripts/pi/enable-dwc2.sh --apply and reboot",
+      "id": "boot_overlay",
+      "needed_for_dwc2": true,
+      "status": "fail"
+    },
+    {
+      "detail": "20980000.usb bound to dwc_otg",
+      "id": "driver_binding",
+      "needed_for_dwc2": true,
+      "status": "fail"
+    },
+    {
+      "detail": "only root hubs present; attach a test device",
+      "id": "usb_device",
+      "needed_for_dwc2": true,
+      "status": "fail"
+    },
+    {
+      "detail": "usbmon not loaded (scripts/pi/prepare-session.sh loads it)",
+      "id": "usbmon",
+      "needed_for_dwc2": true,
+      "status": "fail"
+    },
+    {
+      "detail": "/sys/kernel/tracing, kprobe_events=True, mono clock=True",
+      "id": "tracefs",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "6 usable, 12 missing: _dwc2_hcd_urb_enqueue, _dwc2_hcd_urb_dequeue, dwc2_hc_start_transfer, dwc2_hc_halt, dwc2_release_channel, dwc2_hc_n_intr, dwc2_hc_xfercomp_intr, dwc2_host_complete, dwc2_hc_stall_intr, dwc2_hc_nak_intr, dwc2_hc_xacterr_intr, dwc2_hc_babble_intr (dwc2 module not loaded)",
+      "id": "kprobe_targets",
+      "needed_for_dwc2": true,
+      "status": "fail"
+    },
+    {
+      "detail": "hostlab-ctl, hostlab-mon run",
+      "id": "hostlab_tools",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "3.13.5",
+      "id": "python",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    }
+  ],
+  "euid": 0,
+  "generated_utc": "2026-11-01T23:31:04Z",
+  "kernel_config_source": "/boot/config-6.12.47+rpt-rpi-v6",
+  "modules": {
+    "dwc2": {
+      "builtin": false,
+      "loaded": false,
+      "module_file": "/lib/modules/6.12.47+rpt-rpi-v6/kernel/drivers/usb/dwc2/dwc2.ko.xz"
+    },
+    "dwc_otg": {
+      "builtin": true,
+      "loaded": true,
+      "module_file": null
+    },
+    "usbmon": {
+      "builtin": false,
+      "loaded": false,
+      "module_file": "/lib/modules/6.12.47+rpt-rpi-v6/kernel/drivers/usb/mon/usbmon.ko.xz"
+    }
+  },
+  "os": {
+    "id": "raspbian",
+    "kernel_release": "6.12.47+rpt-rpi-v6",
+    "kernel_version": "Linux version 6.12.47+rpt-rpi-v6 (serge@raspberrypi.com) (arm-linux-gnueabihf-gcc-14 (Raspbian 14.2.0-19+rpi1) 14.2.0, GNU ld (GNU Binutils for Raspbian) 2.44) #1 Raspbian 1:6.12.47-1+rpt1 (2025-09-16)",
+    "machine": "armv6l",
+    "pretty_name": "Raspbian GNU/Linux 13 (trixie)",
+    "version_codename": "trixie"
+  },
+  "probe": {
+    "controller": {
+      "compatible": [
+        "brcm,bcm2708-usb"
+      ],
+      "device": "20980000.usb",
+      "driver": "dwc_otg",
+      "note": "downstream dwc_otg driver (Raspberry Pi OS default); dwc2 debugfs and dwc2 kprobes are unavailable. Use dtoverlay=dwc2,dr_mode=host."
+    },
+    "euid": 0,
+    "facilities": {
+      "dynamic_debug": null,
+      "ftrace": {
+        "available_filter_functions": true,
+        "hostlab_probes_missing": [
+          {
+            "name": "urb_enqueue",
+            "symbol": "_dwc2_hcd_urb_enqueue"
+          },
+          {
+            "name": "urb_dequeue",
+            "symbol": "_dwc2_hcd_urb_dequeue"
+          },
+          {
+            "name": "hc_start",
+            "symbol": "dwc2_hc_start_transfer"
+          },
+          {
+            "name": "hc_halt",
+            "symbol": "dwc2_hc_halt"
+          },
+          {
+            "name": "hc_release",
+            "symbol": "dwc2_release_channel"
+          },
+          {
+            "name": "hc_irq",
+            "symbol": "dwc2_hc_n_intr"
+          },
+          {
+            "name": "xfercomp",
+            "symbol": "dwc2_hc_xfercomp_intr"
+          },
+          {
+            "name": "host_complete",
+            "symbol": "dwc2_host_complete"
+          },
+          {
+            "name": "stall",
+            "symbol": "dwc2_hc_stall_intr"
+          },
+          {
+            "name": "nak",
+            "symbol": "dwc2_hc_nak_intr"
+          },
+          {
+            "name": "xacterr",
+            "symbol": "dwc2_hc_xacterr_intr"
+          },
+          {
+            "name": "babble",
+            "symbol": "dwc2_hc_babble_intr"
+          }
+        ],
+        "hostlab_probes_usable": [
+          "submit",
+          "kill",
+          "unlink",
+          "giveback",
+          "giveback_bh",
+          "port_reset"
+        ],
+        "kprobe_events": true,
+        "mono_clock": true,
+        "path": "/sys/kernel/tracing",
+        "trace_clocks": [
+          "local",
+          "global",
+          "counter",
+          "uptime",
+          "perf",
+          "mono",
+          "mono_raw",
+          "boot",
+          "tai"
+        ]
+      },
+      "kernel_config": {
+        "CONFIG_DEBUG_FS": "y",
+        "CONFIG_DYNAMIC_DEBUG": "n",
+        "CONFIG_FUNCTION_GRAPH_TRACER": "y",
+        "CONFIG_FUNCTION_TRACER": "y",
+        "CONFIG_HIST_TRIGGERS": "n",
+        "CONFIG_HZ": "100",
+        "CONFIG_KPROBES": "y",
+        "CONFIG_KPROBE_EVENTS": "y",
+        "CONFIG_USB_DWC2": "m",
+        "CONFIG_USB_DWC2_DEBUG": "n",
+        "CONFIG_USB_DWC2_DUAL_ROLE": "y",
+        "CONFIG_USB_DWC2_HOST": "n",
+        "CONFIG_USB_DWC2_VERBOSE": null,
+        "CONFIG_USB_DWCOTG": "y",
+        "CONFIG_USB_MON": "m",
+        "CONFIG_USB_TEST": "m",
+        "CONFIG_USB_ZERO": "m"
+      },
+      "kernel_config_source": "/boot/config-6.12.47+rpt-rpi-v6",
+      "usbmon": {
+        "devices": [],
+        "module_loaded": false
+      }
+    },
+    "kernel_release": "6.12.47+rpt-rpi-v6",
+    "model": "Raspberry Pi Zero W Rev 1.1",
+    "root": "/",
+    "schema": 1,
+    "tool": "hostlab-probe",
+    "unknown": {},
+    "unsupported": [
+      {
+        "capability": "control_phase_control",
+        "reason": "phases are sequenced inside dwc2 (hcd_intr.c dwc2_hc_xfercomp_intr); no existing interface exposes them"
+      },
+      {
+        "capability": "token_or_pid_control",
+        "reason": "the DWC2 core generates tokens, PIDs within a run, and CRC"
+      },
+      {
+        "capability": "per_packet_timing_observation",
+        "reason": "hardware-internal in buffer-DMA mode; needs a bus analyzer (FS/LS)"
+      },
+      {
+        "capability": "dwc2_dev_dbg",
+        "reason": "no dynamic debug control; dev_dbg compiled out unless CONFIG_USB_DWC2_DEBUG"
+      },
+      {
+        "capability": "dwc2_channel_tracing",
+        "reason": "dwc2 is not the bound driver"
+      }
+    ],
+    "version": "0.1.0-dev"
+  },
+  "python": "3.13.5",
+  "ready": {
+    "blocking": [
+      "boot_overlay",
+      "driver_binding",
+      "usb_device",
+      "usbmon",
+      "kprobe_targets"
+    ],
+    "dwc2_session": false
+  },
+  "schema": 1,
+  "tool": "hostlab-preflight",
+  "tools": {
+    "hostlab-ctl": {
+      "path": "~/dwc2-hostlab/bin/hostlab-ctl",
+      "runs": true
+    },
+    "hostlab-mon": {
+      "path": "~/dwc2-hostlab/bin/hostlab-mon",
+      "runs": true
+    }
+  },
+  "tracepoints": {
+    "events_dir": true,
+    "subsystems": 97,
+    "usb_related": [
+      "gadget"
+    ]
+  },
+  "usb_devices": [
+    {
+      "bDeviceClass": "09",
+      "bNumConfigurations": 1,
+      "busnum": 1,
+      "devnum": 1,
+      "devpath": "0",
+      "idProduct": "0002",
+      "idVendor": "1d6b",
+      "interfaces": [
+        {
+          "class": "09",
+          "driver": "hub",
+          "name": "1-0:1.0"
+        }
+      ],
+      "manufacturer": "Linux 6.12.47+rpt-rpi-v6 dwc_otg_hcd",
+      "maxchild": 1,
+      "name": "usb1",
+      "product": "DWC OTG Controller",
+      "root_hub": true,
+      "speed": "480"
+    }
+  ],
+  "version": "0.1.0-dev"
+}

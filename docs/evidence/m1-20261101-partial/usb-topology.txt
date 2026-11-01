@@ -1,0 +1,2 @@
+# USB devices from sysfs at preflight time (serial numbers not collected)
+bus   1 dev   1  [usb1]  1d6b:0002  usb None  speed 480 Mb/s  class 09  "Linux 6.12.47+rpt-rpi-v6 dwc2_hsotg" "DWC OTG Controller"  interfaces: 09/hub

@@ -1,0 +1,74 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "get-descriptor",
+    "1:1",
+    "--allow-hub",
+    "--repeat",
+    "100"
+  ],
+  "command_duration_ns": 284390755,
+  "command_exit": 0,
+  "kprobes": {
+    "failed": [],
+    "missing_symbols": [],
+    "registered": [
+      "hl_submit",
+      "hl_kill",
+      "hl_unlink",
+      "hl_giveback",
+      "hl_giveback_bh",
+      "hl_port_reset",
+      "hl_urb_enqueue",
+      "hl_urb_dequeue",
+      "hl_hc_start",
+      "hl_hc_halt",
+      "hl_hc_release",
+      "hl_hc_irq",
+      "hl_xfercomp",
+      "hl_host_complete",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "markers": [
+    {
+      "mono_after_ns": 370740437486,
+      "mono_before_ns": 370739932286,
+      "tag": "hostlab_start"
+    },
+    {
+      "mono_after_ns": 371025332441,
+      "mono_before_ns": 371024980301,
+      "tag": "hostlab_stop"
+    }
+  ],
+  "teardown": {
+    "errors": [],
+    "removed": [
+      "hl_submit",
+      "hl_kill",
+      "hl_unlink",
+      "hl_giveback",
+      "hl_giveback_bh",
+      "hl_port_reset",
+      "hl_urb_enqueue",
+      "hl_urb_dequeue",
+      "hl_hc_start",
+      "hl_hc_halt",
+      "hl_hc_release",
+      "hl_hc_irq",
+      "hl_xfercomp",
+      "hl_host_complete",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}
