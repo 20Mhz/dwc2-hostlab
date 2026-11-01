@@ -64,6 +64,7 @@ TRACE = [
     k("1000.001170", "giveback_bh", f"urb={URB_B:#x}"),
     k("1000.001180", "hc_irq", "hc=3"),
     k("1000.001185", "hc_release", "hc=3 reason=13"),
+    "      python3-300   [000] .....  1000.002000: tracing_mark_write: hostlab_stop mono_ns=1000001990000 real_ns=0",
 ]
 
 MON = [
@@ -133,7 +134,7 @@ class AnalyzeTests(unittest.TestCase):
         self.assertEqual(ch["channel_numbers_seen"], [0, 1, 2, 3])
 
     def test_marker_offset_and_text(self):
-        self.assertEqual(self.rep["clock"]["ftrace_marker_offsets_ns"], [0])
+        self.assertEqual(self.rep["clock"]["ftrace_marker_offsets_ns"], [0, 10_000])
         (b,) = self.rep["clock"]["ftrace_marker_brackets"]
         self.assertTrue(b["in_bracket"])
         self.assertEqual(b["after_minus_ftrace_ns"], 10_000)
@@ -148,6 +149,17 @@ class AnalyzeTests(unittest.TestCase):
         self.assertEqual(c["usbmon_without_enqueue"], 0)
         self.assertEqual(c["enqueue_without_usbmon"], 0)
         self.assertIsNone(c["host_channels"])  # no probe.json in this session
+
+    def test_urbs_before_trace_start_are_not_join_failures(self):
+        # usbmon starts before ftrace; a device URB in that gap has no kprobe events.
+        early = [mon("999.500000", "S", 0xC2000000, -115, setup=SETUP),
+                 mon("999.500300", "C", 0xC2000000, 0)]
+        with open(os.path.join(self.tmp.name, "usbmon.jsonl"), "w") as f:
+            f.write("".join(json.dumps(r) + "\n" for r in MON[:2] + early + MON[2:]))
+        c = analyze(self.tmp.name)["consistency"]
+        self.assertEqual(c["device_urbs_in_usbmon"], 2)
+        self.assertEqual(c["usbmon_without_enqueue"], 0)
+        self.assertEqual(c["usbmon_unpaired_with_kprobes"], 0)
 
     def test_channel_range_uses_probe(self):
         with open(os.path.join(self.tmp.name, "probe.json"), "w") as f:
@@ -168,7 +180,9 @@ class AddressReuseTests(unittest.TestCase):
     in a row on one address). Each submit..giveback must be its own URB."""
 
     def test_reused_address_gives_separate_instances(self):
-        trace, mons = [], []
+        start = "      python3-300   [000] .....  999.900000: tracing_mark_write: hostlab_start mono_ns=999899990000 real_ns=0"
+        stop = "      python3-300   [000] .....  1003.000000: tracing_mark_write: hostlab_stop mono_ns=1002999990000 real_ns=0"
+        trace, mons = [start], []
         for n in range(3):
             base = 1000 + n  # one transfer per second, same address
             trace += [k(f"{base}.000100", "submit", f"urb={URB_A:#x}"),
@@ -179,6 +193,7 @@ class AddressReuseTests(unittest.TestCase):
                       k(f"{base}.000450", "giveback_bh", f"urb={URB_A:#x}")]
             mons += [mon(f"{base}.000101", "S", URB_A, -115, setup="8006000100000000"),
                      mon(f"{base}.000451", "C", URB_A, 0)]
+        trace.append(stop)
         with tempfile.TemporaryDirectory() as d:
             with open(os.path.join(d, "ftrace.txt"), "w") as f:
                 f.write("\n".join(trace) + "\n")

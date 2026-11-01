@@ -240,6 +240,17 @@ def analyze(session_dir: str) -> Dict[str, Any]:
             t.mon_complete_ns = ts
             t.status = r.get("status")
 
+    # usbmon starts before tracing (hostlab-session lets hostlab-mon open its
+    # device first), so join checks only count URBs submitted while ftrace
+    # was recording, i.e. between the start and stop markers.
+    marks = sorted(e.ts_ns for e in events if e.event == "tracing_mark_write"
+                   and e.text.split(" ", 1)[0] in ("hostlab_start", "hostlab_stop"))
+    trace_window = (marks[0], marks[-1]) if len(marks) >= 2 else None
+
+    def in_trace(ts: Optional[int]) -> bool:
+        return trace_window is not None and ts is not None \
+            and trace_window[0] <= ts <= trace_window[1]
+
     tol = JOIN_TOLERANCE_NS + (cmap.max_uncert_ns or 0)
     instances: List[UrbTimeline] = []
     unpaired_mon = 0
@@ -254,7 +265,7 @@ def analyze(session_dir: str) -> Dict[str, Any]:
                 and abs(kt.k_start() - ref) <= tol]
             best = min(cands)[1] if cands else None
             if best is None:
-                if ks:
+                if in_trace(ref):
                     unpaired_mon += 1
                 instances.append(m)
                 continue
@@ -337,7 +348,7 @@ def analyze(session_dir: str) -> Dict[str, Any]:
 
     # H7 join check. Root-hub URBs (dev 1) are handled inside usbcore and never
     # reach _dwc2_hcd_urb_enqueue, so only device URBs are expected on both sides.
-    dev_mon = [t for t in instances if t.mon_submit_ns is not None and t.dev != 1]
+    dev_mon = [t for t in instances if in_trace(t.mon_submit_ns) and t.dev != 1]
     enq_only = [t for t in instances if "urb_enqueue" in t.k and t.mon_submit_ns is None]
     out_of_range = []
     if hc_limit is not None:
@@ -351,6 +362,7 @@ def analyze(session_dir: str) -> Dict[str, Any]:
         "channel_numbers_out_of_range": out_of_range,
         "address_reuse_max": max(seen_inst.values(), default=0),
         "usbmon_unpaired_with_kprobes": unpaired_mon,
+        "trace_window_ns": list(trace_window) if trace_window else None,
     }
 
     user_xfers = [r for r in user if r.get("ev") == "xfer"]
