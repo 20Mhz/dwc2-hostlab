@@ -1,0 +1,197 @@
+# SPDX-License-Identifier: MIT
+"""tracefs access and the kprobe profile for the dwc2 / usbcore host path.
+
+Every probe below sits at a function *entry* and fetches arguments from
+registers, so it needs no struct offsets and no debug info (the Raspberry Pi
+kernel has neither BTF nor DWARF). The register assignment follows the ARM
+32-bit AAPCS: arguments 1-4 in r0-r3. Signatures were read from the source
+trees listed in docs/references.md; the function list matches
+docs/evidence/rpi-6.18.59-*-traceable-functions.txt.
+
+The one memory fetch, ``+0(%r1):u8``, reads ``struct dwc2_host_chan::hc_num``,
+which is the first member of the struct (drivers/usb/dwc2/hcd.h:89-90), so its
+offset is 0 by definition.
+
+Values that must hold if the profile is right are checked by the analyser
+(channel numbers below host_channels, enqueue URB pointers equal to usbmon ids).
+"""
+from __future__ import annotations
+
+import os
+from dataclasses import dataclass
+from typing import Dict, Iterable, List, Optional
+
+GROUP = "hostlab"
+# The trace text shows only the event name, not the group
+# (Documentation/trace/kprobetrace.rst:286), so names carry their own prefix.
+EVENT_PREFIX = "hl_"
+
+# enum dwc2_halt_status, drivers/usb/dwc2/core.h:1281-1296
+HALT_STATUS = [
+    "NO_HALT_STATUS", "COMPLETE", "URB_COMPLETE", "ACK", "NAK", "NYET",
+    "STALL", "XACT_ERR", "FRAME_OVERRUN", "BABBLE_ERR", "DATA_TOGGLE_ERR",
+    "AHB_ERR", "PERIODIC_INCOMPLETE", "URB_DEQUEUE",
+]
+
+
+@dataclass(frozen=True)
+class Probe:
+    name: str      # event name inside GROUP
+    symbol: str    # kernel function
+    fetch: str     # kprobe fetch arguments
+    layer: str     # "dwc2" or "usbcore"
+    meaning: str
+
+    @property
+    def event(self) -> str:
+        return EVENT_PREFIX + self.name
+
+    def definition(self, group: str = GROUP) -> str:
+        return f"p:{group}/{self.event} {self.symbol} {self.fetch}".rstrip()
+
+
+ARM32_PROFILE: List[Probe] = [
+    # usbcore: URB lifecycle around the HCD
+    Probe("submit", "usb_hcd_submit_urb", "urb=%r0:x32", "usbcore",
+          "usb_hcd_submit_urb(urb, mem_flags); usbmon 'S' is recorded inside"),
+    Probe("kill", "usb_kill_urb", "urb=%r0:x32", "usbcore",
+          "usb_kill_urb(urb): usbfs DISCARDURB and timeouts"),
+    Probe("unlink", "usb_hcd_unlink_urb", "urb=%r0:x32 status=%r1:s32", "usbcore",
+          "usb_hcd_unlink_urb(urb, status)"),
+    Probe("giveback", "usb_hcd_giveback_urb", "urb=%r1:x32 status=%r2:s32", "usbcore",
+          "usb_hcd_giveback_urb(hcd, urb, status): HCD hands the URB back (IRQ side)"),
+    Probe("giveback_bh", "__usb_hcd_giveback_urb", "urb=%r0:x32", "usbcore",
+          "__usb_hcd_giveback_urb(urb): BH side; usbmon 'C' is recorded inside"),
+    Probe("port_reset", "hub_port_reset", "port=%r1:s32", "usbcore",
+          "hub_port_reset(hub, port1, udev, delay, warm)"),
+    # dwc2: HCD entry points
+    Probe("urb_enqueue", "_dwc2_hcd_urb_enqueue", "urb=%r1:x32", "dwc2",
+          "_dwc2_hcd_urb_enqueue(hcd, urb, mem_flags)"),
+    Probe("urb_dequeue", "_dwc2_hcd_urb_dequeue", "urb=%r1:x32 status=%r2:s32", "dwc2",
+          "_dwc2_hcd_urb_dequeue(hcd, urb, status)"),
+    # dwc2: host-channel lifecycle
+    Probe("hc_start", "dwc2_hc_start_transfer", "hc=+0(%r1):u8", "dwc2",
+          "dwc2_hc_start_transfer(hsotg, chan): channel enabled for one phase/run"),
+    Probe("hc_halt", "dwc2_hc_halt", "hc=+0(%r1):u8 reason=%r2:u32", "dwc2",
+          "dwc2_hc_halt(hsotg, chan, halt_status): software-requested halt"),
+    Probe("hc_release", "dwc2_release_channel", "hc=+0(%r1):u8 reason=%r3:u32", "dwc2",
+          "dwc2_release_channel(hsotg, chan, qtd, halt_status): channel back to pool"),
+    Probe("hc_irq", "dwc2_hc_n_intr", "hc=%r1:s32", "dwc2",
+          "dwc2_hc_n_intr(hsotg, chnum): per-channel interrupt"),
+    Probe("xfercomp", "dwc2_hc_xfercomp_intr", "hc=%r2:s32", "dwc2",
+          "dwc2_hc_xfercomp_intr(hsotg, chan, chnum, qtd): phase transitions happen here"),
+    Probe("host_complete", "dwc2_host_complete", "status=%r2:s32", "dwc2",
+          "dwc2_host_complete(hsotg, qtd, status)"),
+    Probe("stall", "dwc2_hc_stall_intr", "hc=%r2:s32", "dwc2", "STALL handler"),
+    Probe("nak", "dwc2_hc_nak_intr", "hc=%r2:s32", "dwc2", "NAK handler"),
+    Probe("xacterr", "dwc2_hc_xacterr_intr", "hc=%r2:s32", "dwc2", "transaction error handler"),
+    Probe("babble", "dwc2_hc_babble_intr", "hc=%r2:s32", "dwc2", "babble handler"),
+]
+
+
+def find_tracefs(root: str = "/") -> Optional[str]:
+    for rel in ("sys/kernel/tracing", "sys/kernel/debug/tracing"):
+        path = os.path.join(root, rel)
+        if os.path.isfile(os.path.join(path, "trace")):
+            return path
+    return None
+
+
+def read_filter_functions(tracefs: str) -> Optional[set]:
+    """Names in available_filter_functions, without the " [module]" suffix."""
+    path = os.path.join(tracefs, "available_filter_functions")
+    try:
+        with open(path) as f:
+            return {line.split()[0] for line in f if line.strip()}
+    except OSError:
+        return None
+
+
+def usable_probes(available: Optional[set], profile: Iterable[Probe] = ARM32_PROFILE):
+    """Split the profile into (usable, missing) by function availability."""
+    usable, missing = [], []
+    for p in profile:
+        (usable if available is not None and p.symbol in available else missing).append(p)
+    return usable, missing
+
+
+class TraceFS:
+    """Small, explicit wrapper; every write goes through _write for testability."""
+
+    def __init__(self, path: str):
+        self.path = path
+
+    def _p(self, name: str) -> str:
+        return os.path.join(self.path, name)
+
+    def read(self, name: str) -> str:
+        with open(self._p(name)) as f:
+            return f.read()
+
+    def _write(self, name: str, value: str, append: bool = False) -> None:
+        with open(self._p(name), "a" if append else "w") as f:
+            f.write(value + "\n")
+
+    def current_clock(self) -> Optional[str]:
+        try:
+            text = self.read("trace_clock")
+        except OSError:
+            return None
+        for tok in text.split():
+            if tok.startswith("[") and tok.endswith("]"):
+                return tok[1:-1]
+        return None
+
+    def set_clock(self, clock: str) -> None:
+        self._write("trace_clock", clock)
+
+    def set_tracing_on(self, on: bool) -> None:
+        self._write("tracing_on", "1" if on else "0")
+
+    def set_buffer_kb(self, kb: int) -> None:
+        self._write("buffer_size_kb", str(kb))
+
+    def clear(self) -> None:
+        self._write("trace", "")
+
+    def add_kprobe(self, probe: Probe) -> None:
+        self._write("kprobe_events", probe.definition(), append=True)
+
+    def remove_kprobe(self, event: str) -> None:
+        self._write("kprobe_events", f"-:{GROUP}/{event}", append=True)
+
+    def set_group_enabled(self, on: bool) -> None:
+        self._write(os.path.join("events", GROUP, "enable"), "1" if on else "0")
+
+    def marker(self, text: str) -> None:
+        self._write("trace_marker", text)
+
+    def registered_hostlab_probes(self) -> List[str]:
+        try:
+            lines = self.read("kprobe_events").splitlines()
+        except OSError:
+            return []
+        names = []
+        for line in lines:
+            parts = line.split()
+            if parts and not parts[0].startswith("-") and ":" in parts[0] and "/" in parts[0]:
+                group, name = parts[0].split(":", 1)[1].split("/", 1)
+                if group == GROUP:
+                    names.append(name)
+        return names
+
+    def teardown(self) -> Dict[str, List[str]]:
+        """Remove only hostlab's own probes; never touch other users' events."""
+        removed, errors = [], []
+        try:
+            if os.path.exists(self._p(os.path.join("events", GROUP, "enable"))):
+                self.set_group_enabled(False)
+        except OSError as e:
+            errors.append(f"disable: {e}")
+        for name in self.registered_hostlab_probes():
+            try:
+                self.remove_kprobe(name)
+                removed.append(name)
+            except OSError as e:
+                errors.append(f"{name}: {e}")
+        return {"removed": removed, "errors": errors}

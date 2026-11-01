@@ -48,7 +48,7 @@ test-c: $(TESTS) $(TOOLS)
 	BUILD=$(BUILD) TEST_RUNNER="$(TEST_RUNNER)" sh tests/c/test_tools.sh
 
 test-py:
-	$(PYTHON) -m unittest discover -s python/tests -t python
+	PYTHONPATH=python $(PYTHON) -m unittest discover -s python/tests
 
 armv6:
 	scripts/build-armv6.sh
