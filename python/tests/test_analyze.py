@@ -89,6 +89,9 @@ class AnalyzeTests(unittest.TestCase):
             f.write("".join(json.dumps(r) + "\n" for r in MON))
         with open(os.path.join(d, "user.jsonl"), "w") as f:
             f.write(json.dumps({"src": "user", "ev": "meta", "backend": "linux-usbfs"}) + "\n")
+        with open(os.path.join(d, "session.json"), "w") as f:
+            json.dump({"markers": [{"tag": "hostlab_start", "mono_before_ns": 1000000050000,
+                                    "mono_after_ns": 1000000060000}]}, f)
         self.rep = analyze(d)
         self.by_urb = {int(u["urb"], 16): u for u in self.rep["urbs"]}
 
@@ -131,14 +134,63 @@ class AnalyzeTests(unittest.TestCase):
 
     def test_marker_offset_and_text(self):
         self.assertEqual(self.rep["clock"]["ftrace_marker_offsets_ns"], [0])
+        (b,) = self.rep["clock"]["ftrace_marker_brackets"]
+        self.assertTrue(b["in_bracket"])
+        self.assertEqual(b["after_minus_ftrace_ns"], 10_000)
         text = format_text(self.rep)
         self.assertIn("phases=SETUP@hc0,DATA@hc1,STATUS@hc0", text)
         self.assertIn("cancel(phase=DATA", text)
+
+    def test_join_consistency(self):
+        c = self.rep["consistency"]
+        self.assertEqual(c["device_urbs_in_usbmon"], 2)
+        self.assertEqual(c["with_dwc2_enqueue"], 2)
+        self.assertEqual(c["usbmon_without_enqueue"], 0)
+        self.assertEqual(c["enqueue_without_usbmon"], 0)
+        self.assertIsNone(c["host_channels"])  # no probe.json in this session
+
+    def test_channel_range_uses_probe(self):
+        with open(os.path.join(self.tmp.name, "probe.json"), "w") as f:
+            json.dump({"controller": {"summary": {"host_channels": 3}}}, f)
+        c = analyze(self.tmp.name)["consistency"]
+        self.assertEqual(c["host_channels"], 3)
+        self.assertEqual(c["channel_numbers_out_of_range"], [3])
 
     def test_empty_session(self):
         with tempfile.TemporaryDirectory() as d:
             rep = analyze(d)
         self.assertEqual(rep["urbs"], [])
+        self.assertEqual(rep["consistency"]["device_urbs_in_usbmon"], 0)
+
+
+class AddressReuseTests(unittest.TestCase):
+    """The slab reuses URB addresses (seen on a Pi Zero W: 20 usbfs transfers
+    in a row on one address). Each submit..giveback must be its own URB."""
+
+    def test_reused_address_gives_separate_instances(self):
+        trace, mons = [], []
+        for n in range(3):
+            base = 1000 + n  # one transfer per second, same address
+            trace += [k(f"{base}.000100", "submit", f"urb={URB_A:#x}"),
+                      k(f"{base}.000110", "urb_enqueue", f"urb={URB_A:#x}"),
+                      k(f"{base}.000120", "hc_start", "hc=0"),
+                      k(f"{base}.000210", "hc_start", "hc=1"),
+                      k(f"{base}.000402", "giveback", f"urb={URB_A:#x} status=0"),
+                      k(f"{base}.000450", "giveback_bh", f"urb={URB_A:#x}")]
+            mons += [mon(f"{base}.000101", "S", URB_A, -115, setup="8006000100000000"),
+                     mon(f"{base}.000451", "C", URB_A, 0)]
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "ftrace.txt"), "w") as f:
+                f.write("\n".join(trace) + "\n")
+            with open(os.path.join(d, "usbmon.jsonl"), "w") as f:
+                f.write("".join(json.dumps(r) + "\n" for r in [MON[1]] + mons + [MON[-1]]))
+            rep = analyze(d)
+        self.assertEqual([u["instance"] for u in rep["urbs"]], [0, 1, 2])
+        self.assertTrue(all(u["channel_runs"] == 2 for u in rep["urbs"]))
+        self.assertTrue(all(u["phase_label_certainty"] == "exact" for u in rep["urbs"]))
+        self.assertEqual(rep["consistency"]["with_dwc2_enqueue"], 3)
+        self.assertEqual(rep["consistency"]["address_reuse_max"], 3)
+        self.assertEqual(rep["consistency"]["usbmon_unpaired_with_kprobes"], 0)
 
 
 class PhaseLabelTests(unittest.TestCase):
