@@ -21,15 +21,20 @@ stage="$(mktemp -d)"
 trap 'rm -rf "$stage"' EXIT
 mkdir -p "$stage/bin" "$stage/python/hostlab" "$stage/scripts/pi"
 cp "$repo_root"/build/armv6/hostlab-{ctl,mon} "$stage/bin/"
-cp "$repo_root"/bin/hostlab-{probe,session,analyze} "$stage/bin/"
+cp "$repo_root"/bin/hostlab-* "$stage/bin/"
 cp "$repo_root"/python/hostlab/*.py "$stage/python/hostlab/"
 cp "$repo_root"/scripts/pi/*.sh "$stage/scripts/pi/"
-git -C "$repo_root" rev-parse HEAD > "$stage/REVISION" 2>/dev/null || echo unknown > "$stage/REVISION"
+# Commit plus "-dirty" when the working tree has uncommitted changes, so
+# evidence collected on the Pi names exactly what was deployed.
+git -C "$repo_root" describe --always --dirty --abbrev=40 > "$stage/REVISION" 2>/dev/null \
+    || echo unknown > "$stage/REVISION"
 
 if [ "$dry" = 1 ]; then
     echo "would copy to $host:$dest:"
     (cd "$stage" && find . -type f | sort)
     exit 0
 fi
-tar -C "$stage" -cf - . | ssh "$host" "mkdir -p '$dest' && tar -C '$dest' -xf -"
+# COPYFILE_DISABLE / --no-xattrs: keep macOS metadata out of the archive
+# (bsdtar and GNU tar >= 1.27 both accept --no-xattrs).
+COPYFILE_DISABLE=1 tar --no-xattrs -C "$stage" -cf - . | ssh "$host" "mkdir -p '$dest' && tar -C '$dest' -xf -"
 ssh "$host" "'$dest'/bin/hostlab-ctl --help >/dev/null && echo 'deployed $(cat "$stage/REVISION") to $host:$dest'"

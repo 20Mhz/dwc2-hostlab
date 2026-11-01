@@ -169,6 +169,27 @@ def probe_controller(root: str, unknown: Dict[str, str]) -> Dict[str, Any]:
     return ctl
 
 
+def read_kernel_config(root: str):
+    """Return (text, source path, reason-if-missing). /proc/config.gz is the
+    running kernel's own copy; /boot/config-RELEASE is what Raspberry Pi OS
+    installs with the kernel package (the 'configs' module is not loaded by
+    default)."""
+    gz = _p(root, "/proc/config.gz")
+    if os.path.exists(gz):
+        try:
+            with gzip.open(gz, "rt") as f:
+                return f.read(), "/proc/config.gz", None
+        except OSError as e:
+            return None, None, f"/proc/config.gz unreadable: {e}"
+    release = (_read(root, "/proc/sys/kernel/osrelease") or "").strip()
+    if release:
+        path = f"/boot/config-{release}"
+        text = _read(root, path)
+        if text is not None:
+            return text, path, None
+    return None, None, "neither /proc/config.gz nor /boot/config-RELEASE (modprobe configs)"
+
+
 def probe_facilities(root: str, unknown: Dict[str, str]) -> Dict[str, Any]:
     fac: Dict[str, Any] = {}
 
@@ -202,17 +223,11 @@ def probe_facilities(root: str, unknown: Dict[str, str]) -> Dict[str, Any]:
             ddebug = cand
     fac["dynamic_debug"] = ddebug
 
-    cfg_path = _p(root, "/proc/config.gz")
-    if os.path.exists(cfg_path):
-        try:
-            with gzip.open(cfg_path, "rt") as f:
-                fac["kernel_config"] = parse_kconfig(f.read(), CONFIG_KEYS)
-        except OSError as e:
-            fac["kernel_config"] = None
-            unknown["facilities.kernel_config"] = f"/proc/config.gz unreadable: {e}"
-    else:
-        fac["kernel_config"] = None
-        unknown["facilities.kernel_config"] = "/proc/config.gz absent (modprobe configs)"
+    text, source, why = read_kernel_config(root)
+    fac["kernel_config_source"] = source
+    fac["kernel_config"] = parse_kconfig(text, CONFIG_KEYS) if text is not None else None
+    if text is None:
+        unknown["facilities.kernel_config"] = why
     return fac
 
 

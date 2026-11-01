@@ -2,7 +2,7 @@
 import tempfile
 import unittest
 
-from fakefs import make_dwc2_system, make_dwc_otg_system
+from fakefs import make_dwc2_system, make_dwc_otg_system, write
 from hostlab.probe import core_revision, parse_dwc2_params, parse_kconfig, probe
 
 
@@ -71,6 +71,16 @@ class ProbeTests(unittest.TestCase):
         caps = {u["capability"] for u in r["unsupported"]}
         self.assertIn("dwc2_channel_tracing", caps)
         self.assertIn("facilities.ftrace", r["unknown"])
+
+    def test_boot_config_fallback(self):
+        # Raspberry Pi OS ships /boot/config-RELEASE; /proc/config.gz needs 'configs'.
+        with tempfile.TemporaryDirectory() as root:
+            make_dwc_otg_system(root)
+            write(root, "proc/sys/kernel/osrelease", "6.12.47+rpt-rpi-v6\n")
+            write(root, "boot/config-6.12.47+rpt-rpi-v6", "CONFIG_USB_DWCOTG=y\n")
+            fac = probe(root)["facilities"]
+        self.assertEqual(fac["kernel_config_source"], "/boot/config-6.12.47+rpt-rpi-v6")
+        self.assertEqual(fac["kernel_config"]["CONFIG_USB_DWCOTG"], "y")
 
     def test_empty_system_reports_unknowns_not_guesses(self):
         with tempfile.TemporaryDirectory() as root:
