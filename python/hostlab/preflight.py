@@ -197,14 +197,16 @@ def tool_check(bindir: Optional[str]) -> Dict[str, Any]:
     out: Dict[str, Any] = {}
     for t, flag in (("hostlab-ctl", "--help"), ("hostlab-mon", "-h")):
         path = os.path.join(bindir, t) if bindir else None
+        # Relative path only: the absolute one would carry the user's home.
+        shown = os.path.relpath(path, os.path.dirname(os.path.abspath(bindir))) if path else None
         if not path or not os.access(path, os.X_OK):
-            out[t] = {"path": path, "runs": False, "reason": "not found or not executable"}
+            out[t] = {"path": shown, "runs": False, "reason": "not found or not executable"}
             continue
         try:
             r = subprocess.run([path, flag], capture_output=True, timeout=10)
-            out[t] = {"path": path, "runs": r.returncode == 0}
+            out[t] = {"path": shown, "runs": r.returncode == 0}
         except (OSError, subprocess.TimeoutExpired) as e:
-            out[t] = {"path": path, "runs": False, "reason": str(e)}
+            out[t] = {"path": shown, "runs": False, "reason": str(e)}
     return out
 
 

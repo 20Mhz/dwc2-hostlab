@@ -51,6 +51,19 @@ KLOG_OOPS = re.compile(r"\b(BUG|WARNING):|\bOops\b|Unable to handle kernel|Call 
                        r"Internal error:")
 KLOG_DRIVER = re.compile(r"dwc2.*\b(error|timeout|fail)|kprobe.*\bfail", re.I)
 MAC = re.compile(r"\b[0-9a-f]{2}(:[0-9a-f]{2}){5}\b", re.I)
+SERIAL = re.compile(r"(SerialNumber: ).*$")
+HOME = re.compile(r"/home/[^/\s\"]+")
+
+
+def scrub(obj: Any) -> Any:
+    """Replace /home/USER with ~ in every string of a JSON-like object."""
+    if isinstance(obj, str):
+        return HOME.sub("~", obj)
+    if isinstance(obj, list):
+        return [scrub(x) for x in obj]
+    if isinstance(obj, dict):
+        return {k: scrub(v) for k, v in obj.items()}
+    return obj
 
 
 # ---------------------------------------------------------------- helpers
@@ -149,7 +162,8 @@ def kernel_log(mode: str) -> Tuple[Optional[List[str]], Optional[str]]:
                 text = f.read()
         except OSError as e:
             return None, str(e)
-    lines = [MAC.sub("xx:xx:xx:xx:xx:xx", l) for l in text.splitlines() if KLOG_KEEP.search(l)]
+    lines = [SERIAL.sub(r"\1<redacted>", MAC.sub("xx:xx:xx:xx:xx:xx", l))
+             for l in text.splitlines() if KLOG_KEEP.search(l)]
     return lines, None
 
 
@@ -428,7 +442,7 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
     if os.path.exists(out) and os.listdir(out):
         raise SystemExit(f"{out} exists and is not empty")
     os.makedirs(out, exist_ok=True)
-    pf = _load_json(args.preflight)
+    pf = scrub(_load_json(args.preflight))
     if pf is None:
         raise SystemExit(f"cannot read {args.preflight}")
     unavailable: List[Dict[str, str]] = []
@@ -445,7 +459,7 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
     states = {}
     for spec in args.state or []:
         name, _, p = spec.partition("=")
-        states[name] = _load_json(p)
+        states[name] = scrub(_load_json(p))
         if states[name] is None:
             raise SystemExit(f"cannot read state {p}")
 
@@ -454,8 +468,9 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
         sd = os.path.join(out, "sessions", name)
         os.makedirs(sd)
         for fn in ("session.json", "probe.json"):
-            if os.path.exists(os.path.join(s["dir"], fn)):
-                shutil.copy(os.path.join(s["dir"], fn), sd)
+            obj = _load_json(os.path.join(s["dir"], fn))
+            if obj is not None:
+                _write_json(os.path.join(sd, fn), scrub(obj))
         mon, n1 = redact_usbmon(_load_jsonl(os.path.join(s["dir"], "usbmon.jsonl")))
         user, n2 = redact_user(_load_jsonl(os.path.join(s["dir"], "user.jsonl")))
         redactions[name] = n1 + n2
@@ -523,7 +538,8 @@ def build(args: argparse.Namespace) -> Dict[str, Any]:
     klog, klog_reason = kernel_log(args.kernel_log)
     if klog is not None:
         with open(os.path.join(out, "kernel-log.txt"), "w") as f:
-            f.write("# dmesg lines matching USB/dwc2/kprobe/oops patterns; MACs masked\n")
+            f.write("# dmesg lines matching USB/dwc2/kprobe/oops patterns; "
+                    "MACs and serial numbers masked\n")
             f.write("\n".join(klog) + "\n")
     else:
         unavailable.append({"file": "kernel-log.txt", "reason": klog_reason})

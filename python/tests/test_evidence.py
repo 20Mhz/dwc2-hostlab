@@ -44,6 +44,15 @@ class RedactionTests(unittest.TestCase):
         self.assertEqual(out[3]["data"], "12010002")
 
 
+class ScrubTests(unittest.TestCase):
+    def test_home_and_serial(self):
+        self.assertEqual(evidence.scrub({"p": ["/home/someone/dwc2-hostlab/bin/x"]}),
+                         {"p": ["~/dwc2-hostlab/bin/x"]})
+        line = "[ 9.3] usb 1-1: SerialNumber: 0123456789AB"
+        self.assertEqual(evidence.SERIAL.sub(r"\1<redacted>", line),
+                         "[ 9.3] usb 1-1: SerialNumber: <redacted>")
+
+
 class KernelLogTests(unittest.TestCase):
     def test_oops_patterns(self):
         bad = lambda l: bool(evidence.KLOG_OOPS.search(l) or evidence.KLOG_DRIVER.search(l))
