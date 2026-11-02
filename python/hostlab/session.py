@@ -164,6 +164,7 @@ def run(args: argparse.Namespace) -> int:
     os.makedirs(args.out, exist_ok=True)
     warnings: List[str] = []
     info: Dict[str, Any] = {"tool": "hostlab-session", "version": __version__,
+                            "hostlab_revision": _revision(),
                             "command": args.cmd, "warnings": warnings}
 
     caps = probe(args.root)
@@ -262,6 +263,22 @@ def _load_offsets(path: Optional[str], release: Optional[str]) -> Dict[str, Any]
     if off.get("missing"):
         raise SystemExit(f"hostlab-session: {path} lacks members {off['missing']}")
     return off
+
+
+def _revision() -> Optional[str]:
+    """REVISION written by scripts/deploy.sh, else git describe of the checkout."""
+    root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    try:
+        with open(os.path.join(root, "REVISION")) as f:
+            return f.read().strip()
+    except OSError:
+        pass
+    try:
+        r = subprocess.run(["git", "-C", root, "describe", "--always", "--dirty", "--abbrev=40"],
+                           capture_output=True, text=True, timeout=10)
+        return r.stdout.strip() or None
+    except (OSError, subprocess.TimeoutExpired):
+        return None
 
 
 def _names(arg: Optional[str]) -> List[str]:

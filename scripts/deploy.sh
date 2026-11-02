@@ -16,6 +16,10 @@ repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 
 for f in hostlab-ctl hostlab-mon; do
     [ -x "$repo_root/build/armv6/$f" ] || { echo "missing build/armv6/$f; run make armv6" >&2; exit 1; }
+    # A stale binary once ran an experiment with an old option set.
+    newer=$(find "$repo_root/src/lib" "$repo_root/include" "$repo_root/src/tools/$f.c" \
+                 -newer "$repo_root/build/armv6/$f" -type f | head -1)
+    [ -z "$newer" ] || { echo "build/armv6/$f is older than $newer; run make armv6" >&2; exit 1; }
 done
 
 stage="$(mktemp -d)"
