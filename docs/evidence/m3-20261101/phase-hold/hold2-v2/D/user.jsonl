@@ -1,0 +1,8 @@
+{"src":"user","ev":"meta","tool":"hostlab-ctl","version":"0.1.0-dev","schema":1,"api":1,"backend":"linux-usbfs","command":"get-descriptor","timebase":"monotonic_ns"}
+{"src":"user","ev":"clock","mono_ns":13033242908636,"real_ns":1793588920628605391,"boot_ns":13033242920636,"uncert_ns":2000}
+{"src":"user","ev":"xfer","op":"control","seq":0,"setup":"8006000100001200","t_submit_ns":13033245183623,"t_done_ns":13033270524486,"timeout_ms":20,"status":"timeout","errno":110,"actual":0}
+{"src":"user","ev":"xfer","op":"control","seq":1,"setup":"8006000100001200","t_submit_ns":13033270674485,"t_done_ns":13033300614323,"timeout_ms":20,"status":"timeout","errno":110,"actual":0}
+{"src":"user","ev":"xfer","op":"control","seq":2,"setup":"8006000100001200","t_submit_ns":13033300766322,"t_done_ns":13033330607160,"timeout_ms":20,"status":"timeout","errno":110,"actual":0}
+{"src":"user","ev":"xfer","op":"control","seq":3,"setup":"8006000100001200","t_submit_ns":13033330757159,"t_done_ns":13033360615998,"timeout_ms":20,"status":"timeout","errno":110,"actual":0}
+{"src":"user","ev":"xfer","op":"control","seq":4,"setup":"8006000100001200","t_submit_ns":13033360764997,"t_done_ns":13033390604835,"timeout_ms":20,"status":"timeout","errno":110,"actual":0}
+{"src":"user","ev":"clock","mono_ns":13033390762334,"real_ns":1793588920776459589,"boot_ns":13033390777834,"uncert_ns":3000}

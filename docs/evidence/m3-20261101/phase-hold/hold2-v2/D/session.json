@@ -1,0 +1,129 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "get-descriptor",
+    "1:2",
+    "--repeat",
+    "5",
+    "--timeout",
+    "20"
+  ],
+  "command_duration_ns": 153612167,
+  "command_exit": 1,
+  "functions": [],
+  "hostlab_revision": "062017b720ea2905e24cc67a8ed6c6f35031cdde-dirty",
+  "kprobe_profile": {
+    "hl_babble": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_giveback": {
+      "hits": 5,
+      "misses": 0
+    },
+    "hl_hc_halt": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_hc_release": {
+      "hits": 5,
+      "misses": 0
+    },
+    "hl_hc_start": {
+      "hits": 5,
+      "misses": 0
+    },
+    "hl_kill": {
+      "hits": 5,
+      "misses": 0
+    },
+    "hl_nak": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_port_reset": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_stall": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_unlink": {
+      "hits": 5,
+      "misses": 0
+    },
+    "hl_urb_dequeue": {
+      "hits": 5,
+      "misses": 0
+    },
+    "hl_urb_enqueue": {
+      "hits": 5,
+      "misses": 0
+    },
+    "hl_xacterr": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_xfercomp": {
+      "hits": 5,
+      "misses": 0
+    }
+  },
+  "kprobes": {
+    "failed": [],
+    "missing_symbols": [],
+    "registered": [
+      "hl_urb_enqueue",
+      "hl_giveback",
+      "hl_hc_start",
+      "hl_xfercomp",
+      "hl_hc_release",
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "markers": [
+    {
+      "mono_after_ns": 13033238170661,
+      "mono_before_ns": 13033237866663,
+      "tag": "hostlab_start"
+    },
+    {
+      "mono_after_ns": 13033392256826,
+      "mono_before_ns": 13033391935828,
+      "tag": "hostlab_stop"
+    }
+  ],
+  "offsets": "runs/m3/dwc2-offsets-6.12.47.json",
+  "profile": "state",
+  "teardown": {
+    "errors": [],
+    "removed": [
+      "hl_urb_enqueue",
+      "hl_giveback",
+      "hl_hc_start",
+      "hl_xfercomp",
+      "hl_hc_release",
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}

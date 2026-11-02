@@ -1,0 +1,4 @@
+{"src":"user","ev":"meta","tool":"hostlab-ctl","version":"0.1.0-dev","schema":1,"api":1,"backend":"linux-usbfs","command":"get-descriptor","timebase":"monotonic_ns"}
+{"src":"user","ev":"clock","mono_ns":12067677375652,"real_ns":1793587955063072407,"boot_ns":12067677387652,"uncert_ns":2000}
+{"src":"user","ev":"xfer","op":"control","seq":0,"setup":"8006000100001200","t_submit_ns":12067679597644,"t_done_ns":12067679934643,"timeout_ms":1000,"status":"ok","errno":0,"actual":18,"data":"12011001ff000008861a2375640200020001"}
+{"src":"user","ev":"clock","mono_ns":12067680482641,"real_ns":1793587955066179396,"boot_ns":12067680494641,"uncert_ns":2000}

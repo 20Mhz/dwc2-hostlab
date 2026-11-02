@@ -1,0 +1,14 @@
+{"src":"usbmon","ev":"meta","tool":"hostlab-mon","version":"0.1.0-dev","schema":1,"device":"/dev/usbmon0","snaplen":256,"timebase":"realtime_us"}
+{"src":"usbmon","ev":"clock","mono_ns":12066969782033,"real_ns":1793587954355478788,"boot_ns":12066969794033,"uncert_ns":2000}
+{"src":"usbmon","ev":"urb","type":"S","urb":"0xc4032080","real_us":1793587954664139,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-115,"len_urb":18,"len_cap":0,"setup":"8006000100001200","xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"C","urb":"0xc4032080","real_us":1793587954685870,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-2,"len_urb":0,"len_cap":0,"xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"S","urb":"0xc4032080","real_us":1793587954686407,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-115,"len_urb":18,"len_cap":0,"setup":"8006000100001200","xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"C","urb":"0xc4032080","real_us":1793587954715902,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-2,"len_urb":0,"len_cap":0,"xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"S","urb":"0xc4032080","real_us":1793587954716478,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-115,"len_urb":18,"len_cap":0,"setup":"8006000100001200","xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"C","urb":"0xc4032080","real_us":1793587954745900,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-2,"len_urb":0,"len_cap":0,"xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"S","urb":"0xc4032080","real_us":1793587954746480,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-115,"len_urb":18,"len_cap":0,"setup":"8006000100001200","xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"C","urb":"0xc4032080","real_us":1793587954775898,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-2,"len_urb":0,"len_cap":0,"xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"S","urb":"0xc4032080","real_us":1793587954776476,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-115,"len_urb":18,"len_cap":0,"setup":"8006000100001200","xfer_flags":512}
+{"src":"usbmon","ev":"urb","type":"C","urb":"0xc4032080","real_us":1793587954805879,"xfer":"ctrl","bus":1,"dev":2,"ep":0,"in":true,"status":-2,"len_urb":0,"len_cap":0,"xfer_flags":512}
+{"src":"usbmon","ev":"stats","recorded":10,"queued":0,"dropped":0}
+{"src":"usbmon","ev":"clock","mono_ns":12067427348493,"real_ns":1793587954813045248,"boot_ns":12067427360493,"uncert_ns":2000}

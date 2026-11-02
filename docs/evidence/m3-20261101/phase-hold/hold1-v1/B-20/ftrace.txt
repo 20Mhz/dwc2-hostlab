@@ -1,0 +1,124 @@
+# tracer: nop
+#
+# entries-in-buffer/entries-written: 112/112   #P:1
+#
+#                                _-----=> irqs-off/BH-disabled
+#                               / _----=> need-resched
+#                              | / _---=> hardirq/softirq
+#                              || / _--=> preempt-depth
+#                              ||| / _-=> migrate-disable
+#                              |||| /     delay
+#           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+#              | |         |   |||||     |         |
+         python3-5920    [000] ..... 12033.122577: tracing_mark_write: hostlab_start mono_ns=12033122343104 real_ns=1793587920508089859
+     hostlab-ctl-5935    [000] d.... 12033.822622: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5935    [000] d.... 12033.822657: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4 dev=2 ep=0 in=0 pid=3 len=8
+     hostlab-mon-5933    [000] d.h.. 12033.822719: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=4 phase=0 hcint=0x23
+     hostlab-mon-5933    [000] d.h.. 12033.822731: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+         python3-5934    [000] d.... 12033.844323: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12033.844424: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=5 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12033.844438: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+         python3-5934    [000] d.h.. 12033.844452: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12033.844474: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=6 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12033.844485: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12033.844496: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=2
+     hostlab-ctl-5936    [000] d.... 12033.864046: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5936    [000] d.... 12033.864079: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7 dev=2 ep=0 in=0 pid=3 len=8
+     hostlab-mon-5933    [000] d.h.. 12033.864141: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=7 phase=0 hcint=0x23
+     hostlab-mon-5933    [000] d.h.. 12033.864152: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+         python3-5934    [000] d.... 12033.885711: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12033.885812: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=0 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12033.885826: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+         python3-5934    [000] d.h.. 12033.885840: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12033.885861: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=1 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12033.885871: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12033.885882: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=2
+     hostlab-ctl-5937    [000] d.... 12033.904302: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5937    [000] d.... 12033.904337: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2 dev=2 ep=0 in=0 pid=3 len=8
+         python3-5934    [000] d.h.. 12033.904398: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=2 phase=0 hcint=0x23
+         python3-5934    [000] d.h.. 12033.904409: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+         python3-5934    [000] d.... 12033.926124: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12033.926224: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=3 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12033.926238: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+         python3-5934    [000] d.h.. 12033.926253: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12033.926274: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=4 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12033.926284: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12033.926296: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=2
+     hostlab-ctl-5938    [000] d.... 12033.944274: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5938    [000] d.... 12033.944309: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5 dev=2 ep=0 in=0 pid=3 len=8
+         python3-5934    [000] d.h.. 12033.944370: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=5 phase=0 hcint=0x23
+         python3-5934    [000] d.h.. 12033.944382: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+         python3-5934    [000] d.... 12033.966101: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12033.966202: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=6 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12033.966216: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+         python3-5934    [000] d.h.. 12033.966230: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12033.966251: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=7 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12033.966261: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12033.966272: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-5939    [000] d.... 12033.980138: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5939    [000] d.... 12033.980176: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0 dev=2 ep=0 in=0 pid=3 len=8
+         python3-5934    [000] d.h.. 12033.980241: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=0 phase=0 hcint=0x23
+         python3-5934    [000] d.h.. 12033.980251: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+         python3-5934    [000] d.... 12034.001894: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12034.002025: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=1 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12034.002040: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+         python3-5934    [000] d.h.. 12034.002054: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12034.002076: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=2 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12034.002085: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12034.002097: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-5940    [000] d.... 12034.021005: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5940    [000] d.... 12034.021039: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3 dev=2 ep=0 in=0 pid=3 len=8
+     hostlab-mon-5933    [000] d.h.. 12034.021101: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=3 phase=0 hcint=0x23
+     hostlab-mon-5933    [000] d.h.. 12034.021112: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+         python3-5934    [000] d.... 12034.042902: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12034.043026: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=4 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12034.043040: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+         python3-5934    [000] d.h.. 12034.043054: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12034.043076: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=5 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12034.043085: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12034.043097: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-5941    [000] d.... 12034.062214: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5941    [000] d.... 12034.062249: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6 dev=2 ep=0 in=0 pid=3 len=8
+         python3-5934    [000] d.h.. 12034.062310: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=6 phase=0 hcint=0x23
+         python3-5934    [000] d.h.. 12034.062321: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+         python3-5934    [000] d.... 12034.083837: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12034.083938: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=7 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12034.083952: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+         python3-5934    [000] d.h.. 12034.083966: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12034.083991: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=0 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12034.084001: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12034.084012: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-5942    [000] d.... 12034.102740: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5942    [000] d.... 12034.102774: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1 dev=2 ep=0 in=0 pid=3 len=8
+     hostlab-mon-5933    [000] d.h.. 12034.102836: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=1 phase=0 hcint=0x23
+     hostlab-mon-5933    [000] d.h.. 12034.102847: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+         python3-5934    [000] d.... 12034.124621: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12034.124722: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=2 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12034.124736: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+         python3-5934    [000] d.h.. 12034.124750: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12034.124772: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=3 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12034.124782: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12034.124793: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-5943    [000] d.... 12034.143799: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5943    [000] d.... 12034.143834: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4 dev=2 ep=0 in=0 pid=3 len=8
+         python3-5934    [000] d.h.. 12034.143895: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=4 phase=0 hcint=0x23
+         python3-5934    [000] d.h.. 12034.143907: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+         python3-5934    [000] d.... 12034.165475: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12034.165574: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=5 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12034.165588: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+         python3-5934    [000] d.h.. 12034.165602: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12034.165624: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=6 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12034.165634: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12034.165645: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=2
+     hostlab-ctl-5944    [000] d.... 12034.180147: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032780
+     hostlab-ctl-5944    [000] d.... 12034.180183: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7 dev=2 ep=0 in=0 pid=3 len=8
+         python3-5934    [000] d.h.. 12034.180248: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=7 phase=0 hcint=0x23
+         python3-5934    [000] d.h.. 12034.180258: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+         python3-5934    [000] d.... 12034.201560: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0 dev=2 ep=0 in=1 pid=2 len=18
+         python3-5934    [000] d.h.. 12034.201660: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=0 phase=1 hcint=0x23
+         python3-5934    [000] d.h.. 12034.201673: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+         python3-5934    [000] d.h.. 12034.201687: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1 dev=2 ep=0 in=0 pid=2 len=0
+         python3-5934    [000] d.h.. 12034.201708: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=1 phase=2 hcint=0x23
+         python3-5934    [000] d.h.. 12034.201718: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032780 status=0
+         python3-5934    [000] d.h.. 12034.201729: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=2
+         python3-5920    [000] ..... 12034.320671: tracing_mark_write: hostlab_stop mono_ns=12034320398269 real_ns=1793587921706137024

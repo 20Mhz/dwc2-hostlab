@@ -1,0 +1,54 @@
+# tracer: nop
+#
+# entries-in-buffer/entries-written: 42/42   #P:1
+#
+#                                _-----=> irqs-off/BH-disabled
+#                               / _----=> need-resched
+#                              | / _---=> hardirq/softirq
+#                              || / _--=> preempt-depth
+#                              ||| / _-=> migrate-disable
+#                              |||| /     delay
+#           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+#              | |         |   |||||     |         |
+         python3-5987    [000] ..... 12067.271464: tracing_mark_write: hostlab_start mono_ns=12067271225018 real_ns=1793587954656975773
+     hostlab-ctl-5989    [000] d.... 12067.279398: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.279435: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6 dev=2 ep=0 in=0 pid=3 len=8
+          <idle>-0       [000] d.h.. 12067.279509: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=6 phase=0 hcint=0x23
+          <idle>-0       [000] d.h.. 12067.279521: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-ctl-5989    [000] d.... 12067.300095: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.300104: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.300111: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.300120: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.300905: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.300936: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7 dev=2 ep=0 in=0 pid=3 len=8
+          <idle>-0       [000] d.h.. 12067.301003: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=7 phase=0 hcint=0x23
+          <idle>-0       [000] d.h.. 12067.301013: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-ctl-5989    [000] d.... 12067.330112: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.330128: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.330136: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.330147: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.330975: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.331009: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0 dev=2 ep=0 in=0 pid=3 len=8
+          <idle>-0       [000] d.h.. 12067.331077: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=0 phase=0 hcint=0x23
+          <idle>-0       [000] d.h.. 12067.331088: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-ctl-5989    [000] d.... 12067.360114: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.360130: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.360138: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.360148: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.360979: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.361012: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1 dev=2 ep=0 in=0 pid=3 len=8
+          <idle>-0       [000] d.h.. 12067.361079: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=1 phase=0 hcint=0x23
+          <idle>-0       [000] d.h.. 12067.361091: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-ctl-5989    [000] d.... 12067.390110: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.390126: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.390134: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.390144: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.390977: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.391010: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2 dev=2 ep=0 in=0 pid=3 len=8
+          <idle>-0       [000] d.h.. 12067.391079: hl_xfercomp: (dwc2_hc_xfercomp_intr+0x0/0x548 [dwc2]) hc=2 phase=0 hcint=0x23
+          <idle>-0       [000] d.h.. 12067.391090: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-ctl-5989    [000] d.... 12067.420094: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc4032080
+     hostlab-ctl-5989    [000] d.... 12067.420110: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.420118: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc4032080 status=-2
+     hostlab-ctl-5989    [000] d.... 12067.420130: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032080 status=-2
+         python3-5987    [000] ..... 12067.422173: tracing_mark_write: hostlab_stop mono_ns=12067421900512 real_ns=1793587954807638266

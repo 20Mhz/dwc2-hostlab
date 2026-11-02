@@ -1,0 +1,43 @@
+{
+  "ambiguous_channel_events": 0,
+  "conforming": 20,
+  "hcint_at_xfercomp": {
+    "XFERCOMPL|CHHLTD|ACK": 60
+  },
+  "next_phase_channel": {
+    "different": 40
+  },
+  "profile": "state",
+  "release_to_next_start_ns": {
+    "DATA": {
+      "max": 50050000,
+      "median": 50039000,
+      "min": 50026000,
+      "n": 20,
+      "p95": 50049000
+    },
+    "STATUS": {
+      "max": 15000,
+      "median": 13000,
+      "min": 9000,
+      "n": 20,
+      "p95": 14000
+    }
+  },
+  "session": "A-data",
+  "tool": "hostlab-report model",
+  "transitions": {
+    "release[reason=1] -> start[DATA,pid=DATA1,in,len=18]": 20,
+    "release[reason=1] -> start[STATUS,pid=DATA1,out,len=0]": 20,
+    "start[DATA,pid=DATA1,in,len=18] -> xfercomp[control_phase=DATA]": 20,
+    "start[SETUP,pid=SETUP,out,len=8] -> xfercomp[control_phase=SETUP]": 20,
+    "start[STATUS,pid=DATA1,out,len=0] -> xfercomp[control_phase=STATUS]": 20,
+    "xfercomp[control_phase=DATA] -> release[reason=1]": 20,
+    "xfercomp[control_phase=SETUP] -> release[reason=1]": 20,
+    "xfercomp[control_phase=STATUS] -> release[reason=2]": 20
+  },
+  "unattributed_channel_events": 0,
+  "urbs": 20,
+  "violation_count": 0,
+  "violations": []
+}
