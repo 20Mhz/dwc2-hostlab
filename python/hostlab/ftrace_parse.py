@@ -19,6 +19,15 @@ _LINE = re.compile(
     r"(?P<sec>\d+)\.(?P<frac>\d+):\s+"
     r"(?P<event>[\w./]+):\s?(?P<body>.*)$"
 )
+# Function tracer: "task-pid [cpu] flags ts: func <-parent" (Documentation/trace/ftrace.rst).
+_FUNC = re.compile(
+    r"^\s*(?P<task>.+?)-(?P<pid>\d+)\s+"
+    r"(?:\(\s*[-\d]+\)\s+)?"
+    r"\[(?P<cpu>\d+)\]\s+"
+    r"(?:(?P<flags>[A-Za-z.\d]{4,6})\s+)?"
+    r"(?P<sec>\d+)\.(?P<frac>\d+):\s+"
+    r"(?P<func>[\w.]+)\s+<-(?P<parent>\S+)\s*$"
+)
 _FIELD = re.compile(r"(\w+)=(\S+)")
 _PROBE_SITE = re.compile(r"^\((?P<site>[^)]*)\)\s*")
 
@@ -50,7 +59,13 @@ def parse_line(line: str) -> Optional[TraceEvent]:
         return None
     m = _LINE.match(line.rstrip("\n"))
     if not m:
-        return None
+        f = _FUNC.match(line.rstrip("\n"))
+        if not f:
+            return None
+        return TraceEvent(ts_ns=parse_ts(f.group("sec"), f.group("frac")),
+                          event="fn:" + f.group("func"), fields={"parent": f.group("parent")},
+                          task=f.group("task").strip(), pid=int(f.group("pid")),
+                          cpu=int(f.group("cpu")), text="")
     body = m.group("body")
     site = _PROBE_SITE.match(body)
     if site:

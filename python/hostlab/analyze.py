@@ -29,7 +29,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from . import __version__
 from .ftrace_parse import TraceEvent, parse
-from .tracefs import EVENT_PREFIX, HALT_STATUS
+from .tracefs import EVENT_PREFIX, FUNCTION_EVENTS, HALT_STATUS
 
 # usbmon's 'S' is recorded inside usb_hcd_submit_urb, microseconds after the
 # submit kprobe; 1 ms only has to absorb clock-mapping error.
@@ -108,7 +108,14 @@ class UrbTimeline:
         start = self.k.get("urb_enqueue")
         end = self.k.get("giveback_bh", self.k.get("giveback"))
         if start is None or end is None:
-            return None
+            # Profiles without URB kprobes: usbmon 'S' is recorded before the
+            # HCD enqueue and 'C' after the BH giveback, so the usbmon window
+            # encloses the kernel one (up to the clock-mapping error).
+            # Root-hub URBs (dev 1) never use a host channel, and the hub's
+            # interrupt URB stays pending for seconds; it must not own events.
+            if self.mon_submit_ns is None or self.mon_complete_ns is None or self.dev == 1:
+                return None
+            return self.mon_submit_ns, self.mon_complete_ns
         return start, end
 
     def k_start(self) -> Optional[int]:
@@ -166,12 +173,15 @@ def analyze(session_dir: str) -> Dict[str, Any]:
     # session.json holds CLOCK_MONOTONIC read before and after each marker
     # write: the ftrace timestamp lying inside that bracket is the H10 test.
     brackets: Dict[int, Dict[str, Any]] = {}
+    sess: Dict[str, Any] = {}
     try:
         with open(os.path.join(session_dir, "session.json")) as f:
-            for m in json.load(f).get("markers", []):
-                brackets[int(m["mono_before_ns"])] = m
+            sess = json.load(f)
+        for m in sess.get("markers", []):
+            brackets[int(m["mono_before_ns"])] = m
     except (OSError, ValueError, KeyError, TypeError):
         pass
+    registered = (sess.get("kprobes") or {}).get("registered")
     marker_offsets, marker_checks = [], []
     for e in events:
         if e.event == "tracing_mark_write" and "mono_ns" in e.fields:
@@ -197,6 +207,13 @@ def analyze(session_dir: str) -> Dict[str, Any]:
     hostlab_events = [e for e in events if e.event.startswith(EVENT_PREFIX)]
     for e in hostlab_events:
         e.event = e.event[len(EVENT_PREFIX):]
+    # Function-tracer hits (profile "fphase") stand in for the kprobe events
+    # of the same functions, without arguments.
+    for e in events:
+        if e.event.startswith("fn:") and e.event[3:] in FUNCTION_EVENTS:
+            e.event = FUNCTION_EVENTS[e.event[3:]]
+            hostlab_events.append(e)
+    hostlab_events.sort(key=lambda e: e.ts_ns)
 
     k_inst: Dict[int, List[UrbTimeline]] = {}
     channel_events: List[TraceEvent] = []
@@ -303,7 +320,7 @@ def analyze(session_dir: str) -> Dict[str, Any]:
             "urb": hex(t.urb), "instance": t.instance, "xfer": t.xfer, "dev": t.dev, "ep": t.ep, "in": t.is_in,
             "setup": t.setup, "status": t.status,
             "channel_runs": len(starts),
-            "channels_used": sorted({e.int_field("hc") for e in starts}),
+            "channels_used": sorted({e.int_field("hc") for e in starts} - {None}),
         }
         if t.mon_submit_ns is not None and t.mon_complete_ns is not None:
             rec["usbmon_latency_ns"] = t.mon_complete_ns - t.mon_submit_ns
@@ -353,11 +370,25 @@ def analyze(session_dir: str) -> Dict[str, Any]:
     out_of_range = []
     if hc_limit is not None:
         out_of_range = sorted(n for n in channel_numbers if n >= hc_limit)
+    # Without an enqueue probe (profiles "fphase", or no ftrace) the join
+    # cannot be checked; report null rather than counting every URB as missing.
+    enq_traced = ("hl_urb_enqueue" in registered) if registered is not None \
+        else any("urb_enqueue" in t.k for t in instances)
+    ctrl_dev = [t for t in instances if t.xfer == "ctrl" and t.dev != 1 and t.status == 0
+                and in_trace(t.mon_submit_ns)]
     consistency = {
+        "profile": sess.get("profile"),
         "device_urbs_in_usbmon": len(dev_mon),
-        "with_dwc2_enqueue": sum(1 for t in dev_mon if "urb_enqueue" in t.k),
-        "usbmon_without_enqueue": sum(1 for t in dev_mon if "urb_enqueue" not in t.k),
-        "enqueue_without_usbmon": len(enq_only),
+        "with_dwc2_enqueue": sum(1 for t in dev_mon if "urb_enqueue" in t.k)
+        if enq_traced else None,
+        "usbmon_without_enqueue": sum(1 for t in dev_mon if "urb_enqueue" not in t.k)
+        if enq_traced else None,
+        "enqueue_without_usbmon": len(enq_only) if enq_traced else None,
+        "ctrl_urbs_phases_exact": sum(
+            1 for t in ctrl_dev
+            if _phase_labels(sum(1 for e in t.channel if e.event == "hc_start"),
+                             t.wlength())[1] == "exact"),
+        "ctrl_urbs_ok": len(ctrl_dev),
         "host_channels": hc_limit,
         "channel_numbers_out_of_range": out_of_range,
         "address_reuse_max": max(seen_inst.values(), default=0),
@@ -405,6 +436,8 @@ def format_text(rep: Dict[str, Any]) -> str:
                          f"release+{c.get('dequeue_to_release_ns')}ns)")
         lines.append("  " + " ".join(parts))
     c = rep["consistency"]
+    lines.append(f"  phases exact: {c['ctrl_urbs_phases_exact']}/{c['ctrl_urbs_ok']} "
+                 f"successful device control URBs")
     lines.append(f"  join: {c['with_dwc2_enqueue']}/{c['device_urbs_in_usbmon']} device URBs "
                  f"have a dwc2 enqueue; {c['enqueue_without_usbmon']} enqueues without usbmon")
     for name, s in rep["latency"].items():

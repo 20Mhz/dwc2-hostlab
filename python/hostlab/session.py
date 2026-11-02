@@ -31,9 +31,11 @@ from typing import Any, Dict, List, Optional
 
 from . import __version__
 from .probe import probe
-from .tracefs import TraceFS, find_tracefs, read_filter_functions, usable_probes
+from .tracefs import (PROFILES, TraceFS, find_tracefs, profile_probes, read_filter_functions,
+                      usable_probes)
 
 DEFAULT_BUFFER_KB = 4096
+DEFAULT_PROFILE = "full"
 
 
 def _mono_ns() -> int:
@@ -56,9 +58,14 @@ def _find_tool(name: str, bindir: Optional[str]) -> Optional[str]:
 
 
 class FtraceSession:
-    def __init__(self, tfs: TraceFS, buffer_kb: int = DEFAULT_BUFFER_KB):
+    def __init__(self, tfs: TraceFS, buffer_kb: int = DEFAULT_BUFFER_KB,
+                 profile: str = DEFAULT_PROFILE):
         self.tfs = tfs
         self.buffer_kb = buffer_kb
+        self.profile = profile
+        self.functions: List[str] = []
+        self.saved_tracer: Optional[str] = None
+        self.saved_filter: Optional[List[str]] = None
         self.saved_clock: Optional[str] = None
         self.saved_tracing_on: Optional[str] = None
         self.saved_buffer_kb: Optional[str] = None
@@ -71,8 +78,11 @@ class FtraceSession:
 
     def setup(self) -> None:
         funcs = read_filter_functions(self.tfs.path)
-        usable, missing = usable_probes(funcs)
+        usable, missing = usable_probes(funcs, profile_probes(self.profile))
         self.missing = [p.symbol for p in missing]
+        wanted = PROFILES[self.profile]["functions"]
+        self.functions = [f for f in wanted if funcs is not None and f in funcs]
+        self.missing += [f for f in wanted if f not in self.functions]
         self.saved_clock = self.tfs.current_clock()
         self.saved_tracing_on = self._read_value("tracing_on")
         self.saved_buffer_kb = self._read_value("buffer_size_kb")
@@ -90,6 +100,11 @@ class FtraceSession:
                 self.failed.append({"probe": p.name, "error": str(e)})
         if self.registered:
             self.tfs.set_group_enabled(True)
+        if self.functions:
+            self.saved_tracer = self.tfs.current_tracer()
+            self.saved_filter = self.tfs.ftrace_filter()
+            self.tfs.set_ftrace_filter(self.functions)
+            self.tfs.set_tracer("function")
 
     def _read_value(self, name: str) -> Optional[str]:
         try:
@@ -114,6 +129,12 @@ class FtraceSession:
 
     def teardown(self) -> Dict[str, Any]:
         result = self.tfs.teardown()
+        if self.functions:
+            try:
+                self.tfs.set_tracer(self.saved_tracer or "nop")
+                self.tfs.set_ftrace_filter(self.saved_filter or [])
+            except OSError as e:
+                result["errors"].append(f"restore function tracer: {e}")
         restores = [("trace_clock", self.saved_clock),
                     ("buffer_size_kb", self.saved_buffer_kb),
                     ("tracing_on", self.saved_tracing_on)]
@@ -147,10 +168,12 @@ def run(args: argparse.Namespace) -> int:
             if path is None:
                 warnings.append("tracefs not available; kernel-side events not recorded")
             else:
-                ftrace = FtraceSession(TraceFS(path), args.buffer_kb)
+                ftrace = FtraceSession(TraceFS(path), args.buffer_kb, args.profile)
                 ftrace.setup()
+                info["profile"] = args.profile
                 info["kprobes"] = {"registered": ftrace.registered, "failed": ftrace.failed,
                                    "missing_symbols": ftrace.missing}
+                info["functions"] = ftrace.functions
                 if ftrace.missing:
                     warnings.append(f"{len(ftrace.missing)} probe symbols absent "
                                     f"(e.g. {ftrace.missing[0]}); see session.json")
@@ -221,6 +244,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     r.add_argument("--snaplen", type=int, default=256)
     r.add_argument("--buffer-kb", type=int, default=DEFAULT_BUFFER_KB)
     r.add_argument("--bindir", help="directory containing hostlab-mon")
+    r.add_argument("--profile", choices=sorted(PROFILES), default=DEFAULT_PROFILE,
+                   help="instrumentation profile (default %(default)s); see tracefs.PROFILES")
     r.add_argument("--no-ftrace", action="store_true")
     r.add_argument("--no-usbmon", action="store_true")
     r.add_argument("cmd", nargs=argparse.REMAINDER)

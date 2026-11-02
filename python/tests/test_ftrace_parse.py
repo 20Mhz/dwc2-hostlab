@@ -49,6 +49,14 @@ class FtraceParseTests(unittest.TestCase):
                           " a-1 [000] ..... 1.0: e: x=1\n"]))
         self.assertEqual(len(evs), 1)
 
+    def test_function_tracer_line(self):
+        # Format from Documentation/trace/ftrace.rst ("function" tracer).
+        e = parse_line("     kworker/0:1-25      [000] d.h1.   123.000456: "
+                       "dwc2_hc_start_transfer <-dwc2_assign_and_init_hc")
+        self.assertEqual(e.event, "fn:dwc2_hc_start_transfer")
+        self.assertEqual(e.fields, {"parent": "dwc2_assign_and_init_hc"})
+        self.assertEqual(e.ts_ns, 123_000_456_000)
+
     def test_ts_precision(self):
         self.assertEqual(parse_ts("1", "5"), 1_500_000_000)
         self.assertEqual(parse_ts("0", "000000001"), 1)

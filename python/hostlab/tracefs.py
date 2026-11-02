@@ -19,7 +19,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass
-from typing import Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional
 
 GROUP = "hostlab"
 # The trace text shows only the event name, not the group
@@ -87,6 +87,43 @@ ARM32_PROFILE: List[Probe] = [
     Probe("xacterr", "dwc2_hc_xacterr_intr", "hc=%r2:s32", "dwc2", "transaction error handler"),
     Probe("babble", "dwc2_hc_babble_intr", "hc=%r2:s32", "dwc2", "babble handler"),
 ]
+
+
+# Probes that fire only on cancellation, reset or errors. They cost nothing on
+# the normal path, so every kprobe profile keeps them.
+RARE = ["kill", "unlink", "urb_dequeue", "hc_halt", "port_reset",
+        "stall", "nak", "xacterr", "babble"]
+
+# Instrumentation profiles. "hits" is the number of probe hits for one
+# successful 3-phase control transfer; on the Pi Zero W each kprobe hit costs
+# about 5 us (H8, docs/m1-bringup.md), so the profiles trade detail for
+# overhead. "functions" are traced with the function tracer instead of a
+# kprobe: cheaper, but without arguments (no URB address, no channel number),
+# so URB windows come from usbmon.
+PROFILES: Dict[str, Dict[str, Any]] = {
+    "full": {"kprobes": [p.name for p in ARM32_PROFILE], "functions": [], "hits": 17,
+             "about": "every probe: URB lifecycle, channel lifecycle, IRQs, BH giveback"},
+    "channel": {"kprobes": ["urb_enqueue", "giveback", "hc_start", "hc_release"] + RARE,
+                "functions": [], "hits": 8,
+                "about": "URB join, channel start/release with numbers and release reasons"},
+    "phase": {"kprobes": ["urb_enqueue", "giveback", "hc_start"] + RARE,
+              "functions": [], "hits": 5,
+              "about": "URB join and one event per channel run (phase reconstruction)"},
+    "minimal": {"kprobes": ["urb_enqueue", "giveback"] + RARE, "functions": [], "hits": 2,
+                "about": "URB join only; no phases"},
+    "fphase": {"kprobes": RARE, "functions": ["dwc2_hc_start_transfer"], "hits": 3,
+               "about": "function-tracer channel starts; URB windows from usbmon; "
+                        "no channel numbers"},
+}
+
+# Function-tracer events are mapped onto the kprobe event names (without args).
+FUNCTION_EVENTS = {"dwc2_hc_start_transfer": "hc_start", "dwc2_release_channel": "hc_release",
+                   "dwc2_hc_halt": "hc_halt", "dwc2_hc_xfercomp_intr": "xfercomp"}
+
+
+def profile_probes(name: str) -> List[Probe]:
+    wanted = set(PROFILES[name]["kprobes"])
+    return [p for p in ARM32_PROFILE if p.name in wanted]
 
 
 def find_tracefs(root: str = "/") -> Optional[str]:
@@ -160,6 +197,24 @@ class TraceFS:
 
     def clear(self) -> None:
         self._write("trace", "")
+
+    def current_tracer(self) -> Optional[str]:
+        try:
+            return self.read("current_tracer").strip() or None
+        except OSError:
+            return None
+
+    def set_tracer(self, name: str) -> None:
+        self._write("current_tracer", name)
+
+    def ftrace_filter(self) -> List[str]:
+        """Functions in set_ftrace_filter; [] means "all functions" (the default)."""
+        lines = [l.strip() for l in self.read("set_ftrace_filter").splitlines()]
+        return [l for l in lines if l and not l.startswith("#")]
+
+    def set_ftrace_filter(self, functions: List[str]) -> None:
+        # O_TRUNC replaces the filter; an empty write restores "all functions".
+        self._write("set_ftrace_filter", "\n".join(functions))
 
     def add_kprobe(self, probe: Probe) -> None:
         self._write("kprobe_events", probe.definition(), append=True)

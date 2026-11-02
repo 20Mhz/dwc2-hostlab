@@ -208,6 +208,45 @@ class AddressReuseTests(unittest.TestCase):
         self.assertEqual(rep["consistency"]["usbmon_unpaired_with_kprobes"], 0)
 
 
+class FunctionTracerProfileTests(unittest.TestCase):
+    """Profile "fphase": channel starts from the function tracer, URB windows
+    from usbmon, a root-hub interrupt URB pending across everything."""
+
+    def test_phases_from_function_tracer_and_usbmon_windows(self):
+        def fn(t, name):
+            return f"     kworker/0:1-25      [000] d.h1.  {t}: {name} <-dwc2_assign_and_init_hc"
+        trace = ["      python3-300   [000] .....  1000.000050: tracing_mark_write: "
+                 "hostlab_start mono_ns=1000000050000 real_ns=0",
+                 fn("1000.000120", "dwc2_hc_start_transfer"),
+                 fn("1000.000210", "dwc2_hc_start_transfer"),
+                 fn("1000.000310", "dwc2_hc_start_transfer"),
+                 "      python3-300   [000] .....  1000.002000: tracing_mark_write: "
+                 "hostlab_stop mono_ns=1000001990000 real_ns=0"]
+        hub = 0xC3000000
+        mons = [MON[1],
+                mon("999.000000", "S", hub, -115, xfer="intr", dev=1, ep=1),
+                mon("1000.000101", "S", URB_A, -115, setup=SETUP),
+                mon("1000.000451", "C", URB_A, 0, len_cap=18),
+                mon("1000.500000", "C", hub, -2, xfer="intr", dev=1, ep=1),
+                MON[-1]]
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "ftrace.txt"), "w") as f:
+                f.write("\n".join(trace) + "\n")
+            with open(os.path.join(d, "usbmon.jsonl"), "w") as f:
+                f.write("".join(json.dumps(r) + "\n" for r in mons))
+            with open(os.path.join(d, "session.json"), "w") as f:
+                json.dump({"profile": "fphase", "kprobes": {"registered": ["hl_kill"]}}, f)
+            rep = analyze(d)
+        a = next(u for u in rep["urbs"] if int(u["urb"], 16) == URB_A)
+        self.assertEqual([p["label"] for p in a["phases"]], ["SETUP", "DATA", "STATUS"])
+        self.assertEqual(a["channels_used"], [])
+        self.assertEqual(rep["channel_events"]["ambiguous"], 0)
+        c = rep["consistency"]
+        self.assertEqual((c["ctrl_urbs_phases_exact"], c["ctrl_urbs_ok"]), (1, 1))
+        self.assertIsNone(c["with_dwc2_enqueue"])
+        self.assertEqual(c["profile"], "fphase")
+
+
 class PhaseLabelTests(unittest.TestCase):
     def test_labels(self):
         self.assertEqual(_phase_labels(2, 0), (["SETUP", "STATUS"], "exact"))

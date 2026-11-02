@@ -48,6 +48,8 @@ def make_tracefs(root: str, functions=None) -> str:
     write(root, "sys/kernel/tracing/tracing_on", "1\n")
     write(root, "sys/kernel/tracing/buffer_size_kb", "1408\n")
     write(root, "sys/kernel/tracing/trace_marker", "")
+    write(root, "sys/kernel/tracing/current_tracer", "nop\n")
+    write(root, "sys/kernel/tracing/set_ftrace_filter", "#### all functions enabled ####\n")
     lines = []
     for fn in functions:
         lines.append(f"{fn} [dwc2]" if fn.startswith(("dwc2", "_dwc2")) else fn)
