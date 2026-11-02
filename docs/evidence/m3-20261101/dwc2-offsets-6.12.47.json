@@ -1,0 +1,68 @@
+{
+  "kernel_release": "6.12.47+rpt-rpi-v6",
+  "missing": {},
+  "source": "DWARF of a compiled object",
+  "structs": {
+    "dwc2_host_chan": {
+      "data_pid_start": {
+        "bit_size": 2,
+        "data_bit_offset": 43
+      },
+      "dev_addr": {
+        "bit_size": 7,
+        "data_bit_offset": 8
+      },
+      "ep_is_in": {
+        "bit_size": 1,
+        "data_bit_offset": 19
+      },
+      "ep_num": {
+        "bit_size": 4,
+        "data_bit_offset": 15
+      },
+      "ep_type": {
+        "bit_size": 2,
+        "data_bit_offset": 24
+      },
+      "halt_status": {
+        "data_member_location": 44
+      },
+      "hc_num": {
+        "data_member_location": 0
+      },
+      "hcint": {
+        "data_member_location": 48
+      },
+      "max_packet": {
+        "bit_size": 11,
+        "data_bit_offset": 32
+      },
+      "qh": {
+        "data_member_location": 52
+      },
+      "xfer_count": {
+        "data_member_location": 24
+      },
+      "xfer_len": {
+        "data_member_location": 20
+      }
+    },
+    "dwc2_qtd": {
+      "control_phase": {
+        "data_member_location": 0
+      },
+      "data_toggle": {
+        "data_member_location": 5
+      },
+      "in_process": {
+        "data_member_location": 4
+      },
+      "qh": {
+        "data_member_location": 32
+      },
+      "urb": {
+        "data_member_location": 28
+      }
+    }
+  }
+}

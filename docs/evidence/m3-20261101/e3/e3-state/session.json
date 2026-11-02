@@ -1,0 +1,70 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "cancel-sweep",
+    "1:2",
+    "--delays-us",
+    "0:300:5",
+    "--repeat",
+    "5"
+  ],
+  "command_duration_ns": 227769255,
+  "command_exit": 0,
+  "functions": [],
+  "kprobes": {
+    "failed": [],
+    "missing_symbols": [],
+    "registered": [
+      "hl_urb_enqueue",
+      "hl_giveback",
+      "hl_hc_start",
+      "hl_xfercomp",
+      "hl_hc_release",
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "markers": [
+    {
+      "mono_after_ns": 9732141703936,
+      "mono_before_ns": 9732141387938,
+      "tag": "hostlab_start"
+    },
+    {
+      "mono_after_ns": 9732369942187,
+      "mono_before_ns": 9732369619189,
+      "tag": "hostlab_stop"
+    }
+  ],
+  "offsets": "runs/m3/dwc2-offsets-6.12.47.json",
+  "profile": "state",
+  "teardown": {
+    "errors": [],
+    "removed": [
+      "hl_urb_enqueue",
+      "hl_giveback",
+      "hl_hc_start",
+      "hl_xfercomp",
+      "hl_hc_release",
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}

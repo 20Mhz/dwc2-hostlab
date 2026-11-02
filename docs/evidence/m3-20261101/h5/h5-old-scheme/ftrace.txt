@@ -1,0 +1,429 @@
+# tracer: nop
+#
+# entries-in-buffer/entries-written: 417/417   #P:1
+#
+#                                _-----=> irqs-off/BH-disabled
+#                               / _----=> need-resched
+#                              | / _---=> hardirq/softirq
+#                              || / _--=> preempt-depth
+#                              ||| / _-=> migrate-disable
+#                              |||| /     delay
+#           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+#              | |         |   |||||     |         |
+         python3-4505    [000] ..... 10277.221590: tracing_mark_write: hostlab_start mono_ns=10277221348876 real_ns=1793586164607100631
+     hostlab-ctl-4507    [000] d.... 10277.240376: hl_port_reset: (hub_port_reset+0x0/0x860) port=1
+   systemd-udevd-278     [000] d.s.. 10277.260093: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc23bef00 status=0
+     hostlab-ctl-4507    [000] d.... 10277.300131: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.370147: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.370544: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.430235: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.430271: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.430323: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.430339: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.430362: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.430372: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.450153: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.450194: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.450251: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.450269: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.450296: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.450308: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.450331: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.450344: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.450437: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.450454: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.450491: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.450503: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.450578: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.450591: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.450614: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.450623: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.450729: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.450748: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.450796: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.450808: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.450957: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.450972: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.450996: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.451005: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.451119: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.451137: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.451178: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.451191: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.451212: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.451221: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=2
+     kworker/0:0-4065    [000] d.... 10277.452107: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     kworker/0:0-4065    [000] d.... 10277.452199: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.460793: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.460828: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.460907: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.460925: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.460948: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.460959: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.460982: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.460995: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.461098: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.461115: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.461163: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.461175: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.461197: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.461207: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.461279: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.461295: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.461331: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.461343: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.461365: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.461374: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.461437: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.461453: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.461488: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.461499: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.461520: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.461529: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.461592: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.461607: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.461641: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.461652: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.461673: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.461682: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.461748: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.461764: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.461801: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.461813: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.461837: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.461848: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.461870: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.461878: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.465228: hl_port_reset: (hub_port_reset+0x0/0x860) port=1
+   (udev-worker)-4508    [000] dns.. 10277.510101: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc23bef00 status=0
+     hostlab-ctl-4507    [000] dn... 10277.520227: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.590133: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.590643: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.650256: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.650293: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.650344: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.650361: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.650383: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.650393: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.670151: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.670188: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.670242: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.670257: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.670285: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.670294: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.670316: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.670329: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.670413: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.670428: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.670462: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.670472: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.670546: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.670558: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.670579: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.670588: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.670686: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.670703: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.670748: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.670760: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.670908: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.670921: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.670943: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.670952: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.671059: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.671076: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.671114: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.671125: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.671145: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.671154: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     kworker/0:0-4065    [000] d.... 10277.671906: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     kworker/0:0-4065    [000] d.... 10277.672003: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.678279: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.678312: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.678389: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.678405: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.678427: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.678436: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.678458: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.678471: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.678562: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.678578: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.678621: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.678632: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.678652: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.678661: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.678727: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.678741: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.678775: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.678785: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.678805: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.678813: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.678870: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.678885: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.678916: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.678927: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.678947: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.678955: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.679011: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.679025: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.679057: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.679067: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.679087: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.679095: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.679152: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.679166: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.679226: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.679239: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.679260: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.679269: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.679289: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.679297: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.687339: hl_port_reset: (hub_port_reset+0x0/0x860) port=1
+     hostlab-ctl-4507    [000] d.... 10277.740188: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+   (udev-worker)-4508    [000] d.s.. 10277.760099: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc23bef00 status=0
+     hostlab-ctl-4507    [000] d.... 10277.810162: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.810597: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.870260: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.870297: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.870348: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.870365: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.870388: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.870398: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.890152: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.890188: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.890242: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.890262: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.890289: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.890299: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.890321: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.890333: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.890417: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.890431: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.890464: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.890476: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.890549: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.890560: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.890580: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.890588: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.890687: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.890704: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.890748: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.890758: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.890907: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.890921: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.890943: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.890952: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.891062: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10277.891079: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.891116: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.891128: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.891147: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.891155: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     kworker/0:0-4065    [000] d.... 10277.891979: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     kworker/0:0-4065    [000] d.... 10277.892080: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10277.897685: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.897718: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.897791: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.897808: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.897830: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.897839: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.897862: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.897875: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.897966: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.897983: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.898024: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.898035: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.898056: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.898064: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.898128: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.898143: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.898204: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.898217: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10277.898237: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.898246: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.898944: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.898971: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10277.899023: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.899037: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10277.899059: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.899070: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.899139: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.899153: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10277.899202: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.899214: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10277.899234: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.899242: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.899314: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10277.899330: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10277.899362: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.899372: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10277.899394: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-mon-4506    [000] d.h.. 10277.899403: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10277.899422: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10277.899430: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-4507    [000] d.... 10277.906278: hl_port_reset: (hub_port_reset+0x0/0x860) port=1
+     hostlab-ctl-4507    [000] d.... 10277.960098: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+          <idle>-0       [000] d.s.. 10278.010052: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc23bef00 status=0
+     hostlab-ctl-4507    [000] d.... 10278.030116: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10278.030494: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10278.090240: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.090276: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10278.090328: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.090344: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10278.090367: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.090377: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.110153: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.110190: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10278.110244: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.110261: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10278.110287: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.110298: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10278.110320: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.110332: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.110414: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.110430: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10278.110463: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.110474: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10278.110548: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.110559: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10278.110580: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.110589: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.110686: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.110703: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10278.110747: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.110758: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10278.110906: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.110920: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10278.110943: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.110952: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.111057: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.111073: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10278.111112: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.111124: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10278.111144: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.111152: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     kworker/0:0-4065    [000] d.... 10278.111983: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     kworker/0:0-4065    [000] d.... 10278.112069: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10278.112653: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.112681: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+   systemd-udevd-278     [000] d.h.. 10278.112760: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+   systemd-udevd-278     [000] d.h.. 10278.112775: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+   systemd-udevd-278     [000] d.h.. 10278.112797: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+   systemd-udevd-278     [000] d.h.. 10278.112807: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+   systemd-udevd-278     [000] d.h.. 10278.112828: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+   systemd-udevd-278     [000] d.h.. 10278.112839: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.112938: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.112954: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+   systemd-udevd-278     [000] d.h.. 10278.112991: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+   systemd-udevd-278     [000] d.h.. 10278.113002: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+   systemd-udevd-278     [000] d.h.. 10278.113023: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+   systemd-udevd-278     [000] d.h.. 10278.113031: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.114323: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.114352: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10278.114407: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.114422: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10278.114444: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.114456: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.114531: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.114546: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10278.114582: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.114593: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10278.114614: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.114622: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.114686: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.114700: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10278.114736: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.114747: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10278.114767: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.114775: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.114839: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.114853: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10278.114888: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.114899: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10278.114921: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.114930: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10278.114950: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.114958: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.120774: hl_port_reset: (hub_port_reset+0x0/0x860) port=1
+     hostlab-ctl-4507    [000] d.... 10278.212809: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+         systemd-1       [000] dns.. 10278.260069: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc23bef00 status=0
+     hostlab-ctl-4507    [000] d.... 10278.284487: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10278.284959: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10278.340351: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.340391: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10278.340448: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.340466: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10278.340491: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.340503: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.360172: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.360211: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10278.360268: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.360285: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10278.360312: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.360323: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10278.360346: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.360359: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.360451: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.360467: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10278.360504: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.360516: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10278.360590: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.360603: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10278.360625: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.360634: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.360741: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.360759: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10278.360821: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.360834: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10278.360984: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.361003: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10278.361027: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.361037: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.361141: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032900
+     hostlab-ctl-4507    [000] d.... 10278.361159: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10278.361199: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.361211: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10278.361233: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.361242: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=2
+     kworker/0:2-4332    [000] d.... 10278.361389: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     kworker/0:2-4332    [000] d.... 10278.361488: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032900 status=0
+     hostlab-ctl-4507    [000] d.... 10278.371949: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.371983: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10278.372056: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.372073: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10278.372097: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.372107: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10278.372131: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.372145: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.372247: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.372263: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10278.372306: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.372318: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10278.372339: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.372348: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.372417: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.372432: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10278.372470: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.372482: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=7
+     hostlab-mon-4506    [000] d.h.. 10278.372503: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.372512: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=7 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.372577: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.372593: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=0
+     hostlab-mon-4506    [000] d.h.. 10278.372631: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=0 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.372643: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=1
+     hostlab-mon-4506    [000] d.h.. 10278.372664: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.372672: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=1 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.372738: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.372754: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=2
+     hostlab-mon-4506    [000] d.h.. 10278.372793: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=2 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.372804: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=3
+     hostlab-mon-4506    [000] d.h.. 10278.372825: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.372834: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=3 reason=2
+     hostlab-ctl-4507    [000] d.... 10278.372900: hl_urb_enqueue: (_dwc2_hcd_urb_enqueue+0x0/0x65c [dwc2]) urb=0xc4032100
+     hostlab-ctl-4507    [000] d.... 10278.372916: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=4
+     hostlab-mon-4506    [000] d.h.. 10278.372956: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=4 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.372968: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=5
+     hostlab-mon-4506    [000] d.h.. 10278.372991: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=5 reason=1
+     hostlab-mon-4506    [000] d.h.. 10278.373000: hl_hc_start: (dwc2_hc_start_transfer+0x0/0x59c [dwc2]) hc=6
+     hostlab-mon-4506    [000] d.h.. 10278.373022: hl_giveback: (usb_hcd_giveback_urb+0x0/0xb0) urb=0xc4032100 status=0
+     hostlab-mon-4506    [000] d.h.. 10278.373030: hl_hc_release: (dwc2_release_channel+0x0/0x1e4 [dwc2]) hc=6 reason=2
+         python3-4505    [000] ..... 10278.376464: tracing_mark_write: hostlab_stop mono_ns=10278376171539 real_ns=1793586165761915295

@@ -1,0 +1,251 @@
+{
+  "channel_accounting": {
+    "open_at_end": [],
+    "out_of_order": 0,
+    "releases": 195,
+    "starts": 195
+  },
+  "channel_events": {
+    "ambiguous": 35,
+    "channel_numbers_seen": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "total": 390,
+    "unattributed": 0
+  },
+  "duration_ns": {
+    "max": 463222858,
+    "median": 416483578,
+    "min": 408857535,
+    "n": 5,
+    "p95": 463222858
+  },
+  "pending_outcomes": {
+    "ok": 20
+  },
+  "profile": "channel",
+  "request_sequences": {
+    "dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:GET_DESCRIPTOR(DEVICE,64) > dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:SET_ADDRESS(2) > dev2:GET_DESCRIPTOR(DEVICE,18) > dev2:GET_DESCRIPTOR(CONFIG,39) > dev2:SET_CONFIGURATION(1) > dev1:class(a300000001000400) > dev1:class(2301110001000000) > dev2:vendor(c05f000000000200) > dev2:vendor(40a1000000000000) > dev2:vendor(409a121382b20000) > dev2:vendor(409a1825c3000000) > dev2:vendor(40a4ffff00000000) > dev2:vendor(c095050000000200)": 5
+  },
+  "reset_status": {
+    "ok": 5
+  },
+  "resets": 5,
+  "rows": [
+    {
+      "duration_ns": 421670622,
+      "errno": 0,
+      "pending": 4,
+      "pending_actual": {
+        "18": 4
+      },
+      "pending_outcomes": {
+        "ok": 4
+      },
+      "pending_urb_status": {
+        "0": 4
+      },
+      "port_resets_after_ns": [
+        8864106,
+        198901106
+      ],
+      "requests": [
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:GET_DESCRIPTOR(DEVICE,64)",
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:SET_ADDRESS(2)",
+        "dev2:GET_DESCRIPTOR(DEVICE,18)",
+        "dev2:GET_DESCRIPTOR(CONFIG,39)",
+        "dev2:SET_CONFIGURATION(1)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301110001000000)",
+        "dev2:vendor(c05f000000000200)",
+        "dev2:vendor(40a1000000000000)",
+        "dev2:vendor(409a121382b20000)",
+        "dev2:vendor(409a1825c3000000)",
+        "dev2:vendor(40a4ffff00000000)",
+        "dev2:vendor(c095050000000200)"
+      ],
+      "seq": 0,
+      "status": "ok"
+    },
+    {
+      "duration_ns": 408857535,
+      "errno": 0,
+      "pending": 4,
+      "pending_actual": {
+        "18": 4
+      },
+      "pending_outcomes": {
+        "ok": 4
+      },
+      "pending_urb_status": {
+        "0": 4
+      },
+      "port_resets_after_ns": [
+        4235475,
+        185767475
+      ],
+      "requests": [
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:GET_DESCRIPTOR(DEVICE,64)",
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:SET_ADDRESS(2)",
+        "dev2:GET_DESCRIPTOR(DEVICE,18)",
+        "dev2:GET_DESCRIPTOR(CONFIG,39)",
+        "dev2:SET_CONFIGURATION(1)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301110001000000)",
+        "dev2:vendor(c05f000000000200)",
+        "dev2:vendor(40a1000000000000)",
+        "dev2:vendor(409a121382b20000)",
+        "dev2:vendor(409a1825c3000000)",
+        "dev2:vendor(40a4ffff00000000)",
+        "dev2:vendor(c095050000000200)"
+      ],
+      "seq": 1,
+      "status": "ok"
+    },
+    {
+      "duration_ns": 412794557,
+      "errno": 0,
+      "pending": 4,
+      "pending_actual": {
+        "18": 4
+      },
+      "pending_outcomes": {
+        "ok": 4
+      },
+      "pending_urb_status": {
+        "0": 4
+      },
+      "port_resets_after_ns": [
+        1532930,
+        195476930
+      ],
+      "requests": [
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:GET_DESCRIPTOR(DEVICE,64)",
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:SET_ADDRESS(2)",
+        "dev2:GET_DESCRIPTOR(DEVICE,18)",
+        "dev2:GET_DESCRIPTOR(CONFIG,39)",
+        "dev2:SET_CONFIGURATION(1)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301110001000000)",
+        "dev2:vendor(c05f000000000200)",
+        "dev2:vendor(40a1000000000000)",
+        "dev2:vendor(409a121382b20000)",
+        "dev2:vendor(409a1825c3000000)",
+        "dev2:vendor(40a4ffff00000000)",
+        "dev2:vendor(c095050000000200)"
+      ],
+      "seq": 2,
+      "status": "ok"
+    },
+    {
+      "duration_ns": 416483578,
+      "errno": 0,
+      "pending": 4,
+      "pending_actual": {
+        "18": 4
+      },
+      "pending_outcomes": {
+        "ok": 4
+      },
+      "pending_urb_status": {
+        "0": 4
+      },
+      "port_resets_after_ns": [
+        10125351,
+        199037351
+      ],
+      "requests": [
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:GET_DESCRIPTOR(DEVICE,64)",
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:SET_ADDRESS(2)",
+        "dev2:GET_DESCRIPTOR(DEVICE,18)",
+        "dev2:GET_DESCRIPTOR(CONFIG,39)",
+        "dev2:SET_CONFIGURATION(1)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301110001000000)",
+        "dev2:vendor(c05f000000000200)",
+        "dev2:vendor(40a1000000000000)",
+        "dev2:vendor(409a121382b20000)",
+        "dev2:vendor(409a1825c3000000)",
+        "dev2:vendor(40a4ffff00000000)",
+        "dev2:vendor(c095050000000200)"
+      ],
+      "seq": 3,
+      "status": "ok"
+    },
+    {
+      "duration_ns": 463222858,
+      "errno": 0,
+      "pending": 4,
+      "pending_actual": {
+        "18": 4
+      },
+      "pending_outcomes": {
+        "ok": 4
+      },
+      "pending_urb_status": {
+        "0": 4
+      },
+      "port_resets_after_ns": [
+        12500765,
+        242407765
+      ],
+      "requests": [
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:GET_DESCRIPTOR(DEVICE,64)",
+        "dev1:class(2303040001000000)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301140001000000)",
+        "dev0:SET_ADDRESS(2)",
+        "dev2:GET_DESCRIPTOR(DEVICE,18)",
+        "dev2:GET_DESCRIPTOR(CONFIG,39)",
+        "dev2:SET_CONFIGURATION(1)",
+        "dev1:class(a300000001000400)",
+        "dev1:class(2301110001000000)",
+        "dev2:vendor(c05f000000000200)",
+        "dev2:vendor(40a1000000000000)",
+        "dev2:vendor(409a121382b20000)",
+        "dev2:vendor(409a1825c3000000)",
+        "dev2:vendor(40a4ffff00000000)",
+        "dev2:vendor(c095050000000200)"
+      ],
+      "seq": 4,
+      "status": "ok"
+    }
+  ],
+  "session": "runs/m3/e6/e6-pending",
+  "tool": "hostlab-report reset",
+  "warnings": []
+}

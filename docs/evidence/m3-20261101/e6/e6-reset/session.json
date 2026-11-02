@@ -1,0 +1,120 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "reset",
+    "1:2",
+    "--allow-reset",
+    "--repeat",
+    "5"
+  ],
+  "command_duration_ns": 2108738794,
+  "command_exit": 0,
+  "functions": [],
+  "kprobe_profile": {
+    "hl_babble": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_giveback": {
+      "hits": 103,
+      "misses": 0
+    },
+    "hl_hc_halt": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_hc_release": {
+      "hits": 135,
+      "misses": 0
+    },
+    "hl_hc_start": {
+      "hits": 135,
+      "misses": 0
+    },
+    "hl_kill": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_nak": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_port_reset": {
+      "hits": 10,
+      "misses": 0
+    },
+    "hl_stall": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_unlink": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_urb_dequeue": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_urb_enqueue": {
+      "hits": 55,
+      "misses": 0
+    },
+    "hl_xacterr": {
+      "hits": 0,
+      "misses": 0
+    }
+  },
+  "kprobes": {
+    "failed": [],
+    "missing_symbols": [],
+    "registered": [
+      "hl_kill",
+      "hl_unlink",
+      "hl_giveback",
+      "hl_port_reset",
+      "hl_urb_enqueue",
+      "hl_urb_dequeue",
+      "hl_hc_start",
+      "hl_hc_halt",
+      "hl_hc_release",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "markers": [
+    {
+      "mono_after_ns": 10207111656586,
+      "mono_before_ns": 10207111349584,
+      "tag": "hostlab_start"
+    },
+    {
+      "mono_after_ns": 10209220901383,
+      "mono_before_ns": 10209220549381,
+      "tag": "hostlab_stop"
+    }
+  ],
+  "profile": "channel",
+  "teardown": {
+    "errors": [],
+    "removed": [
+      "hl_kill",
+      "hl_unlink",
+      "hl_giveback",
+      "hl_port_reset",
+      "hl_urb_enqueue",
+      "hl_urb_dequeue",
+      "hl_hc_start",
+      "hl_hc_halt",
+      "hl_hc_release",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}

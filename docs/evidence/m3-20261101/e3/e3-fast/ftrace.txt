@@ -1,0 +1,1155 @@
+# tracer: function
+#
+# entries-in-buffer/entries-written: 1143/1143   #P:1
+#
+#                                _-----=> irqs-off/BH-disabled
+#                               / _----=> need-resched
+#                              | / _---=> hardirq/softirq
+#                              || / _--=> preempt-depth
+#                              ||| / _-=> migrate-disable
+#                              |||| /     delay
+#           TASK-PID     CPU#  |||||  TIMESTAMP  FUNCTION
+#              | |         |   |||||     |         |
+         python3-3935    [000] .....  9746.030631: tracing_mark_write: hostlab_start mono_ns=9746030331256 real_ns=1793585633416083010
+     hostlab-ctl-3937    [000] d....  9746.038790: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.038842: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.038881: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.038891: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.038898: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.038905: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.039491: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.039533: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.039557: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.039566: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.039572: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.039577: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.040257: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.040300: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.040326: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.040335: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.040342: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.040347: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.040979: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.041022: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.041046: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.041055: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.041062: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.041067: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.041606: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.041647: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.041669: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.041677: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.041683: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.041689: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.042222: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.042264: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.042286: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.042295: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.042301: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.042306: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.042836: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.042877: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.042901: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.042909: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.042916: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.042921: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.043450: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.043490: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.043514: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.043522: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.043528: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.043533: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.044068: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.044110: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.044133: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.044142: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.044148: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.044153: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.044687: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.044729: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.044752: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.044759: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.044766: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.044771: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.045273: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.045317: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.045338: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.045347: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.045354: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.045359: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.045971: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.046013: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.046037: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.046045: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.046051: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.046056: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.046597: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.046639: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.046663: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.046671: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.046677: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.046683: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.047219: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.047261: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.047285: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.047293: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.047299: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.047304: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.047830: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.047872: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.047894: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.047902: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.047908: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.047913: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.048449: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.048491: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.048514: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.048522: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.048528: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.048533: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.049065: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.049107: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.049129: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.049137: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.049143: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.049148: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.049749: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.049794: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.049829: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.049837: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.049844: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.049849: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.050593: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.050636: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.050661: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.050670: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.050677: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.050683: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.051229: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.051271: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.051293: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.051301: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.051307: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.051312: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.051927: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.051971: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.051994: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.052002: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.052009: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.052014: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.052547: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.052589: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.052612: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.052620: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.052627: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.052632: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.053167: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.053209: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.053232: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.053239: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.053246: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.053251: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.053792: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.053834: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.053857: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.053865: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.053871: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.053876: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.054405: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.054447: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.054470: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.054478: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.054484: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.054489: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.055020: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.055062: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.055084: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.055091: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.055098: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.055103: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.055636: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.055678: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.055702: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.055709: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.055715: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.055720: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.056252: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.056294: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.056317: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.056325: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.056331: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.056336: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.056863: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.056906: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.056930: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.056938: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.056944: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.056949: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.057485: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.057526: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.057571: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.057580: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.057586: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.057602: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.057612: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=2 reason=13
+     hostlab-ctl-3937    [000] d....  9746.058205: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.058253: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.058304: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.058313: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.058327: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.058338: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.058877: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.058917: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.058941: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.058948: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.058955: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.058960: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.059495: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.059537: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.059560: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.059568: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.059574: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.059580: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.060239: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.060282: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.060334: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.060344: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.060360: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.060371: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.061057: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.061101: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.061126: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.061135: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.061142: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.061147: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=6 reason=13
+     hostlab-ctl-3937    [000] d....  9746.061699: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.061741: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.061766: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.061774: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.061780: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.061785: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=0 reason=13
+     hostlab-ctl-3937    [000] d....  9746.062317: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.062360: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.062383: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.062391: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.062397: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.062402: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=2 reason=13
+     hostlab-ctl-3937    [000] d....  9746.062935: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.062978: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.063002: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.063010: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.063016: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.063021: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=4 reason=13
+     hostlab-ctl-3937    [000] d....  9746.063556: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.063597: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.063622: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.063630: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.063636: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.063641: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=6 reason=13
+     hostlab-ctl-3937    [000] d....  9746.064173: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.064214: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.064239: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.064246: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.064253: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.064258: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=0 reason=13
+     hostlab-ctl-3937    [000] d....  9746.064856: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.064900: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.064963: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.064981: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.064990: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.065520: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.065561: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.065592: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.065600: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.065607: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.065612: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.066147: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.066190: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.066218: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.066226: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.066232: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.066238: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.066770: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.066812: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.066840: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.066848: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.066854: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.066859: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.067388: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.067429: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.067457: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.067465: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.067471: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.067476: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.068009: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.068052: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.068085: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.068093: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.068100: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.068105: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.068643: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.068685: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.068719: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.068727: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.068734: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.068739: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=7 reason=13
+     hostlab-ctl-3937    [000] d....  9746.069270: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.069311: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.069347: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.069354: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.069361: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.069366: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.069642: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.069680: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.069708: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.069715: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.069720: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.069725: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.070595: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.070640: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.070705: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.070724: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.070734: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.071330: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.071374: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.071446: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.071981: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.072022: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.072062: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.072071: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.072078: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.072084: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.072689: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.072733: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.072806: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] dn...  9746.072878: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.073042: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.073368: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.073409: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.073449: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.073456: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.073462: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.073468: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=0 reason=13
+     hostlab-ctl-3937    [000] d....  9746.074006: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.074048: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.074087: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.074095: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.074101: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.074106: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=2 reason=13
+     hostlab-ctl-3937    [000] d....  9746.074646: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.074688: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.074732: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.074741: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.074748: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.074762: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.074772: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=5 reason=13
+     hostlab-ctl-3937    [000] d....  9746.075312: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.075355: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.075427: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.075950: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.075991: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.076036: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.076045: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.076051: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.076066: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.076077: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=3 reason=13
+     hostlab-ctl-3937    [000] d....  9746.076616: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.076658: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.076731: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.077267: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.077308: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.077353: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.077362: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.077368: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.077383: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.077393: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=1 reason=13
+     hostlab-ctl-3937    [000] d....  9746.077997: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.078039: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.078119: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.078128: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.078144: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.078153: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.078690: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.078730: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.078780: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.078788: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.078805: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.078813: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.079328: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.079368: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.079417: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.079425: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.079431: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.079446: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.079460: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=2 reason=13
+     hostlab-ctl-3937    [000] d....  9746.079995: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.080078: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.080163: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.080862: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.080905: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.080978: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.081519: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.081561: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.081617: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.081636: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.081644: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.082163: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.082205: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.082261: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.082279: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.082287: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.082806: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.082848: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.082903: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.082910: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.082925: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.082936: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.083452: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.083493: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.083547: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.083556: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.083570: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.083580: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.084168: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.084211: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.084284: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.084885: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.084928: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.085001: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.085536: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.085577: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.085638: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.085657: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.085667: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.086185: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.086227: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.086286: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.086304: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.086313: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.086838: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.086879: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.086941: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.086958: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.086968: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.087483: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.087524: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.087584: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.087601: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.087610: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.088128: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.088169: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.088242: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.088252: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.088462: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.088785: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.088826: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.088891: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.088908: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.088917: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.089436: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.089477: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.089542: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.089559: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.089568: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.090292: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.090337: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.090410: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.091048: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.091090: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.091156: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.091166: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.091172: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.091178: hl_hc_halt: (dwc2_hc_halt+0x0/0x2f8 [dwc2]) hc=4 reason=13
+     hostlab-ctl-3937    [000] d....  9746.091733: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.091776: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.091850: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.091863: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.092077: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.092405: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.092446: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.092518: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.092532: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.092749: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.093072: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.093112: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.093182: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.093199: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.093207: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.093724: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.093765: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.093837: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.094373: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.094413: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.094486: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.094499: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.094709: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.095037: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.095077: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.095151: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d.h..  9746.095168: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.095176: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.095697: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.095738: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.095810: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.096341: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.096382: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.096455: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.097111: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.097156: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.097229: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.097766: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.097808: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.097880: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.098412: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.098454: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.098526: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.099048: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.099088: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.099170: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.099180: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d.h..  9746.099194: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.099204: hl_urb_dequeue: (_dwc2_hcd_urb_dequeue+0x0/0x1e0 [dwc2]) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.099730: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.099771: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.099844: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.100565: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.100609: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.100682: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] dn...  9746.100754: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.100924: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.101280: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.101322: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.101395: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.101952: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.101994: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.102067: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.102591: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.102632: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.102705: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.103312: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.103355: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.103427: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.103964: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.104004: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.104077: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.104594: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.104634: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.104706: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.105237: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.105278: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.105351: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.105869: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.105910: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.105982: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.106523: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.106565: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.106637: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.107166: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.107207: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.107279: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.107518: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.107555: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.107628: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.107821: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.107856: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.107928: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.108172: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.108209: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.108281: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.108472: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.108506: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.108579: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.108764: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.108800: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.108870: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.109058: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.109092: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.109190: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.109201: hl_kill: (usb_kill_urb+0x0/0x40) urb=0xc409d700
+     hostlab-ctl-3937    [000] d....  9746.109240: hl_unlink: (usb_hcd_unlink_urb+0x0/0x90) urb=0xc409d700 status=-2
+     hostlab-ctl-3937    [000] d....  9746.109389: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.109423: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.109495: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.109683: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.109718: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.109790: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.109974: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.110009: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] dnh..  9746.110087: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.112139: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.112184: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.112258: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.112824: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.112870: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.112942: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.113556: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.113599: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.113672: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.114237: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.114279: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.114351: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.114894: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.114935: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.115007: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.115542: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.115584: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.115655: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.116188: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.116229: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.116302: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.116825: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.116866: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.116939: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.117476: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.117517: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.117590: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.118124: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.118165: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.118237: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.118773: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.118814: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.118886: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.119512: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.119554: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.119627: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.120315: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.120359: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.120432: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.121052: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.121095: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.121190: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.121738: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.121779: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.121852: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.122386: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.122428: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.122500: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.123039: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.123080: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.123161: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.123691: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.123732: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.123805: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.124337: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.124377: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.124450: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.124980: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.125020: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.125093: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.125709: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.125753: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.125826: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.126367: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.126408: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.126480: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.127020: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.127061: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.127161: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.127692: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.127733: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.127805: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.128337: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.128378: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.128450: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.128974: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.129014: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.129087: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.129629: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.129670: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.129742: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.130485: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.130529: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.130603: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.131166: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.131207: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.131280: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.131887: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.131929: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.132001: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.132606: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.132648: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.132721: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.133248: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.133288: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.133361: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.133904: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.133945: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.134018: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.134551: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.134593: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.134665: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.135197: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.135238: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.135310: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.135839: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.135880: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.135953: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.136489: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.136530: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.136603: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.137126: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.137168: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.137240: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.137781: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.137823: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.137895: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.138491: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.138534: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.138606: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.139021: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.139061: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.139160: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.139369: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.139405: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.139477: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.139682: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.139716: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.139787: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.139996: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] dnh..  9746.140076: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-mon-3936    [000] d.h..  9746.140167: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.141498: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.141542: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.141616: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.142177: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.142217: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.142290: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.142828: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.142869: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.142942: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.143549: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.143592: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.143664: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.144264: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.144307: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.144379: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.144923: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.144964: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.145037: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.145563: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.145604: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.145677: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.146217: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.146259: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.146331: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.146862: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.146902: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.146975: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.147510: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.147550: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.147622: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.148146: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.148187: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.148259: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.148798: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.148840: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.148911: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.149434: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.149475: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.149548: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.150281: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.150325: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.150399: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.150758: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.150797: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.150870: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.151104: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.151150: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.151221: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.151437: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.151472: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.151544: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.151772: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.151806: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.151877: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.152100: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.152149: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.152220: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.152433: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.152468: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.152539: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.152822: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.152858: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.152930: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.153162: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.153197: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.153268: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.153500: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.153535: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.153607: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.153833: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.153868: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.153939: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.154172: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.154206: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.154278: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.154511: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.154550: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.154622: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.154849: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.154884: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.154956: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.155186: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.155221: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.155293: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.155527: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.155562: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.155633: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.155870: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.155905: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.155977: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.156215: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.156251: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.156322: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.156559: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.156594: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.156665: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.156902: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.156937: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.157008: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.157245: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.157280: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.157352: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.157592: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.157627: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.157699: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.157939: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.157974: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.158046: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.158287: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.158322: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.158393: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.158634: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.158669: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.158740: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.159030: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.159067: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.159160: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.159391: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.159426: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.159497: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.159746: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.159781: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.159852: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.164690: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.164737: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.164811: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.165382: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.165424: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.165497: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.166049: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.166091: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.166190: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.166740: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.166781: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.166853: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.167401: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.167442: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.167515: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.168062: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.168103: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.168190: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.168733: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.168774: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.168847: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.169390: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.169431: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.169503: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.170111: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.170153: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.170225: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.170992: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.171036: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.171141: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.171701: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.171742: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.171815: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.172359: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.172400: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.172473: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.173018: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.173059: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.173160: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.173706: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.173748: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.173820: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.174367: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.174408: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.174480: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.175088: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.175156: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.175228: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.175784: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.175825: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.175897: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.176446: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.176488: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.176560: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.177133: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.177177: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.177250: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.177527: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.177563: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.177636: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.177905: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.177941: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.178013: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.178281: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.178316: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.178388: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.180090: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.180154: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.180227: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.180962: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.181007: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.181081: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.181644: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.181686: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.181758: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.182295: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.182336: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.182408: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.182949: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.182990: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.183063: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.183672: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.183716: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.183788: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.184327: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.184368: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.184442: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.184979: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.185019: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.185091: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.185651: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.185692: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.185764: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.186298: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.186340: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.186412: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.186942: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.186983: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.187055: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.187650: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.187694: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.187766: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.188312: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.188354: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.188427: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.188953: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.188994: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.189067: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.189658: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.189702: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.189775: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.190522: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.190566: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.190640: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.191208: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.191249: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.191322: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.191855: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.191896: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.191967: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.192501: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.192542: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.192615: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.193141: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.193182: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.193254: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.193795: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.193835: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.193908: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.194429: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.194469: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.194542: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.195076: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.195117: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.195190: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.195774: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.195816: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.195889: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.196440: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.196483: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.196555: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.197090: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.197153: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.197226: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.197766: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.197808: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.197880: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.198407: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.198448: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.198521: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.199056: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.199098: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.199189: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.199787: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.199830: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.199904: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.200396: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.200444: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.200517: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.200825: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.200860: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.200932: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.201234: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.201269: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.201340: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.201645: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.201682: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.201755: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.202064: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.202100: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.202189: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.202480: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.202517: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.202588: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.202894: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.202929: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.203001: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.203308: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.203344: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.203415: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.203723: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.203758: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.203830: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.204135: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.204170: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.204242: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.204548: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.204582: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.204653: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.204965: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.205000: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.205071: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.205384: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.205419: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.205490: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.205797: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.205832: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.205903: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.206219: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.206254: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.206326: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.206635: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.206670: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.206741: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.207056: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.207090: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.207189: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.207538: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.207575: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.207647: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.207970: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.208005: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.208076: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.208394: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.208428: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.208500: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.208816: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.208851: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.208921: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.209242: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.209277: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.209349: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.209669: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.209704: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.209775: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.214030: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.214076: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.214161: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.214736: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.214777: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.214849: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.215400: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.215441: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.215513: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.216063: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.216105: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.216189: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.216740: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.216781: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.216854: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.217400: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.217442: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.217513: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.218058: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.218100: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.218190: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.218807: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.218851: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.218923: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.219475: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.219516: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.219589: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.220276: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.220320: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.220393: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.221040: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.221083: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.221161: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.221719: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.221761: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.221833: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.222449: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.222494: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.222566: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.223119: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.223160: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.223233: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.223780: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.223822: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.223895: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.224441: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.224482: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.224555: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.225154: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.225198: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.225271: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.225846: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.225889: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.225961: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.226514: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.226556: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.226628: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.227175: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.227217: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.227289: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.227835: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.227876: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.227948: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.228490: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.228532: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.228604: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.229148: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.229188: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.229260: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.229784: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.229824: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.229896: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.230640: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.230684: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.230757: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.231377: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.231421: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.231494: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.232048: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.232089: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.232189: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.232728: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.232769: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.232842: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.233373: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.233414: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.233487: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.234022: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.234063: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.234160: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.234751: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.234795: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.234867: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d....  9746.235410: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.235452: dwc2_hc_start_transfer <-dwc2_queue_transaction
+     hostlab-ctl-3937    [000] d.h..  9746.235525: dwc2_hc_start_transfer <-dwc2_queue_transaction
+         python3-3935    [000] .....  9746.237360: tracing_mark_write: hostlab_stop mono_ns=9746237087664 real_ns=1793585633622825418

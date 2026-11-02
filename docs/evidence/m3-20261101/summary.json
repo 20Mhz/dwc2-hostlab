@@ -1,0 +1,541 @@
+{
+  "bench1": {
+    "_meta": {
+      "repeat": 200,
+      "revision": "cd285cb7f5a2803e399c36a18607db09a08131e8",
+      "rounds": 5,
+      "started": "2026-11-02T01:51:52Z"
+    },
+    "channel": {
+      "join_ok": 1000,
+      "join_total": 1000,
+      "median_ns": 236000,
+      "overhead_median": 0.3721,
+      "overhead_p95": 0.2811,
+      "p95_ns": 278000,
+      "phases_exact": 1000,
+      "phases_total": 1000,
+      "run_median_spread_ns": 7000,
+      "urbs": 1000
+    },
+    "fphase": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 195000,
+      "overhead_median": 0.1337,
+      "overhead_p95": 0.0783,
+      "p95_ns": 234000,
+      "phases_exact": 1000,
+      "phases_total": 1000,
+      "run_median_spread_ns": 4000,
+      "urbs": 1000
+    },
+    "full": {
+      "join_ok": 1000,
+      "join_total": 1000,
+      "median_ns": 262000,
+      "overhead_median": 0.5233,
+      "overhead_p95": 0.4147,
+      "p95_ns": 307000,
+      "phases_exact": 1000,
+      "phases_total": 1000,
+      "run_median_spread_ns": 8000,
+      "urbs": 1000
+    },
+    "idle": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 172000,
+      "overhead_median": 0.0,
+      "overhead_p95": -0.0369,
+      "p95_ns": 209000,
+      "phases_exact": 0,
+      "phases_total": 1000,
+      "run_median_spread_ns": 5000,
+      "urbs": 1000
+    },
+    "minimal": {
+      "join_ok": 1000,
+      "join_total": 1000,
+      "median_ns": 203000,
+      "overhead_median": 0.1802,
+      "overhead_p95": 0.1244,
+      "p95_ns": 244000,
+      "phases_exact": 0,
+      "phases_total": 1000,
+      "run_median_spread_ns": 5000,
+      "urbs": 1000
+    },
+    "none": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 172000,
+      "overhead_median": 0.0,
+      "overhead_p95": 0.0,
+      "p95_ns": 217000,
+      "phases_exact": null,
+      "phases_total": null,
+      "run_median_spread_ns": 5000,
+      "urbs": 1000
+    },
+    "phase": {
+      "join_ok": 1000,
+      "join_total": 1000,
+      "median_ns": 224000,
+      "overhead_median": 0.3023,
+      "overhead_p95": 0.2488,
+      "p95_ns": 271000,
+      "phases_exact": 1000,
+      "phases_total": 1000,
+      "run_median_spread_ns": 11000,
+      "urbs": 1000
+    }
+  },
+  "bench2": {
+    "_meta": {
+      "repeat": 200,
+      "revision": "0d9f3705f908f7ebabec7d81f3c1dc02443b6d0f",
+      "rounds": 4,
+      "started": "2026-11-02T02:02:12Z"
+    },
+    "f:dwc2_hc_start_transfer": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 195000,
+      "overhead_median": 0.1337,
+      "overhead_p95": 0.0948,
+      "p95_ns": 231000,
+      "phases_exact": 800,
+      "phases_total": 800,
+      "run_median_spread_ns": 4000,
+      "urbs": 800
+    },
+    "f:dwc2_hc_start_transfer+dwc2_release_channel": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 194000,
+      "overhead_median": 0.1279,
+      "overhead_p95": 0.1137,
+      "p95_ns": 235000,
+      "phases_exact": 800,
+      "phases_total": 800,
+      "run_median_spread_ns": 7000,
+      "urbs": 800
+    },
+    "k:giveback": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 189000,
+      "overhead_median": 0.0988,
+      "overhead_p95": 0.0664,
+      "p95_ns": 225000,
+      "phases_exact": 0,
+      "phases_total": 800,
+      "run_median_spread_ns": 3000,
+      "urbs": 800
+    },
+    "k:hc_start": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 213000,
+      "overhead_median": 0.2384,
+      "overhead_p95": 0.7915,
+      "p95_ns": 378000,
+      "phases_exact": 800,
+      "phases_total": 800,
+      "run_median_spread_ns": 21000,
+      "urbs": 800
+    },
+    "k:urb_enqueue": {
+      "join_ok": 800,
+      "join_total": 800,
+      "median_ns": 194000,
+      "overhead_median": 0.1279,
+      "overhead_p95": 0.1848,
+      "p95_ns": 250000,
+      "phases_exact": 0,
+      "phases_total": 800,
+      "run_median_spread_ns": 11000,
+      "urbs": 800
+    },
+    "k:urb_enqueue/f:dwc2_hc_start_transfer": {
+      "join_ok": 800,
+      "join_total": 800,
+      "median_ns": 208000,
+      "overhead_median": 0.2093,
+      "overhead_p95": 0.218,
+      "p95_ns": 257000,
+      "phases_exact": 800,
+      "phases_total": 800,
+      "run_median_spread_ns": 10000,
+      "urbs": 800
+    },
+    "none": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 172000,
+      "overhead_median": 0.0,
+      "overhead_p95": 0.0,
+      "p95_ns": 211000,
+      "phases_exact": null,
+      "phases_total": null,
+      "run_median_spread_ns": 1000,
+      "urbs": 800
+    }
+  },
+  "bench3": {
+    "_meta": {
+      "repeat": 200,
+      "revision": "6e0c015bd3af7baa0e19a1ba85abd8e1968f63e1",
+      "rounds": 3,
+      "started": "2026-11-02T02:10:34Z"
+    },
+    "fast": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 194000,
+      "overhead_median": 0.1279,
+      "overhead_p95": 0.0365,
+      "p95_ns": 227000,
+      "phases_exact": 600,
+      "phases_total": 600,
+      "run_median_spread_ns": 4000,
+      "urbs": 600
+    },
+    "none": {
+      "join_ok": null,
+      "join_total": null,
+      "median_ns": 172000,
+      "overhead_median": 0.0,
+      "overhead_p95": 0.0,
+      "p95_ns": 219000,
+      "phases_exact": null,
+      "phases_total": null,
+      "run_median_spread_ns": 4000,
+      "urbs": 600
+    },
+    "state": {
+      "join_ok": 600,
+      "join_total": 600,
+      "median_ns": 255000,
+      "overhead_median": 0.4826,
+      "overhead_p95": 0.3699,
+      "p95_ns": 300000,
+      "phases_exact": 600,
+      "phases_total": 600,
+      "run_median_spread_ns": 2000,
+      "urbs": 600
+    }
+  },
+  "e3/e3-fast": {
+    "accepted_not_cancelled": 26,
+    "attempts": 305,
+    "classes": {
+      "accepted_but_completed": 26,
+      "cancelled_in_DATA": 48,
+      "cancelled_in_STATUS": 3,
+      "cancelled_unobserved": 3,
+      "too_late": 225
+    },
+    "dequeue_to_halt_ns": {
+      "max": 1307000,
+      "median": 5000,
+      "min": 5000,
+      "n": 51,
+      "p95": 26000
+    },
+    "dequeue_to_release_ns": null,
+    "giveback_before_channel_release": {
+      "None": 54
+    },
+    "h3": {
+      "actual_nonzero_in_DATA": 0,
+      "actual_nonzero_in_STATUS": 0,
+      "cancelled_in_DATA": 48,
+      "cancelled_in_STATUS": 3,
+      "evidence": "STATUS run started before dequeue",
+      "reason": "all 3 cancelled URBs whose DATA stage the controller reported complete (STATUS run started before dequeue) returned actual_length 0",
+      "status": "PASS"
+    },
+    "joined": 305,
+    "kill_to_dequeue_ns": {
+      "max": 34000,
+      "median": 14000,
+      "min": 12000,
+      "n": 51,
+      "p95": 16000
+    },
+    "kill_to_unlink_ns": {
+      "max": 10000,
+      "median": 8000,
+      "min": 7000,
+      "n": 51,
+      "p95": 9000
+    },
+    "lost_race": {}
+  },
+  "e3/e3-noprobe": {
+    "accepted_not_cancelled": 16,
+    "attempts": 305,
+    "classes": {
+      "accepted_but_completed": 16,
+      "cancelled_unobserved": 80,
+      "too_late": 209
+    },
+    "dequeue_to_halt_ns": null,
+    "dequeue_to_release_ns": null,
+    "giveback_before_channel_release": {},
+    "h3": {
+      "actual_nonzero_in_DATA": 0,
+      "actual_nonzero_in_STATUS": 0,
+      "cancelled_in_DATA": 0,
+      "cancelled_in_STATUS": 0,
+      "evidence": "STATUS run started before dequeue",
+      "reason": "no cancelled URB had its DATA stage completed before the dequeue",
+      "status": "INCONCLUSIVE"
+    },
+    "joined": 305,
+    "kill_to_dequeue_ns": null,
+    "kill_to_unlink_ns": null,
+    "lost_race": {}
+  },
+  "e3/e3-state": {
+    "accepted_not_cancelled": 17,
+    "attempts": 305,
+    "classes": {
+      "accepted_but_completed": 17,
+      "cancelled_in_DATA": 42,
+      "cancelled_in_STATUS": 1,
+      "too_late": 245
+    },
+    "dequeue_to_halt_ns": {
+      "max": 37000,
+      "median": 5000,
+      "min": 4000,
+      "n": 43,
+      "p95": 35000
+    },
+    "dequeue_to_release_ns": {
+      "max": 78000,
+      "median": 47000,
+      "min": 45000,
+      "n": 43,
+      "p95": 77000
+    },
+    "giveback_before_channel_release": {
+      "True": 43
+    },
+    "h3": {
+      "actual_nonzero_in_DATA": 0,
+      "actual_nonzero_in_STATUS": 0,
+      "cancelled_in_DATA": 42,
+      "cancelled_in_STATUS": 1,
+      "evidence": "DATA transfer-complete before dequeue",
+      "reason": "all 1 cancelled URBs whose DATA stage the controller reported complete (DATA transfer-complete before dequeue) returned actual_length 0",
+      "status": "PASS"
+    },
+    "joined": 305,
+    "kill_to_dequeue_ns": {
+      "max": 57000,
+      "median": 12000,
+      "min": 11000,
+      "n": 43,
+      "p95": 16000
+    },
+    "kill_to_unlink_ns": {
+      "max": 10000,
+      "median": 6000,
+      "min": 5000,
+      "n": 43,
+      "p95": 7000
+    },
+    "lost_race": {
+      "before_unlink": 6,
+      "in_dequeue": 6,
+      "in_unlink": 5
+    }
+  },
+  "e6/e6-pending": {
+    "channel_accounting": {
+      "open_at_end": [],
+      "out_of_order": 0,
+      "releases": 195,
+      "starts": 195
+    },
+    "duration_ns": {
+      "max": 463222858,
+      "median": 416483578,
+      "min": 408857535,
+      "n": 5,
+      "p95": 463222858
+    },
+    "pending_outcomes": {
+      "ok": 20
+    },
+    "request_sequences": {
+      "dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:GET_DESCRIPTOR(DEVICE,64) > dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:SET_ADDRESS(2) > dev2:GET_DESCRIPTOR(DEVICE,18) > dev2:GET_DESCRIPTOR(CONFIG,39) > dev2:SET_CONFIGURATION(1) > dev1:class(a300000001000400) > dev1:class(2301110001000000) > dev2:vendor(c05f000000000200) > dev2:vendor(40a1000000000000) > dev2:vendor(409a121382b20000) > dev2:vendor(409a1825c3000000) > dev2:vendor(40a4ffff00000000) > dev2:vendor(c095050000000200)": 5
+    },
+    "reset_status": {
+      "ok": 5
+    },
+    "resets": 5
+  },
+  "e6/e6-reset": {
+    "channel_accounting": {
+      "open_at_end": [],
+      "out_of_order": 0,
+      "releases": 135,
+      "starts": 135
+    },
+    "duration_ns": {
+      "max": 446879919,
+      "median": 409839681,
+      "min": 402216621,
+      "n": 5,
+      "p95": 446879919
+    },
+    "pending_outcomes": {},
+    "request_sequences": {
+      "dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:GET_DESCRIPTOR(DEVICE,64) > dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:SET_ADDRESS(2) > dev2:GET_DESCRIPTOR(DEVICE,18) > dev2:GET_DESCRIPTOR(CONFIG,39) > dev2:SET_CONFIGURATION(1) > dev1:class(a300000001000400) > dev1:class(2301110001000000) > dev2:vendor(c05f000000000200) > dev2:vendor(40a1000000000000) > dev2:vendor(409a121382b20000) > dev2:vendor(409a1825c3000000) > dev2:vendor(40a4ffff00000000) > dev2:vendor(c095050000000200)": 4,
+      "dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:GET_DESCRIPTOR(DEVICE,64) > dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:SET_ADDRESS(2) > dev2:GET_DESCRIPTOR(DEVICE,18) > dev2:GET_DESCRIPTOR(CONFIG,39) > dev2:SET_CONFIGURATION(1) > dev1:class(a300000001000400) > dev2:vendor(c05f000000000200) > dev1:class(2301110001000000) > dev2:vendor(40a1000000000000) > dev2:vendor(409a121382b20000) > dev2:vendor(409a1825c3000000) > dev2:vendor(40a4ffff00000000) > dev2:vendor(c095050000000200)": 1
+    },
+    "reset_status": {
+      "ok": 5
+    },
+    "resets": 5
+  },
+  "h3/h3-state": {
+    "accepted_not_cancelled": 106,
+    "attempts": 310,
+    "classes": {
+      "accepted_but_completed": 106,
+      "cancelled_in_DATA": 190,
+      "cancelled_in_STATUS": 1,
+      "too_late": 13
+    },
+    "dequeue_to_halt_ns": {
+      "max": 39000,
+      "median": 5000,
+      "min": 4000,
+      "n": 191,
+      "p95": 36000
+    },
+    "dequeue_to_release_ns": {
+      "max": 83000,
+      "median": 46000,
+      "min": 44000,
+      "n": 191,
+      "p95": 79000
+    },
+    "giveback_before_channel_release": {
+      "True": 191
+    },
+    "h3": {
+      "actual_nonzero_in_DATA": 0,
+      "actual_nonzero_in_STATUS": 0,
+      "cancelled_in_DATA": 190,
+      "cancelled_in_STATUS": 1,
+      "evidence": "DATA transfer-complete before dequeue",
+      "reason": "all 1 cancelled URBs whose DATA stage the controller reported complete (DATA transfer-complete before dequeue) returned actual_length 0",
+      "status": "PASS"
+    },
+    "joined": 310,
+    "kill_to_dequeue_ns": {
+      "max": 43000,
+      "median": 12000,
+      "min": 10000,
+      "n": 191,
+      "p95": 13000
+    },
+    "kill_to_unlink_ns": {
+      "max": 36000,
+      "median": 6000,
+      "min": 4000,
+      "n": 191,
+      "p95": 7000
+    },
+    "lost_race": {
+      "before_unlink": 33,
+      "in_dequeue": 26,
+      "in_unlink": 47
+    }
+  },
+  "h5/h5-old-scheme": {
+    "channel_accounting": {
+      "open_at_end": [],
+      "out_of_order": 0,
+      "releases": 135,
+      "starts": 135
+    },
+    "duration_ns": {
+      "max": 256660257,
+      "median": 222035092,
+      "min": 213533046,
+      "n": 5,
+      "p95": 256660257
+    },
+    "pending_outcomes": {},
+    "request_sequences": {
+      "dev1:class(2303040001000000) > dev1:class(a300000001000400) > dev1:class(2301140001000000) > dev0:SET_ADDRESS(2) > dev2:GET_DESCRIPTOR(DEVICE,8) > dev2:GET_DESCRIPTOR(DEVICE,18) > dev2:GET_DESCRIPTOR(CONFIG,39) > dev2:SET_CONFIGURATION(1) > dev1:class(a300000001000400) > dev1:class(2301110001000000) > dev2:vendor(c05f000000000200) > dev2:vendor(40a1000000000000) > dev2:vendor(409a121382b20000) > dev2:vendor(409a1825c3000000) > dev2:vendor(40a4ffff00000000) > dev2:vendor(c095050000000200)": 5
+    },
+    "reset_status": {
+      "ok": 5
+    },
+    "resets": 5
+  },
+  "misscheck": {
+    "accepted_not_cancelled": 32,
+    "attempts": 80,
+    "classes": {
+      "accepted_but_completed": 32,
+      "cancelled_in_DATA": 47,
+      "cancelled_in_STATUS": 1
+    },
+    "dequeue_to_halt_ns": {
+      "max": 35000,
+      "median": 5000,
+      "min": 4000,
+      "n": 48,
+      "p95": 35000
+    },
+    "dequeue_to_release_ns": {
+      "max": 77000,
+      "median": 46000,
+      "min": 43000,
+      "n": 48,
+      "p95": 74000
+    },
+    "giveback_before_channel_release": {
+      "True": 48
+    },
+    "h3": {
+      "actual_nonzero_in_DATA": 0,
+      "actual_nonzero_in_STATUS": 0,
+      "cancelled_in_DATA": 47,
+      "cancelled_in_STATUS": 1,
+      "evidence": "DATA transfer-complete before dequeue",
+      "reason": "all 1 cancelled URBs whose DATA stage the controller reported complete (DATA transfer-complete before dequeue) returned actual_length 0",
+      "status": "PASS"
+    },
+    "joined": 80,
+    "kill_to_dequeue_ns": {
+      "max": 42000,
+      "median": 12000,
+      "min": 10000,
+      "n": 48,
+      "p95": 13000
+    },
+    "kill_to_unlink_ns": {
+      "max": 35000,
+      "median": 6000,
+      "min": 5000,
+      "n": 48,
+      "p95": 7000
+    },
+    "lost_race": {
+      "before_unlink": 1,
+      "in_dequeue": 17,
+      "in_unlink": 14
+    }
+  }
+}

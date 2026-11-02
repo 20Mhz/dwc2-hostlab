@@ -1,0 +1,62 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "cancel-sweep",
+    "1:2",
+    "--delays-us",
+    "0:300:5",
+    "--repeat",
+    "5"
+  ],
+  "command_duration_ns": 206253412,
+  "command_exit": 0,
+  "functions": [
+    "dwc2_hc_start_transfer",
+    "dwc2_release_channel"
+  ],
+  "kprobes": {
+    "failed": [],
+    "missing_symbols": [],
+    "registered": [
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "markers": [
+    {
+      "mono_after_ns": 9746030693253,
+      "mono_before_ns": 9746030331256,
+      "tag": "hostlab_start"
+    },
+    {
+      "mono_after_ns": 9746237413661,
+      "mono_before_ns": 9746237087664,
+      "tag": "hostlab_stop"
+    }
+  ],
+  "profile": "fast",
+  "teardown": {
+    "errors": [],
+    "removed": [
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}

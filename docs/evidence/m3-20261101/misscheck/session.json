@@ -1,0 +1,128 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "cancel-sweep",
+    "1:2",
+    "--delays-us",
+    "30:45:1",
+    "--repeat",
+    "5"
+  ],
+  "command_duration_ns": 65809809,
+  "command_exit": 0,
+  "functions": [],
+  "kprobe_profile": {
+    "hl_babble": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_giveback": {
+      "hits": 80,
+      "misses": 0
+    },
+    "hl_hc_halt": {
+      "hits": 48,
+      "misses": 0
+    },
+    "hl_hc_release": {
+      "hits": 198,
+      "misses": 0
+    },
+    "hl_hc_start": {
+      "hits": 198,
+      "misses": 0
+    },
+    "hl_kill": {
+      "hits": 80,
+      "misses": 0
+    },
+    "hl_nak": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_port_reset": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_stall": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_unlink": {
+      "hits": 80,
+      "misses": 0
+    },
+    "hl_urb_dequeue": {
+      "hits": 67,
+      "misses": 0
+    },
+    "hl_urb_enqueue": {
+      "hits": 80,
+      "misses": 0
+    },
+    "hl_xacterr": {
+      "hits": 0,
+      "misses": 0
+    },
+    "hl_xfercomp": {
+      "hits": 150,
+      "misses": 0
+    }
+  },
+  "kprobes": {
+    "failed": [],
+    "missing_symbols": [],
+    "registered": [
+      "hl_urb_enqueue",
+      "hl_giveback",
+      "hl_hc_start",
+      "hl_xfercomp",
+      "hl_hc_release",
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "markers": [
+    {
+      "mono_after_ns": 10018752589948,
+      "mono_before_ns": 10018752280944,
+      "tag": "hostlab_start"
+    },
+    {
+      "mono_after_ns": 10018818865762,
+      "mono_before_ns": 10018818542758,
+      "tag": "hostlab_stop"
+    }
+  ],
+  "offsets": "runs/m3/dwc2-offsets-6.12.47.json",
+  "profile": "state",
+  "teardown": {
+    "errors": [],
+    "removed": [
+      "hl_urb_enqueue",
+      "hl_giveback",
+      "hl_hc_start",
+      "hl_xfercomp",
+      "hl_hc_release",
+      "hl_kill",
+      "hl_unlink",
+      "hl_port_reset",
+      "hl_urb_dequeue",
+      "hl_hc_halt",
+      "hl_stall",
+      "hl_nak",
+      "hl_xacterr",
+      "hl_babble"
+    ]
+  },
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}

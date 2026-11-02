@@ -1,0 +1,16 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "cancel-sweep",
+    "1:2",
+    "--delays-us",
+    "0:300:5",
+    "--repeat",
+    "5"
+  ],
+  "command_duration_ns": 197198478,
+  "command_exit": 0,
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}

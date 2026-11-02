@@ -1,0 +1,8 @@
+{"src":"user","ev":"meta","tool":"hostlab-ctl","version":"0.1.0-dev","schema":1,"api":1,"backend":"linux-usbfs","command":"reset","timebase":"monotonic_ns"}
+{"src":"user","ev":"clock","mono_ns":10207116313617,"real_ns":1793586094502010372,"boot_ns":10207116325617,"uncert_ns":2000}
+{"src":"user","ev":"reset","seq":0,"pending":0,"t_start_ns":10207118610632,"t_done_ns":10207551810477,"status":"ok","errno":0}
+{"src":"user","ev":"reset","seq":1,"pending":0,"t_start_ns":10207551960478,"t_done_ns":10207958095136,"status":"ok","errno":0}
+{"src":"user","ev":"reset","seq":2,"pending":0,"t_start_ns":10207958277137,"t_done_ns":10208368116818,"status":"ok","errno":0}
+{"src":"user","ev":"reset","seq":3,"pending":0,"t_start_ns":10208368298820,"t_done_ns":10208815178739,"status":"ok","errno":0}
+{"src":"user","ev":"reset","seq":4,"pending":0,"t_start_ns":10208815338740,"t_done_ns":10209217555361,"status":"ok","errno":0}
+{"src":"user","ev":"clock","mono_ns":10209217742362,"real_ns":1793586096603439117,"boot_ns":10209217749362,"uncert_ns":2000}
