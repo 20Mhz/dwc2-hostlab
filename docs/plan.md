@@ -53,7 +53,7 @@ removes only hostlab's kprobes and restores the tracefs settings it changed.
 | Preflight (`hostlab-preflight`, read-only, text + JSON) | done, run on hardware under dwc_otg and dwc2 |
 | Evidence bundle (`hostlab-evidence`) and one-command run (`scripts/pi/m1-run.sh`) | done; [evidence/m1-20261101-ch340](evidence/m1-20261101-ch340/test-summary.md) |
 | Recovery instructions | [environment.md](environment.md#recovery), revert path validated |
-| CI workflow | written ([.github/workflows/ci.yml](../.github/workflows/ci.yml)); **not executed** (no remote). Its Linux, macOS and ARMv6 steps were run locally with the same commands |
+| CI workflow | [.github/workflows/ci.yml](../.github/workflows/ci.yml); first GitHub run green on 2026-11-01 (Linux py3.9/3.12, macOS, ARMv6 under arm1176 emulation). The kernel-evidence job runs only on manual dispatch |
 | Unit tests (C 127 checks + CLI 9, Python 42, script 11) | done, passing |
 | A benign USB peripheral enumerating under dwc2, with usbmon + kprobe traces analysed | done: CH340 (`1a86:7523`, full speed), 100 control URBs, 1300 channel events |
 | Software-only USB loopback (dummy_hcd + g_zero) for integration tests | **blocked**: Docker VM kernel has no dummy_hcd/usbmon modules; needs a QEMU VM with a custom kernel |

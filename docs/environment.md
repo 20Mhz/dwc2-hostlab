@@ -118,4 +118,3 @@ watch it.
 | Blocker | Impact | Workaround / next step |
 |---|---|---|
 | Docker VM kernel has no dummy_hcd / usbmon | No software-only end-to-end test | Issue draft 1 in [plan.md](plan.md#issue-drafts) |
-| CI workflow not executed on GitHub | Workflow syntax unverified by GitHub | Steps run locally with the same commands |
