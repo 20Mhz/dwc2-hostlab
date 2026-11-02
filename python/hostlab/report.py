@@ -261,6 +261,121 @@ def format_reset(r: Dict[str, Any]) -> str:
     return "\n".join(L)
 
 
+# dwc2 encodings (hw.h TSIZ_SC_MC_PID_*, hcd.h enum dwc2_control_phase).
+PID_NAMES = {0: "DATA0", 1: "DATA2", 2: "DATA1", 3: "SETUP"}
+PHASES = ["SETUP", "DATA", "STATUS"]
+HCINT_BITS = {0: "XFERCOMPL", 1: "CHHLTD", 2: "AHBERR", 3: "STALL", 4: "NAK", 5: "ACK",
+              6: "NYET", 7: "XACTERR", 8: "BBLERR", 9: "FRMOVRUN", 10: "DATATGLERR"}
+
+
+def _hcint(v: Optional[str]) -> str:
+    if v is None:
+        return "?"
+    x = int(v, 16)
+    return "|".join(n for b, n in HCINT_BITS.items() if x >> b & 1) or "0"
+
+
+def expected_runs(setup: str) -> List[Dict[str, Any]]:
+    """Channel runs dwc2 programs for a control URB (hcd.c dwc2_hc_init_xfer):
+    SETUP out 8 bytes with PID SETUP; DATA in the request's direction with
+    wLength bytes starting at DATA1; STATUS in the opposite direction (IN if
+    no data stage), 0 bytes, DATA1."""
+    b = bytes.fromhex(setup)
+    data_in, wlen = bool(b[0] & 0x80), b[6] | b[7] << 8
+    runs = [{"phase": "SETUP", "in": 0, "pid": 3, "len": 8}]
+    if wlen:
+        runs.append({"phase": "DATA", "in": int(data_in), "pid": 2, "len": wlen})
+    runs.append({"phase": "STATUS", "in": int(not data_in or not wlen), "pid": 2, "len": 0})
+    return runs
+
+
+def model_report(session_dir: str) -> Dict[str, Any]:
+    """Check every successful device control URB of a 'state' capture against
+    the driver's programmed sequence and count observed transitions."""
+    rep = analyze(session_dir, keep_events=True)
+    urbs = [u for u in rep["urbs"] if u.get("xfer") == "ctrl" and u.get("dev") not in (None, 1)
+            and u.get("status") == 0 and u.get("setup")]
+    checks = Counter()
+    violations: List[Dict[str, Any]] = []
+    transitions = Counter()
+    hcint_at_comp = Counter()
+    same_channel_next = Counter()
+    for u in urbs:
+        evs = [e for e in u["events"] if e["ev"] in ("hc_start", "xfercomp", "hc_release",
+                                                       "hc_halt")]
+        exp = expected_runs(u["setup"])
+        starts = [e for e in evs if e["ev"] == "hc_start"]
+        problems = []
+
+        def f(e, k):
+            v = e["fields"].get(k)
+            return None if v is None else int(v, 0)
+        if len(starts) != len(exp):
+            problems.append(f"{len(starts)} channel runs, expected {len(exp)}")
+        for e, x in zip(starts, exp):
+            got = {"in": f(e, "in"), "pid": f(e, "pid"), "len": f(e, "len"),
+                   "dev": f(e, "dev"), "ep": f(e, "ep")}
+            want = dict(x, dev=u["dev"], ep=0)
+            want.pop("phase")
+            bad = {k: (got[k], want[k]) for k in want if got[k] != want[k]}
+            if bad:
+                problems.append(f"{x['phase']} start: got/expected {bad}")
+        # Per channel run: start -> xfercomp(phase) -> release(reason).
+        labels = []
+        prev_hc = None
+        for i, e in enumerate(evs):
+            hc = f(e, "hc")
+            if e["ev"] == "hc_start":
+                ph = PHASES[len(labels)] if len(labels) < 3 else f"run{len(labels)}"
+                if len(exp) == 2 and len(labels) == 1:
+                    ph = "STATUS"
+                labels.append(ph)
+                if prev_hc is not None:
+                    same_channel_next["same" if hc == prev_hc else "different"] += 1
+                label = f"start[{ph},pid={PID_NAMES.get(f(e, 'pid'))},"
+                label += f"{'in' if f(e, 'in') else 'out'},len={f(e, 'len')}]"
+            elif e["ev"] == "xfercomp":
+                ph_val = f(e, "phase")
+                label = f"xfercomp[control_phase={PHASES[ph_val] if ph_val in (0, 1, 2) else ph_val}]"
+                hcint_at_comp[_hcint(e["fields"].get("hcint"))] += 1
+                if labels and ph_val is not None and PHASES[ph_val] != labels[-1]:
+                    problems.append(f"xfercomp control_phase {ph_val} during {labels[-1]} run")
+            elif e["ev"] == "hc_release":
+                label = f"release[reason={f(e, 'reason')}]"
+                prev_hc = hc
+            else:
+                label = f"halt[reason={f(e, 'reason')}]"
+            if i:
+                transitions[f"{prev_label} -> {label}"] += 1
+            prev_label = label
+        if not problems:
+            checks["ok"] += 1
+        else:
+            violations.append({"urb": u["urb"], "instance": u["instance"], "problems": problems})
+    return {"tool": "hostlab-report model", "session": session_dir,
+            "profile": rep["consistency"].get("profile"),
+            "urbs": len(urbs), "conforming": checks["ok"], "violations": violations[:20],
+            "violation_count": len(violations),
+            "transitions": dict(transitions.most_common()),
+            "hcint_at_xfercomp": dict(hcint_at_comp),
+            "next_phase_channel": dict(same_channel_next),
+            "unattributed_channel_events": rep["channel_events"]["unattributed"],
+            "ambiguous_channel_events": rep["channel_events"]["ambiguous"]}
+
+
+def format_model(r: Dict[str, Any]) -> str:
+    L = [f"Control-transfer model check: {r['conforming']}/{r['urbs']} URBs conform "
+         f"(profile {r['profile']}); {r['violation_count']} violations; "
+         f"unattributed {r['unattributed_channel_events']}, "
+         f"ambiguous {r['ambiguous_channel_events']}",
+         f"  HCINT at transfer-complete: {r['hcint_at_xfercomp']}",
+         f"  next phase on: {r['next_phase_channel']}", "  transitions:"]
+    L += [f"    {n:6d}  {t}" for t, n in r["transitions"].items()]
+    for v in r["violations"][:5]:
+        L.append(f"  violation {v['urb']}#{v['instance']}: {v['problems']}")
+    return "\n".join(L)
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(prog="hostlab-report")
     sub = ap.add_subparsers(dest="kind", required=True)
@@ -268,6 +383,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     c.add_argument("session_dir")
     c.add_argument("--json")
     c.add_argument("--bin-us", type=int, default=20)
+    mo = sub.add_parser("model")
+    mo.add_argument("session_dir")
+    mo.add_argument("--json")
     rs = sub.add_parser("reset")
     rs.add_argument("session_dir")
     rs.add_argument("--json")
@@ -275,6 +393,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     if args.kind == "cancel":
         rep, text = cancel_report(args.session_dir, args.bin_us), None
         text = format_cancel(rep)
+    elif args.kind == "model":
+        rep = model_report(args.session_dir)
+        text = format_model(rep)
     else:
         rep = reset_report(args.session_dir)
         text = format_reset(rep)

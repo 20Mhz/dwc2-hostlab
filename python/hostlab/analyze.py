@@ -109,7 +109,12 @@ class UrbTimeline:
         # channel (hcd_intr.c:1020-1027), and the release still happens in the
         # same hardirq, i.e. before the BH-side giveback. End the window there.
         start = self.k.get("urb_enqueue")
-        end = self.k.get("giveback_bh", self.k.get("giveback"))
+        end = self.k.get("giveback_bh")
+        if end is None and self.k.get("giveback") is not None:
+            # Without the BH probe, end at usbmon 'C' (recorded in the BH, so
+            # after the STATUS channel's release) rather than at the IRQ-side
+            # giveback, which precedes that release.
+            end = max(self.k["giveback"], self.mon_complete_ns or 0)
         if start is None or end is None:
             # Profiles without URB kprobes: usbmon 'S' is recorded before the
             # HCD enqueue and 'C' after the BH giveback, so the usbmon window
@@ -149,7 +154,9 @@ def _phase_labels(n_starts: int, wlength: Optional[int],
     return [f"run{i}" for i in range(n_starts)], "unknown"
 
 
-def analyze(session_dir: str) -> Dict[str, Any]:
+def analyze(session_dir: str, keep_events: bool = False) -> Dict[str, Any]:
+    """keep_events: also list each URB's attributed channel events with all
+    their fields (used by hostlab-report model)."""
     mon = _load_jsonl(os.path.join(session_dir, "usbmon.jsonl"))
     user = _load_jsonl(os.path.join(session_dir, "user.jsonl"))
     trace_path = os.path.join(session_dir, "ftrace.txt")
@@ -337,6 +344,10 @@ def analyze(session_dir: str) -> Dict[str, Any]:
         if "giveback" in t.k and "giveback_bh" in t.k:
             rec["giveback_bh_delay_ns"] = t.k["giveback_bh"] - t.k["giveback"]
             lat_bh.append(rec["giveback_bh_delay_ns"])
+        if keep_events:
+            rec["events"] = [{"ev": e.event, "t_ns": e.ts_ns, "fields": e.fields}
+                             for e in t.channel]
+            rec["k"] = dict(t.k)
         cancelled = "urb_dequeue" in t.k
         if t.xfer == "ctrl" and starts:
             labels, certainty = _phase_labels(len(starts), t.wlength(), truncated=cancelled)
