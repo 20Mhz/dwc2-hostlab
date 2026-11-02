@@ -1,0 +1,14 @@
+{
+  "command": [
+    "bin/hostlab-ctl",
+    "get-descriptor",
+    "1:2",
+    "--repeat",
+    "100"
+  ],
+  "command_duration_ns": 59747101,
+  "command_exit": 0,
+  "tool": "hostlab-session",
+  "version": "0.1.0-dev",
+  "warnings": []
+}

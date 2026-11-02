@@ -1,0 +1,412 @@
+{
+  "board": {
+    "cpu": "ARMv6-compatible processor rev 7 (v6l)",
+    "model": "Raspberry Pi Zero W Rev 1.1",
+    "revision": {
+      "board_revision": "1.1",
+      "code": "9000c1",
+      "decoded": true,
+      "manufacturer": "Sony UK",
+      "memory_mb": 512,
+      "processor": "BCM2835",
+      "type": "Zero W"
+    }
+  },
+  "boot_config": {
+    "dwc2_overlay_effective": true,
+    "dwc2_overlay_lines": [
+      {
+        "applies": false,
+        "line": 46,
+        "section": "[cm5]",
+        "text": "dtoverlay=dwc2,dr_mode=host"
+      },
+      {
+        "applies": true,
+        "line": 52,
+        "section": "all",
+        "text": "dtoverlay=dwc2,dr_mode=host"
+      }
+    ],
+    "hostlab_backups": [
+      "config.txt.hostlab-20261101-201732",
+      "config.txt.hostlab-20261101-203113",
+      "config.txt.hostlab-prerevert-20261101-202831"
+    ],
+    "hostlab_block": true,
+    "path": "/boot/firmware/config.txt"
+  },
+  "checks": [
+    {
+      "detail": "Raspberry Pi Zero W Rev 1.1 (revision 9000c1)",
+      "id": "board",
+      "needed_for_dwc2": false,
+      "status": "ok"
+    },
+    {
+      "detail": "dwc2=m usbmon=m kprobe_events=y, from /proc/config.gz",
+      "id": "kernel_config",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "dtoverlay=dwc2 applies to this board (hostlab block present)",
+      "id": "boot_overlay",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "20980000.usb bound to dwc2",
+      "id": "driver_binding",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "dma=buffer_dma channels=8 core=2.80a",
+      "id": "dwc2_debugfs",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "1:2 1a86:7523 USB Serial",
+      "id": "usb_device",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "/dev/usbmon0..",
+      "id": "usbmon",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "/sys/kernel/tracing, kprobe_events=True, mono clock=True",
+      "id": "tracefs",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "18 usable, 0 missing",
+      "id": "kprobe_targets",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "hostlab-ctl, hostlab-mon run",
+      "id": "hostlab_tools",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    },
+    {
+      "detail": "3.13.5",
+      "id": "python",
+      "needed_for_dwc2": true,
+      "status": "ok"
+    }
+  ],
+  "euid": 0,
+  "generated_utc": "2026-11-01T23:58:54Z",
+  "kernel_config_source": "/proc/config.gz",
+  "modules": {
+    "dwc2": {
+      "builtin": false,
+      "loaded": true,
+      "module_file": "/lib/modules/6.12.47+rpt-rpi-v6/kernel/drivers/usb/dwc2/dwc2.ko.xz"
+    },
+    "dwc_otg": {
+      "builtin": true,
+      "loaded": true,
+      "module_file": null
+    },
+    "usbmon": {
+      "builtin": false,
+      "loaded": true,
+      "module_file": "/lib/modules/6.12.47+rpt-rpi-v6/kernel/drivers/usb/mon/usbmon.ko.xz"
+    }
+  },
+  "os": {
+    "id": "raspbian",
+    "kernel_release": "6.12.47+rpt-rpi-v6",
+    "kernel_version": "Linux version 6.12.47+rpt-rpi-v6 (serge@raspberrypi.com) (arm-linux-gnueabihf-gcc-14 (Raspbian 14.2.0-19+rpi1) 14.2.0, GNU ld (GNU Binutils for Raspbian) 2.44) #1 Raspbian 1:6.12.47-1+rpt1 (2025-09-16)",
+    "machine": "armv6l",
+    "pretty_name": "Raspbian GNU/Linux 13 (trixie)",
+    "version_codename": "trixie"
+  },
+  "probe": {
+    "controller": {
+      "compatible": [
+        "brcm,bcm2835-usb"
+      ],
+      "device": "20980000.usb",
+      "dr_mode": "host",
+      "driver": "dwc2",
+      "hw_params": {
+        "arch": 2,
+        "dev_ep_dirs": 0,
+        "dev_nperio_tx_fifo_size": 0,
+        "dev_token_q_depth": 8,
+        "dma_desc_enable": 0,
+        "en_multiple_tx_fifo": 1,
+        "enable_dynamic_fifo": 1,
+        "fs_phy_type": 1,
+        "host_channels": 8,
+        "host_nperio_tx_fifo_size": 256,
+        "host_perio_tx_fifo_size": 512,
+        "host_perio_tx_q_depth": 4,
+        "hs_phy_type": 1,
+        "i2c_enable": 0,
+        "max_packet_count": 1023,
+        "max_transfer_size": 524287,
+        "nperio_tx_q_depth": 4,
+        "num_dev_ep": 7,
+        "num_dev_perio_in_ep": 0,
+        "op_mode": 0,
+        "power_optimized": 0,
+        "rx_fifo_size": 4096,
+        "snpsid": 1330915338,
+        "total_fifo_size": 4080,
+        "utmi_phy_data_width": 0
+      },
+      "params": {
+        "activate_stm_fs_transceiver": 0,
+        "activate_stm_id_vb_detection": 0,
+        "ahbcfg": 16,
+        "besl": 0,
+        "dma_desc_enable": 0,
+        "dma_desc_fs_enable": 0,
+        "en_multiple_tx_fifo": 1,
+        "enable_dynamic_fifo": 1,
+        "eusb2_disc": 0,
+        "external_id_pin_ctl": 0,
+        "g_dma": 0,
+        "g_dma_desc": 0,
+        "g_np_tx_fifo_size": 0,
+        "g_rx_fifo_size": 0,
+        "g_tx_fifo_size[0]": 0,
+        "g_tx_fifo_size[10]": 0,
+        "g_tx_fifo_size[11]": 0,
+        "g_tx_fifo_size[12]": 0,
+        "g_tx_fifo_size[13]": 0,
+        "g_tx_fifo_size[14]": 0,
+        "g_tx_fifo_size[15]": 0,
+        "g_tx_fifo_size[1]": 0,
+        "g_tx_fifo_size[2]": 0,
+        "g_tx_fifo_size[3]": 0,
+        "g_tx_fifo_size[4]": 0,
+        "g_tx_fifo_size[5]": 0,
+        "g_tx_fifo_size[6]": 0,
+        "g_tx_fifo_size[7]": 0,
+        "g_tx_fifo_size[8]": 0,
+        "g_tx_fifo_size[9]": 0,
+        "hird_threshold": 0,
+        "hird_threshold_en": 0,
+        "host_channels": 8,
+        "host_dma": 1,
+        "host_ls_low_power_phy_clk": 0,
+        "host_nperio_tx_fifo_size": 256,
+        "host_perio_tx_fifo_size": 512,
+        "host_rx_fifo_size": 774,
+        "host_support_fs_ls_low_power": 0,
+        "i2c_enable": 0,
+        "ipg_isoc_en": 0,
+        "lpm": 0,
+        "lpm_clock_gating": 0,
+        "max_packet_count": 511,
+        "max_transfer_size": 65535,
+        "no_clock_gating": 0,
+        "otg_caps.hnp_support": 1,
+        "otg_caps.otg_rev": 0,
+        "otg_caps.srp_support": 1,
+        "phy_type": 1,
+        "phy_ulpi_ddr": 0,
+        "phy_ulpi_ext_vbus": 0,
+        "phy_utmi_width": 8,
+        "power_down": 0,
+        "reload_ctl": 0,
+        "service_interval": 0,
+        "speed": 0,
+        "ts_dline": 0,
+        "uframe_sched": 1,
+        "ulpi_fs_ls": 0
+      },
+      "summary": {
+        "arch": "internal_dma",
+        "core_revision": "2.80a",
+        "host_channels": 8,
+        "host_dma_mode": "buffer_dma",
+        "hw_host_channels": 8,
+        "max_packet_count": 511,
+        "max_transfer_size": 65535,
+        "uframe_sched": 1
+      }
+    },
+    "euid": 0,
+    "facilities": {
+      "dynamic_debug": null,
+      "ftrace": {
+        "available_filter_functions": true,
+        "hostlab_probes_missing": [],
+        "hostlab_probes_usable": [
+          "submit",
+          "kill",
+          "unlink",
+          "giveback",
+          "giveback_bh",
+          "port_reset",
+          "urb_enqueue",
+          "urb_dequeue",
+          "hc_start",
+          "hc_halt",
+          "hc_release",
+          "hc_irq",
+          "xfercomp",
+          "host_complete",
+          "stall",
+          "nak",
+          "xacterr",
+          "babble"
+        ],
+        "kprobe_events": true,
+        "mono_clock": true,
+        "path": "/sys/kernel/tracing",
+        "trace_clocks": [
+          "local",
+          "global",
+          "counter",
+          "uptime",
+          "perf",
+          "mono",
+          "mono_raw",
+          "boot",
+          "tai"
+        ]
+      },
+      "kernel_config": {
+        "CONFIG_DEBUG_FS": "y",
+        "CONFIG_DYNAMIC_DEBUG": "n",
+        "CONFIG_FUNCTION_GRAPH_TRACER": "y",
+        "CONFIG_FUNCTION_TRACER": "y",
+        "CONFIG_HIST_TRIGGERS": "n",
+        "CONFIG_HZ": "100",
+        "CONFIG_KPROBES": "y",
+        "CONFIG_KPROBE_EVENTS": "y",
+        "CONFIG_USB_DWC2": "m",
+        "CONFIG_USB_DWC2_DEBUG": "n",
+        "CONFIG_USB_DWC2_DUAL_ROLE": "y",
+        "CONFIG_USB_DWC2_HOST": "n",
+        "CONFIG_USB_DWC2_VERBOSE": null,
+        "CONFIG_USB_DWCOTG": "y",
+        "CONFIG_USB_MON": "m",
+        "CONFIG_USB_TEST": "m",
+        "CONFIG_USB_ZERO": "m"
+      },
+      "kernel_config_source": "/proc/config.gz",
+      "usbmon": {
+        "devices": [
+          "usbmon0",
+          "usbmon1"
+        ],
+        "module_loaded": true
+      }
+    },
+    "kernel_release": "6.12.47+rpt-rpi-v6",
+    "model": "Raspberry Pi Zero W Rev 1.1",
+    "root": "/",
+    "schema": 1,
+    "tool": "hostlab-probe",
+    "unknown": {},
+    "unsupported": [
+      {
+        "capability": "control_phase_control",
+        "reason": "phases are sequenced inside dwc2 (hcd_intr.c dwc2_hc_xfercomp_intr); no existing interface exposes them"
+      },
+      {
+        "capability": "token_or_pid_control",
+        "reason": "the DWC2 core generates tokens, PIDs within a run, and CRC"
+      },
+      {
+        "capability": "per_packet_timing_observation",
+        "reason": "hardware-internal in buffer-DMA mode; needs a bus analyzer (FS/LS)"
+      },
+      {
+        "capability": "dwc2_dev_dbg",
+        "reason": "no dynamic debug control; dev_dbg compiled out unless CONFIG_USB_DWC2_DEBUG"
+      }
+    ],
+    "version": "0.1.0-dev"
+  },
+  "python": "3.13.5",
+  "ready": {
+    "blocking": [],
+    "dwc2_session": true
+  },
+  "schema": 1,
+  "tool": "hostlab-preflight",
+  "tools": {
+    "hostlab-ctl": {
+      "path": "bin/hostlab-ctl",
+      "runs": true
+    },
+    "hostlab-mon": {
+      "path": "bin/hostlab-mon",
+      "runs": true
+    }
+  },
+  "tracepoints": {
+    "events_dir": true,
+    "subsystems": 97,
+    "usb_related": [
+      "gadget"
+    ]
+  },
+  "usb_devices": [
+    {
+      "bDeviceClass": "ff",
+      "bNumConfigurations": 1,
+      "bcdDevice": "0264",
+      "busnum": 1,
+      "devnum": 2,
+      "devpath": "1",
+      "idProduct": "7523",
+      "idVendor": "1a86",
+      "interfaces": [
+        {
+          "class": "ff",
+          "driver": "ch341",
+          "name": "1-1:1.0"
+        }
+      ],
+      "maxchild": 0,
+      "name": "1-1",
+      "product": "USB Serial",
+      "root_hub": false,
+      "speed": "12",
+      "version": "1.10"
+    },
+    {
+      "bDeviceClass": "09",
+      "bNumConfigurations": 1,
+      "bcdDevice": "0612",
+      "busnum": 1,
+      "devnum": 1,
+      "devpath": "0",
+      "idProduct": "0002",
+      "idVendor": "1d6b",
+      "interfaces": [
+        {
+          "class": "09",
+          "driver": "hub",
+          "name": "1-0:1.0"
+        }
+      ],
+      "manufacturer": "Linux 6.12.47+rpt-rpi-v6 dwc2_hsotg",
+      "maxchild": 1,
+      "name": "usb1",
+      "product": "DWC OTG Controller",
+      "root_hub": true,
+      "speed": "480",
+      "version": "2.00"
+    }
+  ],
+  "version": "0.1.0-dev"
+}

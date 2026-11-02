@@ -1,0 +1,36 @@
+# dmesg lines matching USB/dwc2/kprobe/oops patterns; MACs and serial numbers masked
+[    0.155517] kprobes: kprobe jump-optimization is enabled. All kprobes are optimized if possible.
+[    0.166421] usbcore: registered new interface driver usbfs
+[    0.166542] usbcore: registered new interface driver hub
+[    0.166650] usbcore: registered new device driver usb
+[    4.242658] usbcore: registered new interface driver smsc95xx
+[    4.245006] dwc_otg: version 3.00a 10-AUG-2012 (platform bus)
+[    4.247440] dwc_otg: FIQ enabled
+[    4.247460] dwc_otg: NAK holdoff enabled
+[    4.247471] dwc_otg: FIQ split-transaction FSM enabled
+[    4.247977] usbcore: registered new interface driver usb-storage
+[    4.266062] usbcore: registered new interface driver usbhid
+[    4.268418] usbhid: USB HID core driver
+[    5.327491] mmc-bcm2835 20300000.mmcnr: mmc_debug:0 mmc_debug2:0
+[    9.013169] dwc2 20980000.usb: supply vusb_d not found, using dummy regulator
+[    9.061761] dwc2 20980000.usb: supply vusb_a not found, using dummy regulator
+[    9.170939] dwc2 20980000.usb: DWC OTG Controller
+[    9.212567] dwc2 20980000.usb: new USB bus registered, assigned bus number 1
+[    9.261406] dwc2 20980000.usb: irq 33, io mem 0x20980000
+[    9.309525] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 6.12
+[    9.322862] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    9.332727] usb usb1: Product: DWC OTG Controller
+[    9.339939] usb usb1: Manufacturer: Linux 6.12.47+rpt-rpi-v6 dwc2_hsotg
+[    9.349139] usb usb1: SerialNumber: <redacted>
+[    9.414312] hub 1-0:1.0: USB hub found
+[    9.420708] hub 1-0:1.0: 1 port detected
+[   55.712487] usbcore: registered new interface driver brcmfmac
+[ 1413.337611] usb 1-1: new full-speed USB device number 2 using dwc2
+[ 1413.548726] usb 1-1: New USB device found, idVendor=1a86, idProduct=7523, bcdDevice= 2.64
+[ 1413.548789] usb 1-1: New USB device strings: Mfr=0, Product=2, SerialNumber=0
+[ 1413.548819] usb 1-1: Product: USB Serial
+[ 1413.819053] usbcore: registered new interface driver usbserial_generic
+[ 1413.819181] usbserial: USB Serial support registered for generic
+[ 1413.836392] usbcore: registered new interface driver ch341
+[ 1413.836528] usbserial: USB Serial support registered for ch341-uart
+[ 1413.886089] usb 1-1: ch341-uart converter now attached to ttyUSB0

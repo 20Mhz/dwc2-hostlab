@@ -1,0 +1,3787 @@
+{
+  "channel_events": {
+    "ambiguous": 0,
+    "channel_numbers_seen": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "total": 1300,
+    "unattributed": 0
+  },
+  "clock": {
+    "drift_ns": 1,
+    "ftrace_marker_brackets": [
+      {
+        "after_minus_ftrace_ns": 63327,
+        "ftrace_minus_before_ns": 241648,
+        "in_bracket": true,
+        "tag": "hostlab_start"
+      },
+      {
+        "after_minus_ftrace_ns": 53511,
+        "ftrace_minus_before_ns": 269462,
+        "in_bracket": true,
+        "tag": "hostlab_stop"
+      }
+    ],
+    "ftrace_marker_offsets_ns": [
+      241648,
+      269462
+    ],
+    "snapshot_uncert_ns": 2000,
+    "usbmon_real_minus_mono_ns": 1793575887385696768
+  },
+  "consistency": {
+    "address_reuse_max": 100,
+    "channel_numbers_out_of_range": [],
+    "device_urbs_in_usbmon": 100,
+    "enqueue_without_usbmon": 0,
+    "host_channels": 8,
+    "trace_window_ns": [
+      1657911546000,
+      1657982819000
+    ],
+    "usbmon_unpaired_with_kprobes": 0,
+    "usbmon_without_enqueue": 0,
+    "with_dwc2_enqueue": 100
+  },
+  "inputs": {
+    "trace_events": 1702,
+    "usbmon_records": 204,
+    "user_records": 103
+  },
+  "latency": {
+    "enqueue_to_first_channel_start": {
+      "max": 36000,
+      "median": 16000,
+      "min": 15000,
+      "n": 100
+    },
+    "giveback_irq_to_bh": {
+      "max": 76000,
+      "median": 22000,
+      "min": 20000,
+      "n": 100
+    },
+    "usbmon_submit_to_complete": {
+      "max": 1249000,
+      "median": 257000,
+      "min": 245000,
+      "n": 100
+    }
+  },
+  "port_resets_ns": [],
+  "tool": "hostlab-analyze",
+  "urbs": [
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 36000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 27000,
+      "in": true,
+      "instance": 0,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657919526000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657919624000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657919712000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 1249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 27000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 25000,
+      "in": true,
+      "instance": 1,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657920664000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657920747000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657920838000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 547000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 22000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 25000,
+      "in": true,
+      "instance": 2,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657921496000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657921582000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657921671000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 420000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 3,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657922017000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657922089000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657922183000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 260000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 4,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657922775000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657922846000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657922947000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 287000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 5,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657923272000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657923342000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657923434000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 257000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 6,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657923735000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657923802000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657923930000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 286000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 7,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657924237000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657924303000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657924393000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 245000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 8,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657924699000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657924767000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657924859000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 277000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 9,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657925194000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657925262000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657925353000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 10,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657925655000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657925722000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657925814000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 11,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657926120000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657926192000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657926282000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 252000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 12,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657926580000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657926646000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657926738000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 245000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 13,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657927034000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657927099000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657927192000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 248000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 25000,
+      "in": true,
+      "instance": 14,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657928747000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657928825000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657928947000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 315000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 15,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657929267000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657929342000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657929435000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 260000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 16,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657929743000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657929817000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657929925000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 272000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 17,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657930426000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657930514000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657930607000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 283000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 18,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657930930000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657930998000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657931090000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 253000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 19,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657931402000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657931467000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657931559000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 251000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 20,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657931868000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657931936000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657932026000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 21,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657933261000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657933336000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657933428000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 280000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 22,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657933748000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657933822000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657933949000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 299000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 23,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657934267000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657934343000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657934434000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 258000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 24,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657934743000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657934811000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657934926000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 271000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 25,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657935224000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657935292000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657935385000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 252000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 26,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657935691000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657935758000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657935850000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 27,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657936148000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657936214000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657936307000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 28,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657936607000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657936673000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657936765000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 248000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 21000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 29,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657938084000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657938160000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657938253000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 283000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 30,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657938565000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657938641000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657938733000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 260000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 31,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657939045000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657939117000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657939211000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 257000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 20000,
+      "in": true,
+      "instance": 32,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657939519000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657939586000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657939677000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 247000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 33,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657939976000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657940041000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657940132000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 246000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 34,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657940506000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657940585000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657940675000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 266000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 35,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657941049000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657941122000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657941214000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 261000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 36,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657942474000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657942549000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657942643000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 288000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 37,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657942963000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657943037000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657943129000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 256000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 38,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657943439000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657943513000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657943602000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 257000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 39,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657943918000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657943985000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657944076000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 40,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657944385000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657944453000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657944543000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 41,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657944842000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657944906000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657944998000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 247000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 42,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657946067000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657946140000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657946232000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 274000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 43,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657946544000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657946618000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657946710000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 257000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 44,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657947015000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657947083000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657947176000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 45,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657947477000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657947544000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657947635000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 46,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657947943000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657948008000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657948099000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 246000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 47,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657948396000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657948463000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657948555000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 48,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657948863000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657948933000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657949024000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 251000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 49,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657949323000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657949391000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657949483000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 76000,
+      "in": true,
+      "instance": 50,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657949782000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657949848000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657949973000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 337000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 51,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657950411000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657950488000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657950581000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 269000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 21000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 52,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657952218000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657952297000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657952389000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 291000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 53,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657952710000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657952786000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657952875000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 264000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 54,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657953191000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657953263000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657953358000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 258000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 55,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657953667000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657953738000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657953829000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 254000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 56,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657954136000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657954202000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657954292000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 247000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 20000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 57,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657954599000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657954666000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657954759000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 255000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 58,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657955064000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657955129000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657955221000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 245000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 59,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657955520000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657955586000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657955679000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 20000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 60,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657957037000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657957114000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657957205000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 283000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 61,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657957522000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657957597000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657957688000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 257000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 62,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657957996000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657958069000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657958161000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 256000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 63,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657958469000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657958541000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657958631000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 254000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 64,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657958939000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657959006000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657959097000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 247000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 20000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 25000,
+      "in": true,
+      "instance": 65,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657960170000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657960245000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657960338000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 287000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 66,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657960729000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657960811000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657960925000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 293000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 67,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657961275000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657961345000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657961438000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 259000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 68,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657962185000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657962260000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657962355000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 282000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 69,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657962672000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657962741000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657962832000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 18000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 70,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657963190000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657963261000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657963355000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 261000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 71,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657964084000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657964156000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657964247000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 279000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 72,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657964573000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657964643000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657964734000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 252000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 73,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657965034000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657965101000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657965194000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 251000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 74,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657965499000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657965566000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657965656000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 248000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 75,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657965958000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657966024000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657966116000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 76,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657966418000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657966485000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657966578000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 20000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 77,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657967698000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657967774000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657967866000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 298000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 78,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657968198000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657968273000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657968366000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 261000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 79,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657968676000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657968749000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657968841000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 257000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 80,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657969158000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657969227000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657969317000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 253000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 20000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 25000,
+      "in": true,
+      "instance": 81,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657970291000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657970370000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657970462000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 293000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 82,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657970787000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657970856000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657970973000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 278000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 83,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657971279000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657971347000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657971438000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 251000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 84,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657971742000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657971807000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657971924000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 273000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 85,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657972234000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657972301000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657972391000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 247000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 86,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657972689000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657972754000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657972845000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 245000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 87,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657973959000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657974036000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657974128000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 283000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 88,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657974498000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657974578000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657974669000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 267000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 89,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657974986000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657975054000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657975147000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 251000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 90,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657975451000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657975518000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657975609000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 247000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 91,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657975907000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657975973000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657976069000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 250000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        4,
+        5,
+        6
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 92,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 4,
+          "label": "SETUP",
+          "t_ns": 1657976372000
+        },
+        {
+          "hc": 5,
+          "label": "DATA",
+          "t_ns": 1657976439000
+        },
+        {
+          "hc": 6,
+          "label": "STATUS",
+          "t_ns": 1657976531000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 249000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 93,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 7,
+          "label": "SETUP",
+          "t_ns": 1657976835000
+        },
+        {
+          "hc": 0,
+          "label": "DATA",
+          "t_ns": 1657976903000
+        },
+        {
+          "hc": 1,
+          "label": "STATUS",
+          "t_ns": 1657976994000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 248000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        2,
+        3,
+        4
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 16000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 21000,
+      "in": true,
+      "instance": 94,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 2,
+          "label": "SETUP",
+          "t_ns": 1657977293000
+        },
+        {
+          "hc": 3,
+          "label": "DATA",
+          "t_ns": 1657977359000
+        },
+        {
+          "hc": 4,
+          "label": "STATUS",
+          "t_ns": 1657977452000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 248000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        5,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 24000,
+      "in": true,
+      "instance": 95,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 5,
+          "label": "SETUP",
+          "t_ns": 1657977749000
+        },
+        {
+          "hc": 6,
+          "label": "DATA",
+          "t_ns": 1657977815000
+        },
+        {
+          "hc": 7,
+          "label": "STATUS",
+          "t_ns": 1657977923000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 265000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        1,
+        2
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 96,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 0,
+          "label": "SETUP",
+          "t_ns": 1657979381000
+        },
+        {
+          "hc": 1,
+          "label": "DATA",
+          "t_ns": 1657979457000
+        },
+        {
+          "hc": 2,
+          "label": "STATUS",
+          "t_ns": 1657979550000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 284000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        3,
+        4,
+        5
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 17000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 22000,
+      "in": true,
+      "instance": 97,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 3,
+          "label": "SETUP",
+          "t_ns": 1657979869000
+        },
+        {
+          "hc": 4,
+          "label": "DATA",
+          "t_ns": 1657979943000
+        },
+        {
+          "hc": 5,
+          "label": "STATUS",
+          "t_ns": 1657980080000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 303000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        0,
+        6,
+        7
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 19000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 98,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 6,
+          "label": "SETUP",
+          "t_ns": 1657980466000
+        },
+        {
+          "hc": 7,
+          "label": "DATA",
+          "t_ns": 1657980547000
+        },
+        {
+          "hc": 0,
+          "label": "STATUS",
+          "t_ns": 1657980640000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 272000,
+      "xfer": "ctrl"
+    },
+    {
+      "channel_runs": 3,
+      "channels_used": [
+        1,
+        2,
+        3
+      ],
+      "dev": 2,
+      "enqueue_to_first_start_ns": 15000,
+      "ep": 0,
+      "giveback_bh_delay_ns": 23000,
+      "in": true,
+      "instance": 99,
+      "phase_label_certainty": "exact",
+      "phases": [
+        {
+          "hc": 1,
+          "label": "SETUP",
+          "t_ns": 1657980958000
+        },
+        {
+          "hc": 2,
+          "label": "DATA",
+          "t_ns": 1657981031000
+        },
+        {
+          "hc": 3,
+          "label": "STATUS",
+          "t_ns": 1657981123000
+        }
+      ],
+      "setup": "8006000100001200",
+      "status": 0,
+      "urb": "0xc409d300",
+      "usbmon_latency_ns": 259000,
+      "xfer": "ctrl"
+    }
+  ],
+  "user_backend": "linux-usbfs",
+  "user_xfers": 100,
+  "version": "0.1.0-dev",
+  "warnings": []
+}

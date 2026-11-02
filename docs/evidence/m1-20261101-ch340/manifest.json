@@ -1,0 +1,188 @@
+{
+  "board": "Raspberry Pi Zero W Rev 1.1",
+  "bundle_schema": 1,
+  "created_utc": "2026-11-01T23:59:16Z",
+  "files": [
+    {
+      "bytes": 77436,
+      "path": "analysis.json",
+      "sha256": "4e3f0fb808e5b3bb598c09bdac65a12f02878dea91e3ae8bdac97400c19b6a51"
+    },
+    {
+      "bytes": 213736,
+      "path": "dwc2-events.jsonl",
+      "sha256": "844b517f93d614a70050f9f3bb9075d92141054118d8008e6dd9327b842ee925"
+    },
+    {
+      "bytes": 4758,
+      "path": "hardware.json",
+      "sha256": "943267137037032215b039b0d9048c13d612eda3bb27f6c6f228404aa2899e24"
+    },
+    {
+      "bytes": 5764,
+      "path": "hypothesis-results.json",
+      "sha256": "7a866a270869cb76bc9fa39f1dde425e5daee5a431cb68f7635f452294392ed2"
+    },
+    {
+      "bytes": 211975,
+      "path": "kernel-config.txt",
+      "sha256": "7c012b05e92ea0b76748496aafdd1e8625444544ceb6460fa77864b4aa33970b"
+    },
+    {
+      "bytes": 2366,
+      "path": "kernel-log.txt",
+      "sha256": "923272e2af357e574cc37cab32208b19c36c9304ee42cccffa65cefebe12735c"
+    },
+    {
+      "bytes": 10750,
+      "path": "preflight.json",
+      "sha256": "cb7f46e97e8dd4cbe0d41fee0a195d68af55df71596aa4b46da673bf04652c89"
+    },
+    {
+      "bytes": 5325,
+      "path": "probe-capabilities.json",
+      "sha256": "81dd9743d9776c720741784466c334310d2235952b342e88a3af9db2f77c69f4"
+    },
+    {
+      "bytes": 28393,
+      "path": "sessions/device-noprobe/analysis.json",
+      "sha256": "acd85f05974a76447ac333eb6d50369a5811ada8eec71d0f45f84bd2317210b0"
+    },
+    {
+      "bytes": 0,
+      "path": "sessions/device-noprobe/dwc2-events.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5325,
+      "path": "sessions/device-noprobe/probe.json",
+      "sha256": "81dd9743d9776c720741784466c334310d2235952b342e88a3af9db2f77c69f4"
+    },
+    {
+      "bytes": 234,
+      "path": "sessions/device-noprobe/session.json",
+      "sha256": "571af79eea6d929f80db7e2d04bc2de851e997018f9bff87740665fddbcb32d0"
+    },
+    {
+      "bytes": 51010,
+      "path": "sessions/device-noprobe/usbmon.jsonl",
+      "sha256": "e1d85fa00100680a280ea2b4c0dbceb26bc507bf1eb2f866d564e68c1cbf58b1"
+    },
+    {
+      "bytes": 25941,
+      "path": "sessions/device-noprobe/user.jsonl",
+      "sha256": "c08dc8445156d9c34be81f4c5e381aab8676a5252d49c7b87842fa3457d11aad"
+    },
+    {
+      "bytes": 77436,
+      "path": "sessions/device/analysis.json",
+      "sha256": "4e3f0fb808e5b3bb598c09bdac65a12f02878dea91e3ae8bdac97400c19b6a51"
+    },
+    {
+      "bytes": 213736,
+      "path": "sessions/device/dwc2-events.jsonl",
+      "sha256": "844b517f93d614a70050f9f3bb9075d92141054118d8008e6dd9327b842ee925"
+    },
+    {
+      "bytes": 5325,
+      "path": "sessions/device/probe.json",
+      "sha256": "81dd9743d9776c720741784466c334310d2235952b342e88a3af9db2f77c69f4"
+    },
+    {
+      "bytes": 1389,
+      "path": "sessions/device/session.json",
+      "sha256": "54f1c48dec117d83b10671b61e49d3e64da26b96267c8703ad5caaf7114b71bd"
+    },
+    {
+      "bytes": 51010,
+      "path": "sessions/device/usbmon.jsonl",
+      "sha256": "95570e38e4c81e6bac37e260d5447f077af21c787fdfab0db3b6652f8ece6554"
+    },
+    {
+      "bytes": 25941,
+      "path": "sessions/device/user.jsonl",
+      "sha256": "958a438d93583313732a910d699d45ef5b537e13d6a1c896515d9ca54e48dad6"
+    },
+    {
+      "bytes": 8531,
+      "path": "states/dwc_otg.json",
+      "sha256": "1a974635c2e1e280ffb98e9825a4d9337aeefa8a4a499a65535ba40d469383bf"
+    },
+    {
+      "bytes": 10287,
+      "path": "states/reapplied.json",
+      "sha256": "cfc8ed4446af91b96da5bb59443b02489f48cbb8d27214590cb4e35a7f8196f8"
+    },
+    {
+      "bytes": 8633,
+      "path": "states/reverted.json",
+      "sha256": "c673e2b921b580da955233df3e161e022b53d93d3bb1eadeccbfcd2bd63f7550"
+    },
+    {
+      "bytes": 2575,
+      "path": "test-summary.md",
+      "sha256": "fcaa5a8cdbb481cf189d7a4f1900d0b0af939ce675b4f1d9ba4a01026b039a9c"
+    },
+    {
+      "bytes": 333,
+      "path": "usb-topology.txt",
+      "sha256": "ff1f41d03db3f1d72b6c1ca400eedda119fe04f714fd1e321cf87b778fc09fad"
+    },
+    {
+      "bytes": 51010,
+      "path": "usbmon.jsonl",
+      "sha256": "95570e38e4c81e6bac37e260d5447f077af21c787fdfab0db3b6652f8ece6554"
+    }
+  ],
+  "hostlab_revision": "99b377908453a7673a2908b0d7ba127a24b0cfdb",
+  "kernel_release": "6.12.47+rpt-rpi-v6",
+  "kernel_version": "Linux version 6.12.47+rpt-rpi-v6 (serge@raspberrypi.com) (arm-linux-gnueabihf-gcc-14 (Raspbian 14.2.0-19+rpi1) 14.2.0, GNU ld (GNU Binutils for Raspbian) 2.44) #1 Raspbian 1:6.12.47-1+rpt1 (2025-09-16)",
+  "m1_complete": true,
+  "os": "Raspbian GNU/Linux 13 (trixie)",
+  "preflight_utc": "2026-11-01T23:58:54Z",
+  "primary_session": "device",
+  "redactions": {
+    "not_collected": [
+      "serial numbers",
+      "hostname",
+      "IP/MAC addresses"
+    ],
+    "string_descriptor_payloads": {
+      "device": 0,
+      "device-noprobe": 0
+    }
+  },
+  "sessions": {
+    "device": {
+      "command": [
+        "bin/hostlab-ctl",
+        "get-descriptor",
+        "1:2",
+        "--repeat",
+        "100"
+      ],
+      "command_exit": 0,
+      "warnings": []
+    },
+    "device-noprobe": {
+      "command": [
+        "bin/hostlab-ctl",
+        "get-descriptor",
+        "1:2",
+        "--repeat",
+        "100"
+      ],
+      "command_exit": 0,
+      "warnings": []
+    }
+  },
+  "states": [
+    "dwc_otg",
+    "reapplied",
+    "reverted"
+  ],
+  "tool": "hostlab-evidence",
+  "trace_schema": 1,
+  "unavailable": [],
+  "version": "0.1.0-dev"
+}

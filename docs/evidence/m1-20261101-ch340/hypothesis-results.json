@@ -1,0 +1,177 @@
+{
+  "hypotheses": [
+    {
+      "criterion": "probe summary.host_dma_mode == buffer_dma",
+      "detail": "host_dma=1 dma_desc_enable=0 -> buffer_dma",
+      "evidence": [
+        "probe-capabilities.json",
+        "preflight.json"
+      ],
+      "hypothesis": "BCM2835 host runs in buffer-DMA mode",
+      "id": "H1",
+      "status": "PASS"
+    },
+    {
+      "criterion": "params.host_channels == hw_params.host_channels == 8",
+      "detail": "params.host_channels=8 hw_params.host_channels=8",
+      "evidence": [
+        "probe-capabilities.json"
+      ],
+      "hypothesis": "8 host channels",
+      "id": "H2",
+      "status": "PASS"
+    },
+    {
+      "criterion": "E3 actual vs E8 wire data",
+      "detail": "needs E3 cancel sweep against a device plus wire capture (E8, logic analyzer); not part of M1",
+      "evidence": [],
+      "hypothesis": "A cancelled control URB reports actual_length 0 even if DATA moved",
+      "id": "H3",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "E3 with MMAP buffers + canary",
+      "detail": "needs the MMAP-buffer transfer variant with a canary (M4 API item); not implemented",
+      "evidence": [],
+      "hypothesis": "An IN channel can DMA into the URB buffer after giveback on dequeue",
+      "id": "H4",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "E6 + usbmon",
+      "detail": "port reset (E6) is an M3 experiment; no reset was issued in M1",
+      "evidence": [],
+      "hypothesis": "Enumeration sequence after reset depends on usbcore parameters",
+      "id": "H5",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "E6 variant",
+      "detail": "E6 variant; M3",
+      "evidence": [],
+      "hypothesis": "Behaviour of URBs pending across USBDEVFS_RESET",
+      "id": "H6",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "all kprobes register; every device URB in usbmon has a dwc2 enqueue with the same address and vice versa; hc < host_channels; successful control URBs show one channel run per phase",
+      "detail": "100/100 device URBs joined; channels seen [0, 1, 2, 3, 4, 5, 6, 7] (limit 8); 100/100 successful device control URBs with exactly one channel run per phase",
+      "evidence": [
+        "analysis.json",
+        "dwc2-events.jsonl",
+        "usbmon.jsonl",
+        "sessions/device/session.json"
+      ],
+      "hypothesis": "The register-fetch kprobe profile is valid on the shipped kernel",
+      "id": "H7",
+      "status": "PASS"
+    },
+    {
+      "criterion": "median usbmon latency with probes <= 1.20 x without",
+      "detail": "median usbmon submit->complete of device control URBs: 257000 ns with probes (n=100), 168500 ns without (n=100), ratio 1.525",
+      "evidence": [
+        "sessions/device/analysis.json",
+        "sessions/device-noprobe/analysis.json"
+      ],
+      "hypothesis": "kprobe overhead is small relative to transfer latency",
+      "id": "H8",
+      "status": "FAIL"
+    },
+    {
+      "criterion": "hostlab_probes_missing == []",
+      "detail": "18 profile symbols traceable, 0 missing",
+      "evidence": [
+        "probe-capabilities.json",
+        "preflight.json"
+      ],
+      "hypothesis": "The shipped kernel's traceable dwc2 functions match our build",
+      "id": "H9",
+      "status": "PASS"
+    },
+    {
+      "criterion": "each marker's ftrace time lies inside the CLOCK_MONOTONIC interval read around its write",
+      "detail": "hostlab_start: +241648 ns after the pre-write read, 63327 ns before the post-write read; hostlab_stop: +269462 ns after the pre-write read, 53511 ns before the post-write read",
+      "evidence": [
+        "analysis.json",
+        "sessions/device/session.json"
+      ],
+      "hypothesis": "trace_clock=mono equals CLOCK_MONOTONIC",
+      "id": "H10",
+      "status": "PASS"
+    }
+  ],
+  "m1_checks": [
+    {
+      "check": "Physical Pi Zero W identified",
+      "detail": "Raspberry Pi Zero W Rev 1.1 (revision 9000c1)",
+      "evidence": [
+        "preflight.json"
+      ],
+      "id": "board",
+      "status": "PASS"
+    },
+    {
+      "check": "dwc2 bound on the running kernel",
+      "detail": "20980000.usb bound to dwc2",
+      "evidence": [
+        "preflight.json"
+      ],
+      "id": "driver_binding",
+      "status": "PASS"
+    },
+    {
+      "check": "A USB peripheral enumerates",
+      "detail": "1:2 1a86:7523 USB Serial",
+      "evidence": [
+        "preflight.json"
+      ],
+      "id": "usb_device",
+      "status": "PASS"
+    },
+    {
+      "check": "usbmon and kprobe traces captured",
+      "detail": "204 usbmon records, 1702 trace events, 1300 channel events",
+      "evidence": [
+        "usbmon.jsonl",
+        "dwc2-events.jsonl"
+      ],
+      "id": "traces",
+      "status": "PASS"
+    },
+    {
+      "check": "Analysis processes hardware traces",
+      "detail": "100 URB instances, 100 with channel phases",
+      "evidence": [
+        "analysis.json"
+      ],
+      "id": "analysis",
+      "status": "PASS"
+    },
+    {
+      "check": "System remains stable",
+      "detail": "0 problem lines in the filtered kernel log",
+      "evidence": [
+        "kernel-log.txt"
+      ],
+      "id": "stability",
+      "status": "PASS"
+    },
+    {
+      "check": "Recovery procedure validated",
+      "detail": "after --revert + reboot: driver dwc_otg, hostlab block absent; after --apply + reboot: driver dwc2",
+      "evidence": [
+        "states/reverted.json",
+        "states/reapplied.json"
+      ],
+      "id": "recovery",
+      "status": "PASS"
+    }
+  ],
+  "schema": 1,
+  "status_meaning": {
+    "BLOCKED": "not executed: required access, hardware or milestone missing",
+    "FAIL": "contradicted by recorded evidence",
+    "INCONCLUSIVE": "executed, evidence insufficient",
+    "PASS": "supported by recorded evidence"
+  }
+}

@@ -1,0 +1,3 @@
+# USB devices from sysfs at preflight time (serial numbers not collected)
+bus   1 dev   2  [1-1]  1a86:7523  usb 1.10  speed 12 Mb/s  class ff  "" "USB Serial"  interfaces: ff/ch341
+bus   1 dev   1  [usb1]  1d6b:0002  usb 2.00  speed 480 Mb/s  class 09  "Linux 6.12.47+rpt-rpi-v6 dwc2_hsotg" "DWC OTG Controller"  interfaces: 09/hub
