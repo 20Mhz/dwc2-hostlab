@@ -25,7 +25,7 @@ bin/hostlab-preflight --json "$runs/preflight.json" | tee "$runs/preflight.txt"
 
 # A failing command is evidence too (session.json keeps its exit code), so
 # carry on to the bundle instead of stopping here.
-bin/hostlab-session run --out "$runs/device" -- \
+bin/hostlab-session run --profile full --out "$runs/device" -- \
     bin/hostlab-ctl get-descriptor "$dev" --repeat $reps || echo "device session exit $?"
 bin/hostlab-session run --no-ftrace --out "$runs/device-noprobe" -- \
     bin/hostlab-ctl get-descriptor "$dev" --repeat $reps || echo "noprobe session exit $?"

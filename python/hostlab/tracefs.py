@@ -118,6 +118,12 @@ PROFILES: Dict[str, Dict[str, Any]] = {
     "idle": {"kprobes": RARE, "functions": [], "hits": 0,
              "about": "diagnostic: tracing on and rare-path probes registered, no hits on "
                       "a normal transfer; isolates the fixed cost of tracing"},
+    "fast": {"kprobes": RARE, "functions": ["dwc2_hc_start_transfer", "dwc2_release_channel"],
+             "hits": 6,
+             "about": "default: function-tracer channel start and release (phases, channel "
+                      "lifecycle timing); URB windows from usbmon; no URB address join and no "
+                      "channel numbers. Needs one transfer in flight per window "
+                      "(ambiguous events are counted)"},
     "fphase": {"kprobes": RARE, "functions": ["dwc2_hc_start_transfer"], "hits": 3,
                "about": "function-tracer channel starts; URB windows from usbmon; "
                         "no channel numbers"},

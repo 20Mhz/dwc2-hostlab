@@ -35,7 +35,9 @@ from .tracefs import (ARM32_PROFILE, PROFILES, TraceFS, find_tracefs, read_filte
                       state_probes, usable_probes)
 
 DEFAULT_BUFFER_KB = 4096
-DEFAULT_PROFILE = "full"
+# Measured on the Pi Zero W (docs/m3-instrumentation.md): +12.8 % median
+# latency for "fast" against +52 % for "full".
+DEFAULT_PROFILE = "fast"
 
 
 def _mono_ns() -> int:

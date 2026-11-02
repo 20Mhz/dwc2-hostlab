@@ -17,7 +17,7 @@ class FtraceSessionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as root:
             path = make_tracefs(root, functions=["usb_hcd_submit_urb", "dwc2_hc_halt"])
             tfs = FakeTraceFS(path)
-            fs = session.FtraceSession(tfs, buffer_kb=2048)
+            fs = session.FtraceSession(tfs, buffer_kb=2048, profile="full")
             fs.setup()
             self.assertEqual(sorted(fs.registered), ["hl_hc_halt", "hl_submit"])
             self.assertIn("dwc2_hc_start_transfer", fs.missing)
@@ -54,7 +54,7 @@ class FtraceSessionTests(unittest.TestCase):
             path = make_tracefs(root, functions=["usb_hcd_submit_urb"])
             tfs = FakeTraceFS(path)
             tfs.add_kprobe(ARM32_PROFILE[0])  # left over from a crashed run
-            session.FtraceSession(tfs).setup()
+            session.FtraceSession(tfs, profile="full").setup()
             self.assertEqual(tfs.read("kprobe_events").count("hostlab/hl_submit"), 1)
 
 
