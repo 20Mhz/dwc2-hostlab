@@ -98,6 +98,8 @@ class RunTests(unittest.TestCase):
             with open(kp) as f:
                 self.assertEqual(f.read().strip(), "")
             self.assertEqual([m["tag"] for m in info["markers"]], ["hostlab_start", "hostlab_stop"])
+            self.assertEqual(info["kprobe_profile"], {"hl_giveback": {"hits": 120, "misses": 2}})
+            self.assertTrue(any("missed" in w for w in info["warnings"]))
             for m in info["markers"]:
                 self.assertLessEqual(m["mono_before_ns"], m["mono_after_ns"])
 

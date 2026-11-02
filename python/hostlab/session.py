@@ -235,6 +235,12 @@ def run(args: argparse.Namespace) -> int:
                 warnings.append("hostlab-mon did not stop on SIGINT; killed")
         if ftrace is not None:
             info["markers"] = ftrace.markers
+            prof = ftrace.tfs.kprobe_profile() if ftrace.registered else None
+            if prof is not None:
+                info["kprobe_profile"] = prof
+                missed = {k: v["misses"] for k, v in prof.items() if v["misses"]}
+                if missed:
+                    warnings.append(f"kprobe hits missed by the kernel: {missed}")
             info["teardown"] = ftrace.teardown()
         with open(os.path.join(args.out, "session.json"), "w") as f:
             json.dump(info, f, indent=2, sort_keys=True)

@@ -264,6 +264,21 @@ class TraceFS:
         # O_TRUNC replaces the filter; an empty write restores "all functions".
         self._write("set_ftrace_filter", "\n".join(functions))
 
+    def kprobe_profile(self) -> Optional[Dict[str, Dict[str, int]]]:
+        """Hits and misses of hostlab's kprobes (tracefs kprobe_profile:
+        "<event> <hits> <misses>"). A miss is a hit the kernel dropped
+        because another kprobe handler was running."""
+        try:
+            text = self.read("kprobe_profile")
+        except OSError:
+            return None
+        out = {}
+        for line in text.splitlines():
+            parts = line.split()
+            if len(parts) == 3 and parts[0].startswith(f"{GROUP}/"):
+                out[parts[0].split("/", 1)[1]] = {"hits": int(parts[1]), "misses": int(parts[2])}
+        return out
+
     def add_kprobe(self, probe: Probe) -> None:
         self._write("kprobe_events", probe.definition(), append=True)
 
