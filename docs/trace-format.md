@@ -13,7 +13,7 @@ written at the start and end.
 | `user.jsonl` | the command (normally hostlab-ctl) | userspace events |
 | `user.stderr` | the command | diagnostics |
 | `ftrace.txt` | hostlab-session | raw tracefs `trace` text |
-| `session.json` | hostlab-session | kprobes registered / missing / failed, teardown result, warnings, exit code, `markers` (CLOCK_MONOTONIC read before and after each marker write) |
+| `session.json` | hostlab-session | `hostlab_revision`, `profile`, kprobes registered / missing / failed, `functions` (function tracer), `kprobe_profile` (hits and misses per probe), teardown result, warnings, exit code, `markers` (CLOCK_MONOTONIC read before and after each marker write), `offsets` (profile `state`) |
 | `analysis.json` | hostlab-analyze `--json` | joined report |
 
 ## Time bases
@@ -60,6 +60,16 @@ written at the start and end.
 
 `status` values: `ok invalid no_device access busy timeout stall protocol
 overflow short cancelled not_pending io nomem unsupported again other`.
+
+## Instrumentation profiles
+
+`hostlab-session run --profile NAME` (default `fast`); definitions in
+`tracefs.PROFILES`, measured costs in [m3-results.md](m3-results.md#1-instrumentation-overhead-priority-1).
+Function-tracer lines (`func <-parent`) are parsed as `fn:<func>` and mapped
+to the kprobe event names without arguments (`dwc2_hc_start_transfer` →
+`hc_start`, `dwc2_release_channel` → `hc_release`). Profile `state` adds
+fields read from dwc2 structures: `hc_start` gets `dev ep in pid len`,
+`xfercomp` gets `phase` (`qtd->control_phase`) and `hcint`.
 
 ## ftrace events
 

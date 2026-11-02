@@ -10,8 +10,12 @@ built and unit-tested, and hardware bring-up (M1) is complete on a Pi Zero W
 device traced down to channel level, every phase on its own host channel
 ([bring-up log](docs/m1-bringup.md),
 [evidence](docs/evidence/m1-20261101-ch340/test-summary.md),
-[plan](docs/plan.md)). The full kprobe profile costs about 5 µs per probe hit
-on the ARM1176, so timings taken with it are inflated.
+[plan](docs/plan.md)). M3 measured instrumentation cost (default profile
+`fast`: +12.8 % median latency with every phase reconstructed), cancellation
+and reset behaviour, and verified the control-transfer state machine from
+dwc2's own fields ([M3 results](docs/m3-results.md)). A phase-hold driver
+extension is proposed, not implemented
+([feasibility](docs/phase-control-feasibility.md)).
 
 ## What it does
 

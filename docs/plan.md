@@ -73,7 +73,10 @@ the overlay script's `[cm5]` false positive, usbmon events lost at stop.
 Details in
 [m1-bringup.md](m1-bringup.md#defects-found-on-hardware).
 
-### M3 — Controller experiments
+### M3 — Controller experiments — **E1, E2, E3, E6 done; results in [m3-results.md](m3-results.md)**
+
+Phase-control proposal (C2): [phase-control-feasibility.md](phase-control-feasibility.md),
+awaiting owner approval.
 
 Benign test devices, in order of preference:
 1. **Second Pi Zero (W) in gadget mode** running `g_zero` (`CONFIG_USB_ZERO=m`
@@ -144,28 +147,25 @@ patch if it is still needed and not yet upstream.
 
 ## Hypotheses to verify on hardware
 
-Status from [evidence/m1-20261101-ch340](evidence/m1-20261101-ch340/hypothesis-results.json)
-(PASS: supported by recorded evidence; FAIL: contradicted; BLOCKED: not
-executed; INCONCLUSIVE: executed, evidence insufficient).
+Current status and evidence: [m3-results.md](m3-results.md#hypotheses).
+H1, H2, H3 (kernel-level), H5, H7, H9, H10, H11, H12 PASS; H8 FAIL (full
+kprobe profile; the default `fast` profile meets H11 instead); H6
+INCONCLUSIVE; H4 BLOCKED.
 
-| ID | Hypothesis | How | Status (2026-11-01) |
-|---|---|---|---|
-| H1 | BCM2835 host runs in buffer-DMA mode (`host_dma=1`, `dma_desc_enable=0`) | `probe.json` | **PASS**: `host_dma=1`, `dma_desc_enable=0`, core 2.80a, internal DMA |
-| H2 | 8 host channels | `probe.json` (`hw_params.host_channels`) | **PASS**: params and hw_params both 8 |
-| H3 | A cancelled control URB reports `actual_length` 0 even if DATA moved | E3, `actual` vs E8 wire data | BLOCKED (M3, needs a device and a logic analyzer) |
-| H4 | An IN channel can DMA into the URB buffer after giveback on dequeue | E3 with MMAP buffers + canary | BLOCKED (MMAP variant not implemented) |
-| H5 | Enumeration sequence after reset depends on usbcore parameters | E6, usbmon | BLOCKED (M3) |
-| H6 | Behaviour of URBs pending across `USBDEVFS_RESET` | E6 variant | BLOCKED (M3) |
-| H7 | The register-fetch kprobe profile is valid on the shipped kernel (AAPCS args preserved for static functions; `hc` < host_channels; enqueue `urb` = usbmon id) | analyser `consistency` block | **PASS**: 100/100 device URBs joined to a dwc2 enqueue, channels 0–7 only, 100/100 control URBs with exactly one channel run per phase |
-| H8 | kprobe overhead is small relative to transfer latency (median usbmon latency with probes ≤ 1.20 × without, ≥ 30 device control URBs each) | `m1-run.sh` with / without probes | **FAIL**: median 257 µs with probes vs 168.5 µs without (ratio 1.53, n=100 each), about 5 µs per probe hit |
-| H9 | The shipped kernel's traceable dwc2 functions match our build | `probe.json` `hostlab_probes_missing` | **PASS**: 18 of 18 traceable |
-| H10 | `trace_clock=mono` equals CLOCK_MONOTONIC | marker inside the CLOCK_MONOTONIC bracket of its write | **PASS**: both markers inside brackets of ~0.3 ms |
-
-New finding from the hardware run (not one of H1-H10): **URB addresses
-are recycled.** One usbfs URB address carried 20 consecutive transfers, so
-the usbmon `id` / kprobe `urb=` join is exact only within one
-submit→giveback lifetime; the analyser now pairs instances by address and
-submit time.
+| ID | Hypothesis | How |
+|---|---|---|
+| H1 | BCM2835 host runs in buffer-DMA mode | `probe.json` |
+| H2 | 8 host channels | `probe.json` |
+| H3 | A cancelled control URB reports `actual_length` 0 even if DATA completed | E3: cancels after the DATA transfer-complete |
+| H4 | An IN channel can DMA into the URB buffer after giveback on dequeue | MMAP buffers + canary (not designed) |
+| H5 | Enumeration sequence after reset depends on usbcore parameters | E6 with `old_scheme_first` |
+| H6 | Behaviour of URBs pending across `USBDEVFS_RESET` | needs a long-pending URB |
+| H7 | kprobe profile valid; URB join exact | analyser `consistency` |
+| H8 | full kprobe profile ≤ 1.20 × median latency | `hostlab-bench` |
+| H9 | Shipped traceable functions match | `probe.json` |
+| H10 | `trace_clock=mono` equals CLOCK_MONOTONIC | marker brackets |
+| H11 | A profile reconstructs every phase within +20 % median latency | `hostlab-bench` |
+| H12 | Control transfers follow dwc2's programmed sequence (driver state) | `hostlab-report model` |
 
 ## Issue drafts
 
@@ -173,7 +173,7 @@ submit time.
    arm64 or x86 kernel with `USB_DUMMY_HCD`, `USB_ZERO`, `USB_MON`,
    `KPROBE_EVENTS`; run hostlab-ctl/mon/session against the dummy device.
    (Not dwc2, but exercises usbfs/usbmon/tracefs end to end.)
-2. **M3: reduced kprobe profile** (`hostlab-session --profile channel`) so E2 timing is not dominated by probe cost (H8).
+2. **M4: bulk/interrupt transfers in the transport API**, so a URB can stay pending across a reset (H6) and for a memory-safe H4 canary design.
 3. **M3: kprobe offsets for struct fields.** Generate `offsetof` values for
    `dwc2_qtd.control_phase`, `dwc2_host_chan.{xfer_len,data_pid_start,hcint}`
    by compiling against the exact RPi tree and config (asm-offsets style), and
