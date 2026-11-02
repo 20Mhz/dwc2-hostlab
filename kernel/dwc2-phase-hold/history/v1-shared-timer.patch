@@ -1,0 +1,456 @@
+diff --git a/drivers/usb/dwc2/Kconfig b/drivers/usb/dwc2/Kconfig
+index c131719..117d7e8 100644
+--- a/drivers/usb/dwc2/Kconfig
++++ b/drivers/usb/dwc2/Kconfig
+@@ -64,6 +64,18 @@ config USB_DWC2_PCI
+ 	  The Designware USB2.0 PCI interface module for controllers
+ 	  connected to a PCI bus.
+ 
++config USB_DWC2_PHASE_HOLD
++	bool "Experimental control-transfer phase hold (debugfs)"
++	depends on (USB_DWC2_HOST || USB_DWC2_DUAL_ROLE) && DEBUG_FS
++	help
++	  Research aid: lets root hold a control transfer of one device
++	  between its SETUP, DATA and STATUS stages, through the debugfs file
++	  usb/<controller>/phase_hold. Inactive unless the module parameter
++	  dwc2.phase_hold=1 is given. Between stages no host channel is held,
++	  and a held transfer can still be cancelled or time out normally.
++
++	  If unsure, say N.
++
+ config USB_DWC2_DEBUG
+ 	bool "Enable Debugging Messages"
+ 	help
+diff --git a/drivers/usb/dwc2/core.h b/drivers/usb/dwc2/core.h
+index 2bd74f3..9352e70 100644
+--- a/drivers/usb/dwc2/core.h
++++ b/drivers/usb/dwc2/core.h
+@@ -9,6 +9,7 @@
+ #define __DWC2_CORE_H__
+ 
+ #include <linux/acpi.h>
++#include <linux/hrtimer.h>
+ #include <linux/phy/phy.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/usb/gadget.h>
+@@ -1051,6 +1052,29 @@ struct dwc2_hregs_backup {
+  * @enabled:		Indicates the enabling state of controller
+  *
+  */
++/**
++ * struct dwc2_phase_hold - experimental control-transfer phase hold
++ * @timer:      releases every hold @timeout_ms after the oldest one began
++ * @timeout_ms: upper bound of a hold, 1..1000 ms
++ * @dev_addr:   USB address whose control transfers are held, 0 = none
++ * @mask:       BIT(DWC2_CONTROL_DATA) and/or BIT(DWC2_CONTROL_STATUS):
++ *              stages that wait for a release before they start
++ * @ready:      host side initialised
++ * @holds:      holds begun
++ * @releases:   holds ended by an explicit release
++ * @timeouts:   holds ended by @timer
++ */
++struct dwc2_phase_hold {
++	struct hrtimer timer;
++	unsigned int timeout_ms;
++	u8 dev_addr;
++	u8 mask;
++	u8 ready;
++	u64 holds;
++	u64 releases;
++	u64 timeouts;
++};
++
+ struct dwc2_hsotg {
+ 	struct device *dev;
+ 	void __iomem *regs;
+@@ -1220,8 +1244,23 @@ struct dwc2_hsotg {
+ 	struct dwc2_hsotg_ep *eps_in[MAX_EPS_CHANNELS];
+ 	struct dwc2_hsotg_ep *eps_out[MAX_EPS_CHANNELS];
+ #endif /* CONFIG_USB_DWC2_PERIPHERAL || CONFIG_USB_DWC2_DUAL_ROLE */
++#ifdef CONFIG_USB_DWC2_PHASE_HOLD
++	struct dwc2_phase_hold phase_hold;
++#endif
+ };
+ 
++#ifdef CONFIG_USB_DWC2_PHASE_HOLD
++struct dentry;
++void dwc2_phase_hold_init(struct dwc2_hsotg *hsotg);
++void dwc2_phase_hold_exit(struct dwc2_hsotg *hsotg);
++void dwc2_phase_hold_debugfs(struct dwc2_hsotg *hsotg, struct dentry *root);
++#else
++static inline void dwc2_phase_hold_init(struct dwc2_hsotg *hsotg) {}
++static inline void dwc2_phase_hold_exit(struct dwc2_hsotg *hsotg) {}
++static inline void dwc2_phase_hold_debugfs(struct dwc2_hsotg *hsotg,
++					   struct dentry *root) {}
++#endif
++
+ /* Normal architectures just use readl/write */
+ static inline u32 dwc2_readl(struct dwc2_hsotg *hsotg, u32 offset)
+ {
+diff --git a/drivers/usb/dwc2/debugfs.c b/drivers/usb/dwc2/debugfs.c
+index 3116ac7..6e3e3dc 100644
+--- a/drivers/usb/dwc2/debugfs.c
++++ b/drivers/usb/dwc2/debugfs.c
+@@ -783,6 +783,8 @@ int dwc2_debugfs_init(struct dwc2_hsotg *hsotg)
+ 	debugfs_create_file("params", 0444, root, hsotg, &params_fops);
+ 	debugfs_create_file("hw_params", 0444, root, hsotg, &hw_params_fops);
+ 	debugfs_create_file("dr_mode", 0444, root, hsotg, &dr_mode_fops);
++	if (hsotg->dr_mode != USB_DR_MODE_PERIPHERAL)
++		dwc2_phase_hold_debugfs(hsotg, root);
+ 
+ 	/* Add gadget debugfs nodes */
+ 	dwc2_hsotg_create_debug(hsotg);
+diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
+index 1224264..cc1a0fd 100644
+--- a/drivers/usb/dwc2/hcd.c
++++ b/drivers/usb/dwc2/hcd.c
+@@ -11,6 +11,9 @@
+  */
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/debugfs.h>
++#include <linux/seq_file.h>
++#include <linux/uaccess.h>
+ #include <linux/spinlock.h>
+ #include <linux/interrupt.h>
+ #include <linux/platform_device.h>
+@@ -2714,6 +2717,296 @@ static int dwc2_assign_and_init_hc(struct dwc2_hsotg *hsotg, struct dwc2_qh *qh)
+  *
+  * Return: The types of new transactions that were assigned to host channels
+  */
++#ifdef CONFIG_USB_DWC2_PHASE_HOLD
++/*
++ * Experimental control-transfer phase hold (CONFIG_USB_DWC2_PHASE_HOLD,
++ * debugfs "phase_hold", inert unless the phase_hold module parameter is set).
++ *
++ * When a SETUP or DATA stage completes, dwc2_release_channel() returns the
++ * channel to the free list and puts the QH back on the non-periodic inactive
++ * schedule with qtd->control_phase already advanced. A hold keeps
++ * dwc2_hcd_select_transactions() from assigning a channel to that QH, so the
++ * next stage does not start: nothing in the controller is held, no DMA is
++ * pending, and dequeueing a held URB takes the existing not-in-process path.
++ * A release (debugfs) or the timer marks the stage as passed and restarts
++ * scheduling, exactly as the channel release path does. All state is under
++ * hsotg->lock.
++ */
++static bool phase_hold;
++module_param(phase_hold, bool, 0444);
++MODULE_PARM_DESC(phase_hold,
++		 "Enable the experimental debugfs phase_hold file (default: off)");
++
++#define DWC2_PHASE_HOLD_MASK	(BIT(DWC2_CONTROL_DATA) | BIT(DWC2_CONTROL_STATUS))
++#define DWC2_PHASE_HOLD_MAX_MS	1000
++
++/* A hold began / ended. Not inlined, so tracers can observe both. */
++static noinline void dwc2_phase_hold_begin(struct dwc2_hsotg *hsotg,
++					   struct dwc2_qtd *qtd)
++{
++	qtd->hold_active = 1;
++	hsotg->phase_hold.holds++;
++}
++
++static noinline void dwc2_phase_hold_pass(struct dwc2_hsotg *hsotg,
++					  struct dwc2_qtd *qtd, int timed_out)
++{
++	qtd->hold_active = 0;
++	qtd->hold_passed |= BIT(qtd->control_phase);
++	if (timed_out)
++		hsotg->phase_hold.timeouts++;
++	else
++		hsotg->phase_hold.releases++;
++}
++
++static struct dwc2_qtd *dwc2_phase_hold_qtd(struct dwc2_hsotg *hsotg,
++					    struct dwc2_qh *qh)
++{
++	struct dwc2_phase_hold *ph = &hsotg->phase_hold;
++	struct dwc2_qtd *qtd;
++
++	if (!ph->dev_addr || !ph->mask || hsotg->params.dma_desc_enable ||
++	    qh->ep_type != USB_ENDPOINT_XFER_CONTROL || qh->do_split ||
++	    list_empty(&qh->qtd_list))
++		return NULL;
++	qtd = list_first_entry(&qh->qtd_list, struct dwc2_qtd, qtd_list_entry);
++	if (!qtd->urb || qtd->urb->pipe_info.dev_addr != ph->dev_addr)
++		return NULL;
++	return qtd;
++}
++
++/* True if @qh must not get a channel now. Caller holds hsotg->lock. */
++static bool dwc2_phase_hold_check(struct dwc2_hsotg *hsotg, struct dwc2_qh *qh)
++{
++	struct dwc2_phase_hold *ph = &hsotg->phase_hold;
++	struct dwc2_qtd *qtd = dwc2_phase_hold_qtd(hsotg, qh);
++	u8 phase_bit;
++
++	if (!qtd)
++		return false;
++	phase_bit = BIT(qtd->control_phase);
++	if (!(ph->mask & phase_bit) || (qtd->hold_passed & phase_bit))
++		return false;
++	if (!qtd->hold_active) {
++		dwc2_phase_hold_begin(hsotg, qtd);
++		if (!hrtimer_active(&ph->timer))
++			hrtimer_start(&ph->timer, ms_to_ktime(ph->timeout_ms),
++				      HRTIMER_MODE_REL);
++	}
++	return true;
++}
++
++/* End every hold and restart scheduling. Caller holds hsotg->lock. */
++static unsigned int dwc2_phase_hold_release_locked(struct dwc2_hsotg *hsotg,
++						   int timed_out)
++{
++	enum dwc2_transaction_type tr_type;
++	struct dwc2_qtd *qtd;
++	struct dwc2_qh *qh;
++	unsigned int n = 0;
++
++	list_for_each_entry(qh, &hsotg->non_periodic_sched_inactive,
++			    qh_list_entry) {
++		if (list_empty(&qh->qtd_list))
++			continue;
++		qtd = list_first_entry(&qh->qtd_list, struct dwc2_qtd,
++				       qtd_list_entry);
++		if (qtd->hold_active) {
++			dwc2_phase_hold_pass(hsotg, qtd, timed_out);
++			n++;
++		}
++	}
++	/* An explicit release restarts the bound for the next hold. */
++	if (!timed_out)
++		hrtimer_try_to_cancel(&hsotg->phase_hold.timer);
++	if (n && hsotg->flags.b.port_connect_status) {
++		tr_type = dwc2_hcd_select_transactions(hsotg);
++		if (tr_type != DWC2_TRANSACTION_NONE)
++			dwc2_hcd_queue_transactions(hsotg, tr_type);
++	}
++	return n;
++}
++
++static unsigned int dwc2_phase_hold_count_locked(struct dwc2_hsotg *hsotg)
++{
++	struct dwc2_qtd *qtd;
++	struct dwc2_qh *qh;
++	unsigned int n = 0;
++
++	list_for_each_entry(qh, &hsotg->non_periodic_sched_inactive,
++			    qh_list_entry) {
++		if (list_empty(&qh->qtd_list))
++			continue;
++		qtd = list_first_entry(&qh->qtd_list, struct dwc2_qtd,
++				       qtd_list_entry);
++		n += qtd->hold_active;
++	}
++	return n;
++}
++
++/* End every hold now. Caller holds hsotg->lock. */
++static unsigned int dwc2_phase_hold_release_locked(struct dwc2_hsotg *hsotg)
++{
++	ktime_t next;
++
++	hrtimer_try_to_cancel(&hsotg->phase_hold.timer);
++	return dwc2_phase_hold_end_locked(hsotg, KTIME_MAX, &next);
++}
++
++static enum hrtimer_restart dwc2_phase_hold_timeout(struct hrtimer *t)
++{
++	struct dwc2_hsotg *hsotg = container_of(t, struct dwc2_hsotg,
++						phase_hold.timer);
++	unsigned long flags;
++
++	spin_lock_irqsave(&hsotg->lock, flags);
++	dwc2_phase_hold_release_locked(hsotg, 1);
++	spin_unlock_irqrestore(&hsotg->lock, flags);
++	return HRTIMER_NORESTART;
++}
++
++void dwc2_phase_hold_init(struct dwc2_hsotg *hsotg)
++{
++	struct dwc2_phase_hold *ph = &hsotg->phase_hold;
++
++	hrtimer_init(&ph->timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
++	ph->timer.function = dwc2_phase_hold_timeout;
++	ph->timeout_ms = 100;
++	ph->ready = 1;
++}
++
++void dwc2_phase_hold_exit(struct dwc2_hsotg *hsotg)
++{
++	struct dwc2_phase_hold *ph = &hsotg->phase_hold;
++	unsigned long flags;
++
++	if (!ph->ready)
++		return;
++	spin_lock_irqsave(&hsotg->lock, flags);
++	ph->dev_addr = 0;
++	ph->mask = 0;
++	dwc2_phase_hold_release_locked(hsotg, 0);
++	ph->ready = 0;
++	spin_unlock_irqrestore(&hsotg->lock, flags);
++	hrtimer_cancel(&ph->timer);
++}
++
++static int phase_hold_show(struct seq_file *s, void *unused)
++{
++	struct dwc2_hsotg *hsotg = s->private;
++	struct dwc2_phase_hold *ph = &hsotg->phase_hold;
++	unsigned long flags;
++	unsigned int held;
++
++	spin_lock_irqsave(&hsotg->lock, flags);
++	held = dwc2_phase_hold_count_locked(hsotg);
++	seq_printf(s, "dev=%u mask=%s%s timeout_ms=%u held=%u holds=%llu releases=%llu timeouts=%llu\n",
++		   ph->dev_addr,
++		   ph->mask & BIT(DWC2_CONTROL_DATA) ? "data," : "",
++		   ph->mask & BIT(DWC2_CONTROL_STATUS) ? "status," : "",
++		   ph->timeout_ms, held, ph->holds, ph->releases, ph->timeouts);
++	spin_unlock_irqrestore(&hsotg->lock, flags);
++	return 0;
++}
++
++static int phase_hold_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, phase_hold_show, inode->i_private);
++}
++
++/*
++ * Commands (one per write):
++ *   "dev=<1..127> mask=<data|status|data,status> [timeout_ms=<1..1000>]"
++ *   "release"   end every current hold
++ *   "off"       clear the configuration and end every hold
++ */
++static ssize_t phase_hold_write(struct file *file, const char __user *ubuf,
++				size_t count, loff_t *ppos)
++{
++	struct seq_file *s = file->private_data;
++	struct dwc2_hsotg *hsotg = s->private;
++	struct dwc2_phase_hold *ph = &hsotg->phase_hold;
++	unsigned int dev = 0, timeout = ph->timeout_ms;
++	char buf[80], *p, *tok;
++	unsigned long flags;
++	u8 mask = 0;
++
++	if (count >= sizeof(buf))
++		return -EINVAL;
++	if (copy_from_user(buf, ubuf, count))
++		return -EFAULT;
++	buf[count] = '\0';
++	p = strim(buf);
++
++	if (!strcmp(p, "release") || !strcmp(p, "off")) {
++		spin_lock_irqsave(&hsotg->lock, flags);
++		if (!strcmp(p, "off")) {
++			ph->dev_addr = 0;
++			ph->mask = 0;
++		}
++		dwc2_phase_hold_release_locked(hsotg, 0);
++		spin_unlock_irqrestore(&hsotg->lock, flags);
++		return count;
++	}
++
++	while ((tok = strsep(&p, " \t")) != NULL) {
++		if (!*tok)
++			continue;
++		if (sscanf(tok, "dev=%u", &dev) == 1)
++			continue;
++		if (sscanf(tok, "timeout_ms=%u", &timeout) == 1)
++			continue;
++		if (!strncmp(tok, "mask=", 5)) {
++			char *m = tok + 5, *part;
++
++			while ((part = strsep(&m, ",")) != NULL) {
++				if (!strcmp(part, "data"))
++					mask |= BIT(DWC2_CONTROL_DATA);
++				else if (!strcmp(part, "status"))
++					mask |= BIT(DWC2_CONTROL_STATUS);
++				else if (*part)
++					return -EINVAL;
++			}
++			continue;
++		}
++		return -EINVAL;
++	}
++	if (dev < 1 || dev > 127 || !mask || (mask & ~DWC2_PHASE_HOLD_MASK) ||
++	    timeout < 1 || timeout > DWC2_PHASE_HOLD_MAX_MS)
++		return -EINVAL;
++
++	spin_lock_irqsave(&hsotg->lock, flags);
++	ph->dev_addr = dev;
++	ph->mask = mask;
++	ph->timeout_ms = timeout;
++	spin_unlock_irqrestore(&hsotg->lock, flags);
++	return count;
++}
++
++static const struct file_operations phase_hold_fops = {
++	.owner		= THIS_MODULE,
++	.open		= phase_hold_open,
++	.write		= phase_hold_write,
++	.read		= seq_read,
++	.llseek		= seq_lseek,
++	.release	= single_release,
++};
++
++void dwc2_phase_hold_debugfs(struct dwc2_hsotg *hsotg, struct dentry *root)
++{
++	if (!phase_hold || !hsotg->phase_hold.ready)
++		return;
++	debugfs_create_file("phase_hold", 0600, root, hsotg, &phase_hold_fops);
++	dev_warn(hsotg->dev, "experimental phase_hold control enabled\n");
++}
++#else
++static inline bool dwc2_phase_hold_check(struct dwc2_hsotg *hsotg,
++					 struct dwc2_qh *qh)
++{
++	return false;
++}
++#endif /* CONFIG_USB_DWC2_PHASE_HOLD */
++
+ enum dwc2_transaction_type dwc2_hcd_select_transactions(
+ 		struct dwc2_hsotg *hsotg)
+ {
+@@ -2768,6 +3061,10 @@ enum dwc2_transaction_type dwc2_hcd_select_transactions(
+ 		if (list_empty(&hsotg->free_hc_list))
+ 			break;
+ 		qh = list_entry(qh_ptr, struct dwc2_qh, qh_list_entry);
++		if (dwc2_phase_hold_check(hsotg, qh)) {
++			qh_ptr = qh_ptr->next;
++			continue;
++		}
+ 		if (hsotg->params.uframe_sched) {
+ 			if (hsotg->available_host_channels < 1)
+ 				break;
+@@ -5236,6 +5533,7 @@ int dwc2_hcd_init(struct dwc2_hsotg *hsotg)
+ 	INIT_WORK(&hsotg->wf_otg, dwc2_conn_id_status_change);
+ 
+ 	timer_setup(&hsotg->wkp_timer, dwc2_wakeup_detected, 0);
++	dwc2_phase_hold_init(hsotg);
+ 
+ 	/* Initialize the non-periodic schedule */
+ 	INIT_LIST_HEAD(&hsotg->non_periodic_sched_inactive);
+@@ -5407,6 +5705,8 @@ void dwc2_hcd_remove(struct dwc2_hsotg *hsotg)
+ 
+ 	dev_dbg(hsotg->dev, "DWC OTG HCD REMOVE\n");
+ 
++	dwc2_phase_hold_exit(hsotg);
++
+ 	hcd = dwc2_hsotg_to_hcd(hsotg);
+ 	dev_dbg(hsotg->dev, "hsotg->hcd = %p\n", hcd);
+ 
+diff --git a/drivers/usb/dwc2/hcd.h b/drivers/usb/dwc2/hcd.h
+index b7254d9..e866df9 100644
+--- a/drivers/usb/dwc2/hcd.h
++++ b/drivers/usb/dwc2/hcd.h
+@@ -417,6 +417,10 @@ struct dwc2_qtd {
+ 	struct dwc2_hcd_urb *urb;
+ 	struct dwc2_qh *qh;
+ 	struct list_head qtd_list_entry;
++#ifdef CONFIG_USB_DWC2_PHASE_HOLD
++	u8 hold_active;
++	u8 hold_passed;
++#endif
+ };
+ 
+ #ifdef DEBUG

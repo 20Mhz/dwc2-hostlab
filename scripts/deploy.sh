@@ -24,11 +24,12 @@ done
 
 stage="$(mktemp -d)"
 trap 'rm -rf "$stage"' EXIT
-mkdir -p "$stage/bin" "$stage/python/hostlab" "$stage/scripts/pi"
+mkdir -p "$stage/bin" "$stage/python/hostlab" "$stage/scripts/pi" "$stage/kernel"
 cp "$repo_root"/build/armv6/hostlab-{ctl,mon} "$stage/bin/"
 cp "$repo_root"/bin/hostlab-* "$stage/bin/"
 cp "$repo_root"/python/hostlab/*.py "$stage/python/hostlab/"
 cp "$repo_root"/scripts/pi/*.sh "$stage/scripts/pi/"
+cp -R "$repo_root"/kernel/dwc2-phase-hold "$stage/kernel/"
 # Commit plus "-dirty" when the working tree has uncommitted changes, so
 # evidence collected on the Pi names exactly what was deployed.
 git -C "$repo_root" describe --always --dirty --abbrev=40 > "$stage/REVISION" 2>/dev/null \
