@@ -16,6 +16,14 @@ Results and interpretation: [docs/m3-results.md](../../m3-results.md).
 | `e6/` | 5 resets; 5 resets with 4 URBs pending | `ab7f7f5` (deploy script uncommitted) | `scripts/pi/m3-run.sh e6` |
 | `h5/` | 5 resets with usbcore `old_scheme_first=Y` (restored to N) | `ab7f7f5` (same) | `scripts/pi/m3-run.sh h5` |
 
+| `phase-hold/bench4-patched-off.*` | patch v1 loaded, `phase_hold=0`: none / fast / state, 3 x 200 | `062017b` + uncommitted `kernel/` (patch v1) | `hostlab-bench ... --seed 3` |
+| `phase-hold/hold1-v1/` | hold stages A-D with patch v1 (shared timer defect) | same | `kernel/dwc2-phase-hold/hold-experiments.sh` |
+| `phase-hold/hold2-v2/` | stages A, C, D with patch v2 | same tooling, patch v2 | `STAGES="A C D" hold-experiments.sh` |
+| `phase-hold/bench5-v2-off.*` | patch v2 loaded, `phase_hold=0` | same | `hostlab-bench ... --seed 3` |
+
+Patch versions: `kernel/dwc2-phase-hold/0001-...patch` (v2) and
+`kernel/dwc2-phase-hold/history/v1-shared-timer.patch` (v1, reconstructed).
+
 Two resets before `e6/` ran with a stale `hostlab-ctl` (one plain reset
 each, no data kept); `deploy.sh` now refuses stale ARMv6 binaries.
 

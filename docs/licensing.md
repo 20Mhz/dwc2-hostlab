@@ -70,7 +70,9 @@ review does not resolve that question.
    this file) stating that the kernel configuration and log data come from
    Raspberry Pi OS kernel builds (GPL-2.0) and are included as measurement
    records.
-4. **Future kernel patches** (C1 tracepoints, or C2 if it is ever approved)
-   are GPL-2.0. Keep them in a separate `kernel/` directory with their own
-   license statement and `SPDX-License-Identifier: GPL-2.0` headers, and
-   never mix them into the MIT tree.
+4. **Kernel patches are GPL-2.0.** The phase-hold patch (C2, approved
+   2026-11-02) and its build/experiment scripts live in
+   `kernel/dwc2-phase-hold/` with a GPL-2.0 statement in its README and
+   `SPDX-License-Identifier: GPL-2.0` headers; nothing there is copied into
+   the MIT tree. The pristine dwc2 sources it patches are fetched from
+   raspberrypi/linux at build time and are not in the repository.

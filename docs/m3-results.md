@@ -15,7 +15,7 @@ condenses every number below). Revisions per data set are listed in
 |---|---|---|
 | H1 buffer DMA | PASS (M1) | `m1-20261101-ch340/probe-capabilities.json` |
 | H2 8 host channels | PASS (M1) | same |
-| H3 cancelled control URB reports `actual_length` 0 although DATA completed | **PASS (kernel-level, small n)**: 5 URBs cancelled after the controller reported the DATA stage complete (2 with the DATA transfer-complete recorded before the dequeue, 3 with the STATUS run already started) all returned 0 bytes. Wire-level data movement is not observed; the controller's own completion report is the evidence | `e3/e3-state/cancel.json`, `h3/h3-state/cancel.json`, `e3/e3-fast/cancel.json` |
+| H3 cancelled control URB reports `actual_length` 0 although DATA completed | **PASS**: with the phase hold (§5), 50/50 URBs cancelled after the DATA transfer-complete was handled returned 0 bytes, status −2; earlier, 5 found by timing alone did the same. Wire-level data movement is not observed; the controller's completion report is the evidence | `phase-hold/hold2-v2/C-status/cancel.json`; `e3/`, `h3/` |
 | H4 DMA into the buffer after giveback | BLOCKED: needs a memory-safe canary design (MMAP buffers); not attempted | — |
 | H5 re-enumeration after reset depends on usbcore parameters | **PASS**: default (`old_scheme_first=N`) does two port resets with GET_DESCRIPTOR(DEVICE,64) at address 0 between them, ~410 ms per reset; `old_scheme_first=Y` does one port reset, SET_ADDRESS first, then GET_DESCRIPTOR(DEVICE,8), ~222 ms | `e6/e6-reset/reset.json`, `h5/h5-old-scheme/reset.json` |
 | H6 URBs pending across USBDEVFS_RESET | **INCONCLUSIVE**: 20/20 URBs queued just before the ioctl completed normally, but 0.1–0.3 ms after it started, while the first port reset came 1.5–12.5 ms later; none was in flight at the reset. Needs a URB that stays pending (bulk/interrupt IN), i.e. API work, not new hardware | `e6/e6-pending/` |
@@ -144,13 +144,49 @@ a run, CRC, NAK retry in buffer-DMA mode, the transfer-complete/halt
 interrupt. With cancellation the extra path is: dequeue → halt request
 (reason URB_DEQUEUE) → giveback → CHHLTD IRQ → release (reason URB_DEQUEUE).
 
+## 5. Phase-hold patch
+
+Approved by the owner on 2026-11-02 and implemented as
+[kernel/dwc2-phase-hold/](../kernel/dwc2-phase-hold/) (GPL-2.0), a rebuilt
+`dwc2.ko` loaded with `insmod` (stock driver restored afterwards; nothing
+installed). Evidence: [evidence/m3-20261101/phase-hold/](evidence/m3-20261101/phase-hold/).
+
+Switched off (module loaded with `phase_hold=0`, 3 × 200 per profile, seed 3,
+same as the stock-driver bench3):
+
+| Profile | Stock (bench3) | Patch v1 off | Patch v2 off |
+|---|---|---|---|
+| none | 172 µs | 171 µs | 173 µs |
+| fast | 194 µs | 194 µs | 195 µs |
+| state | 255 µs | 257 µs | 256 µs |
+| model check (state) | 600/600 | 600/600 | 600/600 |
+
+Differences are within the 1–7 µs run-to-run spread.
+
+Hold on (`phase_hold=1`, device address 2), patch v2 unless noted:
+
+| Stage | Result |
+|---|---|
+| A: hold before DATA / before STATUS, 50 ms timeout, 20 each | 40/40 transfers succeeded; the held stage started 50.026–50.062 ms after the previous channel release (the unheld gap stayed 10–16 µs); **40/40 conform to the unmodified sequence** (PIDs, directions, lengths, control_phase, new channel per stage) |
+| B: explicit release after 1/5/20 ms, 10 each (v1) | 30/30 succeeded and conform; completion ~0.95 ms after the release write (mostly the Python helper) |
+| C: DISCARDURB 5 ms after submit while held before DATA / before STATUS, 50 each | 50/50 and 50/50 cancelled, `actual_length` 0, status −2; no channel halt was requested (`dwc2_hc_halt` 0 hits): the held URB held no channel. kill → dequeue median 13–15 µs |
+| D: usbcore request timeout 20 ms while held (hold timeout 500 ms), 5 | 5/5 `-ETIMEDOUT` after 25–30 ms (20 ms + 10 ms tick); held URB freed; device answers afterwards |
+
+Defect found and fixed: v1 armed one timer at the first hold of a batch;
+when a held URB was cancelled the timer kept running and released a later
+transfer early (4 of 100 in stage C completed instead of being cancelled).
+v2 gives each hold its own deadline and re-arms the timer for the earliest
+one; stage C then had 100/100 cancellations and no timeout releases.
+
 ## Remaining limitations
 
 - One device, one request type (GET_DESCRIPTOR(DEVICE), 3 phases, full
   speed, no hub, no split transactions). No-data-stage and OUT-data requests
   are modelled in the checker but were not exercised (only standard read
   requests are allowed by default).
-- H3's n is 5; reaching the post-DATA window from userspace is rare.
+- The phase hold was exercised on one device, GET_DESCRIPTOR(DEVICE) only,
+  one transfer in flight; holds of concurrent transfers on several devices,
+  OUT data stages and devices behind a hub were not tested.
 - H6 needs a long-pending URB; H4 needs a canary design. Neither needs new
   hardware.
 - Cache-pollution explanation of the per-transfer probe cost is not measured.

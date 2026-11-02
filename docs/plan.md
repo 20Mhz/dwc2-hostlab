@@ -75,8 +75,9 @@ Details in
 
 ### M3 — Controller experiments — **E1, E2, E3, E6 done; results in [m3-results.md](m3-results.md)**
 
-Phase-control proposal (C2): [phase-control-feasibility.md](phase-control-feasibility.md),
-awaiting owner approval.
+Phase-control (C2): approved 2026-11-02, implemented as a debugfs phase hold
+([kernel/dwc2-phase-hold/](../kernel/dwc2-phase-hold/)), results in
+[m3-results.md §5](m3-results.md#5-phase-hold-patch).
 
 Benign test devices, in order of preference:
 1. **Second Pi Zero (W) in gadget mode** running `g_zero` (`CONFIG_USB_ZERO=m`

@@ -13,9 +13,10 @@ device traced down to channel level, every phase on its own host channel
 [plan](docs/plan.md)). M3 measured instrumentation cost (default profile
 `fast`: +12.8 % median latency with every phase reconstructed), cancellation
 and reset behaviour, and verified the control-transfer state machine from
-dwc2's own fields ([M3 results](docs/m3-results.md)). A phase-hold driver
-extension is proposed, not implemented
-([feasibility](docs/phase-control-feasibility.md)).
+dwc2's own fields ([M3 results](docs/m3-results.md)). An experimental
+dwc2 patch can hold a control transfer between its stages (off by default,
+GPL-2.0, [kernel/dwc2-phase-hold](kernel/dwc2-phase-hold/)); with it,
+cancelling after the DATA stage is deterministic.
 
 ## What it does
 

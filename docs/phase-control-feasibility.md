@@ -1,8 +1,11 @@
 # Phase-control interface: feasibility and proposal
 
-Status: **proposal, not implemented.** Implementing it changes a kernel
-driver and needs the owner's explicit approval (C2 gate,
-[kernel-integration-options.md](kernel-integration-options.md)). Everything
+Status: **approved 2026-11-02, implemented and tested** as
+[kernel/dwc2-phase-hold/](../kernel/dwc2-phase-hold/) (patch v2); results in
+[m3-results.md §5](m3-results.md#5-phase-hold-patch). The proposal below is
+kept as written; the implementation follows it except that it is ~350 lines
+(the debugfs command parser and comments) rather than ~150, and holds have
+per-transfer deadlines (v2). Everything
 cited is from the 6.12.47 source at raspberrypi/linux `359f37f` and the M3
 measurements in [m3-results.md](m3-results.md).
 
