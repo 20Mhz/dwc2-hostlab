@@ -30,6 +30,7 @@ from typing import Any, Dict, List, Optional
 
 from .analyze import analyze, _load_jsonl
 from .bench import percentile
+from .ftrace_parse import parse
 
 JOIN_WINDOW_NS = 5_000_000  # user submit -> kernel submit/enqueue
 
@@ -156,6 +157,110 @@ def format_cancel(r: Dict[str, Any]) -> str:
     return "\n".join(L)
 
 
+REQUESTS = {0x00: "GET_STATUS", 0x01: "CLEAR_FEATURE", 0x03: "SET_FEATURE", 0x05: "SET_ADDRESS",
+            0x06: "GET_DESCRIPTOR", 0x08: "GET_CONFIGURATION", 0x09: "SET_CONFIGURATION",
+            0x0A: "GET_INTERFACE", 0x0B: "SET_INTERFACE"}
+DESC_TYPES = {1: "DEVICE", 2: "CONFIG", 3: "STRING", 6: "QUALIFIER", 0x0F: "BOS"}
+
+
+def decode_setup(setup: str) -> str:
+    """Readable name of a standard request; class/vendor requests as raw bytes."""
+    b = bytes.fromhex(setup)
+    rt, req = b[0], b[1]
+    wv, wi, wl = b[2] | b[3] << 8, b[4] | b[5] << 8, b[6] | b[7] << 8
+    if rt & 0x60:
+        kind = "class" if rt & 0x60 == 0x20 else "vendor"
+        return f"{kind}({setup})"
+    name = REQUESTS.get(req, f"req{req:#04x}")
+    if req == 0x06:
+        return f"GET_DESCRIPTOR({DESC_TYPES.get(wv >> 8, wv >> 8)},{wl})"
+    if req == 0x05:
+        return f"SET_ADDRESS({wv})"
+    if req == 0x09:
+        return f"SET_CONFIGURATION({wv})"
+    return f"{name}(wValue={wv},wIndex={wi},wLength={wl})"
+
+
+def channel_accounting(trace_path: str) -> Optional[Dict[str, Any]]:
+    """Per channel: starts, releases, out-of-order pairs, still open at the end.
+    None when the trace has no numbered channel events (profiles without
+    hc_start/hc_release kprobes)."""
+    try:
+        with open(trace_path) as f:
+            events = [e for e in parse(f) if e.event in ("hl_hc_start", "hl_hc_release")]
+    except OSError:
+        return None
+    if not any(e.event == "hl_hc_release" for e in events):
+        return None
+    open_: Dict[int, bool] = {}
+    starts, releases, disorder = Counter(), Counter(), 0
+    for e in events:
+        hc = e.int_field("hc")
+        if e.event == "hl_hc_start":
+            starts[hc] += 1
+            disorder += open_.get(hc, False)
+            open_[hc] = True
+        else:
+            releases[hc] += 1
+            disorder += not open_.get(hc, False)
+            open_[hc] = False
+    return {"starts": sum(starts.values()), "releases": sum(releases.values()),
+            "out_of_order": disorder, "open_at_end": sorted(h for h, o in open_.items() if o)}
+
+
+def reset_report(session_dir: str) -> Dict[str, Any]:
+    rep = analyze(session_dir)
+    user = _load_jsonl(f"{session_dir}/user.jsonl")
+    resets = [r for r in user if r.get("ev") == "reset"]
+    pend = [r for r in user if r.get("op") == "pending_across_reset"]
+    mon = _load_jsonl(f"{session_dir}/usbmon.jsonl")
+    from .analyze import ClockMap
+    cmap = ClockMap.from_records(mon)
+    submits = []
+    for m in mon:
+        if m.get("ev") == "urb" and m.get("type") == "S" and m.get("xfer") == "ctrl" \
+                and m.get("setup"):
+            t = cmap.real_us_to_mono_ns(m["real_us"])
+            if t is not None:
+                submits.append((t, m["dev"], m["setup"]))
+    port_resets = rep["port_resets_ns"]
+    rows = []
+    for r in resets:
+        t0, t1 = r["t_start_ns"], r["t_done_ns"]
+        seq = [f"dev{d}:{decode_setup(s)}" for t, d, s in submits if t0 <= t <= t1]
+        pr = [t - t0 for t in port_resets if t0 <= t <= t1]
+        p = [x for x in pend if x["seq"] == r["seq"]]
+        rows.append({"seq": r["seq"], "status": r["status"], "errno": r["errno"],
+                     "duration_ns": t1 - t0, "pending": r.get("pending", 0),
+                     "port_resets_after_ns": pr, "requests": seq,
+                     "pending_outcomes": dict(Counter(x["status"] for x in p)),
+                     "pending_urb_status": dict(Counter(str(x["urb_status"]) for x in p)),
+                     "pending_actual": dict(Counter(str(x["actual"]) for x in p))})
+    # Channel accounting over the whole capture: on each channel, starts and
+    # releases must alternate, and none may be left started at the end.
+    accounting = channel_accounting(f"{session_dir}/ftrace.txt")
+    sequences = Counter(" > ".join(r["requests"]) for r in rows)
+    return {"tool": "hostlab-report reset", "session": session_dir,
+            "profile": rep["consistency"].get("profile"),
+            "resets": len(rows), "reset_status": dict(Counter(r["status"] for r in rows)),
+            "duration_ns": _stats([r["duration_ns"] for r in rows]),
+            "request_sequences": dict(sequences),
+            "pending_outcomes": dict(sum((Counter(r["pending_outcomes"]) for r in rows),
+                                         Counter())),
+            "channel_events": rep["channel_events"], "channel_accounting": accounting,
+            "warnings": rep["warnings"], "rows": rows}
+
+
+def format_reset(r: Dict[str, Any]) -> str:
+    L = [f"E6 reset: {r['resets']} resets {r['reset_status']}, profile {r['profile']}",
+         f"  USBDEVFS_RESET duration: {r['duration_ns']}",
+         f"  channel accounting: {r['channel_accounting']}",
+         f"  pending URB outcomes: {r['pending_outcomes']}"]
+    for seq, n in r["request_sequences"].items():
+        L.append(f"  {n} x {seq}")
+    return "\n".join(L)
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(prog="hostlab-report")
     sub = ap.add_subparsers(dest="kind", required=True)
@@ -163,12 +268,20 @@ def main(argv: Optional[List[str]] = None) -> int:
     c.add_argument("session_dir")
     c.add_argument("--json")
     c.add_argument("--bin-us", type=int, default=20)
+    rs = sub.add_parser("reset")
+    rs.add_argument("session_dir")
+    rs.add_argument("--json")
     args = ap.parse_args(argv)
-    rep = cancel_report(args.session_dir, args.bin_us)
+    if args.kind == "cancel":
+        rep, text = cancel_report(args.session_dir, args.bin_us), None
+        text = format_cancel(rep)
+    else:
+        rep = reset_report(args.session_dir)
+        text = format_reset(rep)
     if args.json:
         with open(args.json, "w") as f:
             json.dump(rep, f, indent=2, sort_keys=True)
-    print(format_cancel(rep))
+    print(text)
     return 0
 
 
