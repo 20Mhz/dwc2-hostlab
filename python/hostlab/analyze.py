@@ -31,8 +31,11 @@ from . import __version__
 from .ftrace_parse import TraceEvent, parse
 from .tracefs import EVENT_PREFIX, FUNCTION_EVENTS, HALT_STATUS
 
-# usbmon's 'S' is recorded inside usb_hcd_submit_urb, microseconds after the
-# submit kprobe; 1 ms only has to absorb clock-mapping error.
+# usbmon's 'S' is recorded inside usb_hcd_submit_urb before the HCD enqueue,
+# and 'C' after the BH giveback, so a kernel instance starts inside its usbmon
+# window. The window is widened by this much for clock-mapping error only; the
+# submit -> enqueue gap itself is unbounded (1.01 ms was seen on hardware when
+# the submitting task was delayed).
 JOIN_TOLERANCE_NS = 1_000_000
 
 CHANNEL_EVENTS = {"hc_start", "hc_halt", "hc_release", "hc_irq", "xfercomp",
@@ -276,10 +279,11 @@ def analyze(session_dir: str) -> Dict[str, Any]:
         used = set()
         for m in ms:
             ref = m.mon_submit_ns
+            hi = (m.mon_complete_ns if m.mon_complete_ns is not None else ref or 0) + tol
             cands = [] if ref is None else [
                 (abs(kt.k_start() - ref), i) for i, kt in enumerate(ks)
                 if i not in used and kt.k_start() is not None
-                and abs(kt.k_start() - ref) <= tol]
+                and ref - tol <= kt.k_start() <= hi]
             best = min(cands)[1] if cands else None
             if best is None:
                 if in_trace(ref):

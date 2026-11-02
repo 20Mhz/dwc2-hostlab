@@ -31,7 +31,7 @@ from typing import Any, Dict, List, Optional
 
 from . import __version__
 from .probe import probe
-from .tracefs import (PROFILES, TraceFS, find_tracefs, profile_probes, read_filter_functions,
+from .tracefs import (ARM32_PROFILE, PROFILES, TraceFS, find_tracefs, read_filter_functions,
                       usable_probes)
 
 DEFAULT_BUFFER_KB = 4096
@@ -59,10 +59,15 @@ def _find_tool(name: str, bindir: Optional[str]) -> Optional[str]:
 
 class FtraceSession:
     def __init__(self, tfs: TraceFS, buffer_kb: int = DEFAULT_BUFFER_KB,
-                 profile: str = DEFAULT_PROFILE):
+                 profile: str = DEFAULT_PROFILE, kprobes: Optional[List[str]] = None,
+                 functions: Optional[List[str]] = None):
         self.tfs = tfs
         self.buffer_kb = buffer_kb
         self.profile = profile
+        # Explicit lists (profile "custom") override the named profile.
+        self.kprobe_names = kprobes if kprobes is not None else PROFILES[profile]["kprobes"]
+        self.function_names = functions if functions is not None \
+            else PROFILES[profile]["functions"]
         self.functions: List[str] = []
         self.saved_tracer: Optional[str] = None
         self.saved_filter: Optional[List[str]] = None
@@ -78,9 +83,10 @@ class FtraceSession:
 
     def setup(self) -> None:
         funcs = read_filter_functions(self.tfs.path)
-        usable, missing = usable_probes(funcs, profile_probes(self.profile))
+        usable, missing = usable_probes(
+            funcs, [p for p in ARM32_PROFILE if p.name in set(self.kprobe_names)])
         self.missing = [p.symbol for p in missing]
-        wanted = PROFILES[self.profile]["functions"]
+        wanted = self.function_names
         self.functions = [f for f in wanted if funcs is not None and f in funcs]
         self.missing += [f for f in wanted if f not in self.functions]
         self.saved_clock = self.tfs.current_clock()
@@ -168,9 +174,14 @@ def run(args: argparse.Namespace) -> int:
             if path is None:
                 warnings.append("tracefs not available; kernel-side events not recorded")
             else:
-                ftrace = FtraceSession(TraceFS(path), args.buffer_kb, args.profile)
+                custom = args.kprobes is not None or args.functions is not None
+                profile = "custom" if custom else args.profile
+                ftrace = FtraceSession(
+                    TraceFS(path), args.buffer_kb, args.profile,
+                    kprobes=_names(args.kprobes) if custom else None,
+                    functions=_names(args.functions) if custom else None)
                 ftrace.setup()
-                info["profile"] = args.profile
+                info["profile"] = profile
                 info["kprobes"] = {"registered": ftrace.registered, "failed": ftrace.failed,
                                    "missing_symbols": ftrace.missing}
                 info["functions"] = ftrace.functions
@@ -222,6 +233,10 @@ def run(args: argparse.Namespace) -> int:
     return rc
 
 
+def _names(arg: Optional[str]) -> List[str]:
+    return [n for n in (arg or "").split(",") if n]
+
+
 def teardown(args: argparse.Namespace) -> int:
     path = find_tracefs(args.root)
     if path is None:
@@ -246,6 +261,9 @@ def main(argv: Optional[List[str]] = None) -> int:
     r.add_argument("--bindir", help="directory containing hostlab-mon")
     r.add_argument("--profile", choices=sorted(PROFILES), default=DEFAULT_PROFILE,
                    help="instrumentation profile (default %(default)s); see tracefs.PROFILES")
+    r.add_argument("--kprobes", help="comma-separated probe names (tracefs.ARM32_PROFILE); "
+                                     "with --functions, replaces --profile")
+    r.add_argument("--functions", help="comma-separated functions for the function tracer")
     r.add_argument("--no-ftrace", action="store_true")
     r.add_argument("--no-usbmon", action="store_true")
     r.add_argument("cmd", nargs=argparse.REMAINDER)

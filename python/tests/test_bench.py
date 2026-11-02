@@ -2,7 +2,7 @@
 """Benchmark summary tests on synthetic runs (not hardware data)."""
 import unittest
 
-from hostlab.bench import percentile, summarize
+from hostlab.bench import percentile, session_args, summarize
 
 
 def run(profile, meds, n=10, exact=None):
@@ -32,6 +32,17 @@ class BenchTests(unittest.TestCase):
         self.assertFalse(s["minimal"]["above_noise"])  # inside the baseline spread
         self.assertEqual((s["phase"]["join_ok"], s["phase"]["join_total"]), (20, 20))
         self.assertIsNone(s["none"]["phases_exact"])
+
+
+class SpecTests(unittest.TestCase):
+    def test_session_args(self):
+        self.assertEqual(session_args("none"), ["--no-ftrace"])
+        self.assertEqual(session_args("phase"), ["--profile", "phase"])
+        self.assertEqual(session_args("k:giveback+urb_enqueue/f:dwc2_hc_start_transfer"),
+                         ["--kprobes", "giveback,urb_enqueue",
+                          "--functions", "dwc2_hc_start_transfer"])
+        with self.assertRaises(ValueError):
+            session_args("bogus")
 
 
 if __name__ == "__main__":

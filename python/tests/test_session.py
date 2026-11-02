@@ -62,6 +62,7 @@ class RunTests(unittest.TestCase):
     def _args(self, root, out, **kw):
         a = argparse.Namespace(root=root, out=out, bus=0, snaplen=64, buffer_kb=1024,
                                bindir=None, no_ftrace=False, no_usbmon=True, profile="full",
+                               kprobes=None, functions=None,
                                cmd=[sys.executable, "-c",
                                     "print('{\"src\":\"user\",\"ev\":\"meta\"}')"])
         for key, v in kw.items():
@@ -100,6 +101,16 @@ class RunTests(unittest.TestCase):
                 self.assertEqual(info["profile"], name)
                 self.assertEqual(sorted(info["kprobes"]["registered"]),
                                  sorted("hl_" + k for k in prof["kprobes"]), name)
+
+    def test_custom_probe_set(self):
+        with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as out:
+            make_dwc2_system(root)
+            with mock.patch.object(session, "TraceFS", FakeTraceFS):
+                session.run(self._args(root, out, kprobes="giveback", functions=""))
+            with open(os.path.join(out, "session.json")) as f:
+                info = json.load(f)
+            self.assertEqual(info["profile"], "custom")
+            self.assertEqual(info["kprobes"]["registered"], ["hl_giveback"])
 
     def test_function_tracer_profile_restores_state(self):
         with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as out:

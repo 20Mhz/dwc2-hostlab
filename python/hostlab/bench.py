@@ -80,7 +80,8 @@ def summarize(runs: List[Dict[str, Any]], profiles: List[str]) -> Dict[str, Any]
             "run_medians_ns": meds,
             "run_median_spread_ns": (max(meds) - min(meds)) if meds else None,
             "user_median_ns": percentile(ulat, 50),
-            "hits_per_transfer": PROFILES[p]["hits"] if p in PROFILES else 0,
+            "hits_per_transfer": PROFILES[p]["hits"] if p in PROFILES else 0 if p == "none"
+            else None,
             "phases_exact": exact if p != "none" else None,
             "phases_total": ok if p != "none" else None,
             "join_ok": sum(r["with_dwc2_enqueue"] for r in joined) if joined else None,
@@ -103,6 +104,55 @@ def summarize(runs: List[Dict[str, Any]], profiles: List[str]) -> Dict[str, Any]
     return by
 
 
+def session_args(spec: str) -> List[str]:
+    """Profile name, "none", or an ad-hoc set: "k:giveback+urb_enqueue",
+    "f:dwc2_hc_start_transfer", or both joined by "/" ("k:a/f:b")."""
+    if spec == "none":
+        return ["--no-ftrace"]
+    if spec in PROFILES:
+        return ["--profile", spec]
+    kp, fn = [], []
+    for part in spec.split("/"):
+        kind, _, names = part.partition(":")
+        if kind not in ("k", "f") or not names:
+            raise ValueError(f"bad profile spec {spec!r}")
+        (kp if kind == "k" else fn).extend(names.split("+"))
+    return ["--kprobes", ",".join(kp), "--functions", ",".join(fn)]
+
+
+def run_summary(rd: str, rep: Dict[str, Any]) -> Dict[str, Any]:
+    lat = device_latencies(rep)
+    c = rep["consistency"]
+    return {"latencies": lat, "median": percentile(lat, 50), "user_latencies": user_latencies(rd),
+            "ctrl_urbs_ok": c["ctrl_urbs_ok"],
+            "ctrl_urbs_phases_exact": c["ctrl_urbs_phases_exact"],
+            "with_dwc2_enqueue": c["with_dwc2_enqueue"],
+            "device_urbs": c["device_urbs_in_usbmon"],
+            "ambiguous": rep["channel_events"]["ambiguous"]}
+
+
+def reanalyze(out: str) -> Dict[str, Any]:
+    """Recompute every run's analysis and the summary from the recorded
+    sessions (the latencies are measurements and do not change; join and
+    phase columns follow the current analyser)."""
+    with open(os.path.join(out, "bench.json")) as f:
+        res = json.load(f)
+    runs = []
+    for r in res["runs"]:
+        rd = os.path.join(out, r["dir"])
+        rep = analyze(rd)
+        with open(os.path.join(rd, "analysis.json"), "w") as f:
+            json.dump(rep, f, indent=2, sort_keys=True)
+        r.update(run_summary(rd, rep))
+        runs.append(r)
+    res["profiles"] = summarize(runs, list(res["profiles"]))
+    res["runs"] = [{k: v for k, v in r.items() if k not in ("latencies", "user_latencies")}
+                   for r in runs]
+    res["reanalyzed"] = {"version": __version__,
+                         "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    return res
+
+
 def format_md(res: Dict[str, Any]) -> str:
     L = [f"# Instrumentation benchmark", "",
          f"- device {res['device']}, {res['rounds']} rounds x {res['repeat']} transfers per "
@@ -113,10 +163,11 @@ def format_md(res: Dict[str, Any]) -> str:
          "Run-median spread us | Above noise | Phases exact | Join |",
          "|---|---|---|---|---|---|---|---|---|---|---|"]
     us = lambda v: "-" if v is None else f"{v / 1000:.1f}"
+    hits = lambda v: "?" if v is None else str(v)
     pct = lambda v: "-" if v is None else f"{v * 100:+.1f}%"
     frac = lambda a, b: "-" if a is None else f"{a}/{b}"
     for p, s in res["profiles"].items():
-        L.append(f"| {p} | {s['hits_per_transfer']} | {s['urbs']} | {us(s['median_ns'])} | "
+        L.append(f"| {p} | {hits(s['hits_per_transfer'])} | {s['urbs']} | {us(s['median_ns'])} | "
                  f"{us(s['p95_ns'])} | {pct(s.get('overhead_median'))} | "
                  f"{pct(s.get('overhead_p95'))} | {us(s['run_median_spread_ns'])} | "
                  f"{'yes' if s.get('above_noise') else 'no' if p != 'none' else '-'} | "
@@ -127,17 +178,27 @@ def format_md(res: Dict[str, Any]) -> str:
 
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(prog="hostlab-bench", description=__doc__.splitlines()[0])
-    ap.add_argument("--device", required=True)
+    ap.add_argument("--device")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--reanalyze", action="store_true",
+                    help="recompute analyses and summary of an existing --out")
     ap.add_argument("--profiles", default=",".join(DEFAULT_PROFILES))
     ap.add_argument("--rounds", type=int, default=5)
     ap.add_argument("--repeat", type=int, default=200)
     ap.add_argument("--seed", type=int, default=1)
     args = ap.parse_args(argv)
+    if args.reanalyze:
+        res = reanalyze(args.out)
+        write_results(args.out, res)
+        return 0
+    if not args.device:
+        ap.error("--device is required")
     profiles = args.profiles.split(",")
     for p in profiles:
-        if p != "none" and p not in PROFILES:
-            ap.error(f"unknown profile {p}")
+        try:
+            session_args(p)
+        except ValueError as e:
+            ap.error(str(e))
     if not (1 <= args.rounds <= 20 and 1 <= args.repeat <= 2000):
         ap.error("rounds 1..20, repeat 1..2000")
     os.makedirs(args.out, exist_ok=False)
@@ -157,25 +218,17 @@ def main(argv: Optional[List[str]] = None) -> int:
         random.Random(args.seed * 1000 + rnd).shuffle(order)
         for p in order:
             rd = os.path.join(args.out, "runs", f"r{rnd}-{p}")
-            prof = ["--no-ftrace"] if p == "none" else ["--profile", p]
-            cmd = [session_bin, "run", "--out", rd] + prof + [
+            cmd = [session_bin, "run", "--out", rd] + session_args(p) + [
                 "--", ctl_bin, "get-descriptor", args.device, "--repeat", str(args.repeat)]
             rc = subprocess.call(cmd, stdout=subprocess.DEVNULL)
             rep = analyze(rd)
             with open(os.path.join(rd, "analysis.json"), "w") as f:
                 json.dump(rep, f, indent=2, sort_keys=True)
-            lat = device_latencies(rep)
-            c = rep["consistency"]
-            runs.append({"round": rnd, "profile": p, "dir": os.path.relpath(rd, args.out),
-                         "exit": rc, "latencies": lat, "median": percentile(lat, 50),
-                         "user_latencies": user_latencies(rd),
-                         "ctrl_urbs_ok": c["ctrl_urbs_ok"],
-                         "ctrl_urbs_phases_exact": c["ctrl_urbs_phases_exact"],
-                         "with_dwc2_enqueue": c["with_dwc2_enqueue"],
-                         "device_urbs": c["device_urbs_in_usbmon"],
-                         "ambiguous": rep["channel_events"]["ambiguous"]})
-            print(f"round {rnd} {p:8s} exit {rc} n={len(lat)} median={percentile(lat, 50)}",
-                  flush=True)
+            row = {"round": rnd, "profile": p, "dir": os.path.relpath(rd, args.out), "exit": rc}
+            row.update(run_summary(rd, rep))
+            runs.append(row)
+            print(f"round {rnd} {p:8s} exit {rc} n={len(row['latencies'])} "
+                  f"median={row['median']}", flush=True)
     res = {"tool": "hostlab-bench", "version": __version__, "revision": revision,
            "device": args.device, "rounds": args.rounds, "repeat": args.repeat,
            "seed": args.seed, "kernel": os.uname().release, "started": started,
@@ -183,12 +236,16 @@ def main(argv: Optional[List[str]] = None) -> int:
            "profiles": summarize(runs, profiles),
            "runs": [{k: v for k, v in r.items() if k not in ("latencies", "user_latencies")}
                     for r in runs]}
-    with open(os.path.join(args.out, "bench.json"), "w") as f:
+    write_results(args.out, res)
+    return 0
+
+
+def write_results(out: str, res: Dict[str, Any]) -> None:
+    with open(os.path.join(out, "bench.json"), "w") as f:
         json.dump(res, f, indent=2, sort_keys=True)
-    with open(os.path.join(args.out, "bench.md"), "w") as f:
+    with open(os.path.join(out, "bench.md"), "w") as f:
         f.write(format_md(res))
     print(format_md(res))
-    return 0
 
 
 if __name__ == "__main__":

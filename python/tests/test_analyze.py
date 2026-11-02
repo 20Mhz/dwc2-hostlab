@@ -161,6 +161,24 @@ class AnalyzeTests(unittest.TestCase):
         self.assertEqual(c["usbmon_without_enqueue"], 0)
         self.assertEqual(c["usbmon_unpaired_with_kprobes"], 0)
 
+    def test_delayed_enqueue_still_joins(self):
+        # Hardware case: the enqueue ran 1.011 ms after usbmon 'S' (task delayed).
+        trace = [TRACE[1], k("1000.001112", "urb_enqueue", f"urb={URB_A:#x}"),
+                 k("1000.001150", "hc_start", "hc=0"), k("1000.001200", "hc_start", "hc=1"),
+                 k("1000.001250", "hc_start", "hc=2"),
+                 k("1000.001300", "giveback", f"urb={URB_A:#x} status=0"), TRACE[-1]]
+        mons = [MON[1], mon("1000.000101", "S", URB_A, -115, setup=SETUP),
+                mon("1000.001350", "C", URB_A, 0, len_cap=18), MON[-1]]
+        with tempfile.TemporaryDirectory() as d:
+            with open(os.path.join(d, "ftrace.txt"), "w") as f:
+                f.write("\n".join(trace) + "\n")
+            with open(os.path.join(d, "usbmon.jsonl"), "w") as f:
+                f.write("".join(json.dumps(r) + "\n" for r in mons))
+            rep = analyze(d)
+        c = rep["consistency"]
+        self.assertEqual((c["with_dwc2_enqueue"], c["usbmon_without_enqueue"]), (1, 0))
+        self.assertEqual(c["ctrl_urbs_phases_exact"], 1)
+
     def test_channel_range_uses_probe(self):
         with open(os.path.join(self.tmp.name, "probe.json"), "w") as f:
             json.dump({"controller": {"summary": {"host_channels": 3}}}, f)
