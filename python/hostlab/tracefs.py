@@ -266,8 +266,9 @@ class TraceFS:
 
     def kprobe_profile(self) -> Optional[Dict[str, Dict[str, int]]]:
         """Hits and misses of hostlab's kprobes (tracefs kprobe_profile:
-        "<event> <hits> <misses>"). A miss is a hit the kernel dropped
-        because another kprobe handler was running."""
+        "<event> <hits> <misses>", the event without its group on 6.12; a
+        "group/event" spelling is accepted too). A miss is a hit the kernel
+        dropped because another kprobe handler was running."""
         try:
             text = self.read("kprobe_profile")
         except OSError:
@@ -275,8 +276,11 @@ class TraceFS:
         out = {}
         for line in text.splitlines():
             parts = line.split()
-            if len(parts) == 3 and parts[0].startswith(f"{GROUP}/"):
-                out[parts[0].split("/", 1)[1]] = {"hits": int(parts[1]), "misses": int(parts[2])}
+            if len(parts) != 3:
+                continue
+            group, _, event = parts[0].rpartition("/")
+            if group in ("", GROUP) and event.startswith(EVENT_PREFIX):
+                out[event] = {"hits": int(parts[1]), "misses": int(parts[2])}
         return out
 
     def add_kprobe(self, probe: Probe) -> None:

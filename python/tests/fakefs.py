@@ -50,7 +50,8 @@ def make_tracefs(root: str, functions=None) -> str:
     write(root, "sys/kernel/tracing/trace_marker", "")
     write(root, "sys/kernel/tracing/current_tracer", "nop\n")
     write(root, "sys/kernel/tracing/kprobe_profile",
-          "  hostlab/hl_giveback    120    2\n  other/x    5    0\n")
+          "  hl_giveback                         120               2\n"
+          "  other_probe                           5               0\n")
     write(root, "sys/kernel/tracing/set_ftrace_filter", "#### all functions enabled ####\n")
     lines = []
     for fn in functions:
