@@ -127,7 +127,11 @@ class UrbTimeline:
         return start, end
 
     def k_start(self) -> Optional[int]:
-        return self.k.get("submit", self.k.get("urb_enqueue"))
+        # Profiles without submit/enqueue probes (e.g. "fast") only see a URB
+        # when it is killed or dequeued; its earliest event still lies inside
+        # the usbmon window and is enough to pair it.
+        t = self.k.get("submit", self.k.get("urb_enqueue"))
+        return t if t is not None else min(self.k.values(), default=None)
 
     def wlength(self) -> Optional[int]:
         if not self.setup or len(self.setup) != 16:

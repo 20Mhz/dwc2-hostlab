@@ -70,7 +70,7 @@ def classify(r: Dict[str, Any], u: Optional[Dict[str, Any]]) -> str:
 
 
 def cancel_report(session_dir: str, bin_us: int = 20) -> Dict[str, Any]:
-    rep = analyze(session_dir)
+    rep = analyze(session_dir, keep_events=True)
     user = [r for r in _load_jsonl(f"{session_dir}/user.jsonl")
             if r.get("ev") == "xfer" and r.get("op") == "async"]
     urbs = _device_ctrl(rep)
@@ -86,6 +86,14 @@ def cancel_report(session_dir: str, bin_us: int = 20) -> Dict[str, Any]:
         if u is not None:
             row.update({"urb": u["urb"], "instance": u["instance"],
                         "channel_runs": u["channel_runs"], "usbmon_status": u["status"]})
+            tdq = u.get("k", {}).get("urb_dequeue")
+            comps = [e for e in u.get("events", []) if e["ev"] == "xfercomp"
+                     and "phase" in e["fields"]]
+            if tdq is not None and comps:
+                # Profiles reading qtd->control_phase ("state"): phases whose
+                # transfer-complete interrupt was handled before the dequeue.
+                row["completed_before_dequeue"] = [
+                    PHASES[int(e["fields"]["phase"], 0)] for e in comps if e["t_ns"] < tdq]
             if "cancel" in u:
                 row.update({k: u["cancel"].get(k) for k in (
                     "phase_at_dequeue", "phase_label_certainty", "runs_started_before_dequeue",
@@ -97,23 +105,30 @@ def cancel_report(session_dir: str, bin_us: int = 20) -> Dict[str, Any]:
     for row in rows:
         bins[row["delay_us"] // bin_us * bin_us][row["class"]] += 1
     cancelled = [r for r in rows if r["status"] == "cancelled"]
-    in_status = [r for r in cancelled if r.get("phase_at_dequeue") == "STATUS"]
+    # Strongest evidence first: the controller's DATA transfer-complete was
+    # handled before the dequeue; otherwise the STATUS run had started.
+    data_done = [r for r in cancelled if "DATA" in (r.get("completed_before_dequeue") or [])]
+    in_status = data_done or [r for r in cancelled if r.get("phase_at_dequeue") == "STATUS"]
     in_data = [r for r in cancelled if r.get("phase_at_dequeue") == "DATA"]
     lat = lambda key: [r[key] for r in cancelled if r.get(key) is not None]
-    h3 = {"cancelled_in_STATUS": len(in_status),
+    h3 = {"evidence": "DATA transfer-complete before dequeue" if data_done
+          else "STATUS run started before dequeue",
+          "cancelled_in_STATUS": len(in_status),
           "actual_nonzero_in_STATUS": sum(1 for r in in_status if r["actual"]),
           "cancelled_in_DATA": len(in_data),
           "actual_nonzero_in_DATA": sum(1 for r in in_data if r["actual"])}
     if not in_status:
-        h3["status"], h3["reason"] = "INCONCLUSIVE", "no URB was cancelled during STATUS"
+        h3["status"], h3["reason"] = "INCONCLUSIVE", ("no cancelled URB had its DATA stage "
+                                                      "completed before the dequeue")
     elif h3["actual_nonzero_in_STATUS"] == 0:
         h3["status"] = "PASS"
-        h3["reason"] = (f"all {len(in_status)} URBs cancelled during STATUS (DATA stage "
-                        "reported complete by the controller) returned actual_length 0")
+        h3["reason"] = (f"all {len(in_status)} cancelled URBs whose DATA stage the controller "
+                        f"reported complete ({h3['evidence']}) returned actual_length 0")
     else:
         h3["status"] = "FAIL"
-        h3["reason"] = (f"{h3['actual_nonzero_in_STATUS']} of {len(in_status)} URBs cancelled "
-                        "during STATUS reported a non-zero actual_length")
+        h3["reason"] = (f"{h3['actual_nonzero_in_STATUS']} of {len(in_status)} cancelled URBs "
+                        f"whose DATA stage completed ({h3['evidence']}) reported a non-zero "
+                        "actual_length")
     return {
         "tool": "hostlab-report cancel", "session": session_dir,
         "profile": rep["consistency"].get("profile"),

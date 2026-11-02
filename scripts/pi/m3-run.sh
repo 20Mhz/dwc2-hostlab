@@ -8,6 +8,8 @@
 #   e3   cancel sweep 0..300 us step 5, 5 repeats, three times: profile
 #        "state" (needs OFFSETS=file from scripts/pi/dwc2-offsets.sh), the
 #        default "fast" profile, and without ftrace
+#   h3   targeted sweep 20..50 us step 1, 10 repeats, profile "state": cancels
+#        that land after the DATA stage completed (H3)
 #   e6   5 resets, then 5 resets with 4 GET_DESCRIPTOR URBs pending
 #   h5   e6's 5 plain resets with usbcore old_scheme_first=1 (runtime module
 #        parameter, restored on exit even on failure)
@@ -17,7 +19,7 @@
 # still answers GET_DESCRIPTOR.
 set -eu
 
-stage="${1:?usage: m3-run.sh e3|e6|h5 BUS:DEV OUT_DIR}"
+stage="${1:?usage: m3-run.sh e3|h3|e6|h5 BUS:DEV OUT_DIR}"
 dev="${2:?BUS:DEV}"
 out="${3:?OUT_DIR}"
 cd "$(dirname "$0")/../.."
@@ -43,6 +45,13 @@ e3)
         bin/hostlab-report cancel "$out/$r" --json "$out/$r/cancel.json"
     done
     check_device e3
+    ;;
+h3)
+    : "${OFFSETS:?set OFFSETS to the dwc2-offsets.sh JSON for this kernel}"
+    $S --profile state --offsets "$OFFSETS" --out "$out/h3-state" -- \
+        $C cancel-sweep "$dev" --delays-us 20:50:1 --repeat 10 || true
+    bin/hostlab-report cancel "$out/h3-state" --bin-us 5 --json "$out/h3-state/cancel.json"
+    check_device h3
     ;;
 e6)
     $S --profile channel --out "$out/e6-reset" -- \
