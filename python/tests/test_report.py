@@ -39,6 +39,28 @@ class CancelReportTests(unittest.TestCase):
         self.assertEqual(rep["h3"]["status"], "INCONCLUSIVE")  # nothing cancelled in STATUS
         self.assertEqual(rep["h3"]["cancelled_in_DATA"], 1)
 
+    def test_lost_race_in_unlink(self):
+        # Hardware pattern: usb_hcd_unlink_urb entered, the completion IRQ and
+        # BH giveback ran before it read use_count, so no dwc2 dequeue.
+        trace = [TRACE[1],
+                 k("1000.000100", "urb_enqueue", f"urb={URB_A:#x}"),
+                 k("1000.000120", "hc_start", "hc=0"),
+                 k("1000.000300", "kill", f"urb={URB_A:#x}"),
+                 k("1000.000306", "unlink", f"urb={URB_A:#x} status=-2"),
+                 k("1000.000320", "giveback", f"urb={URB_A:#x} status=0"), TRACE[-1]]
+        mons = [MON[1], mon("1000.000090", "S", URB_A, -115, setup=SETUP),
+                mon("1000.000400", "C", URB_A, 0, len_cap=18), MON[-1]]
+        user = [async_rec(0, "1000.000080", "ok", "ok", 18, delay=40)]
+        with tempfile.TemporaryDirectory() as d:
+            for name, recs in (("usbmon.jsonl", mons), ("user.jsonl", user)):
+                with open(os.path.join(d, name), "w") as f:
+                    f.write("".join(json.dumps(r) + "\n" for r in recs))
+            with open(os.path.join(d, "ftrace.txt"), "w") as f:
+                f.write("\n".join(trace) + "\n")
+            rep = cancel_report(d)
+        self.assertEqual(rep["classes"], {"accepted_but_completed": 1})
+        self.assertEqual(rep["lost_race"], {"in_unlink": 1})
+
     def test_accepted_but_completed(self):
         self.assertEqual(classify({"status": "ok", "cancel": "ok"}, None),
                          "accepted_but_completed")

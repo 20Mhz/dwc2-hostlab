@@ -94,6 +94,20 @@ def cancel_report(session_dir: str, bin_us: int = 20) -> Dict[str, Any]:
                 # transfer-complete interrupt was handled before the dequeue.
                 row["completed_before_dequeue"] = [
                     PHASES[int(e["fields"]["phase"], 0)] for e in comps if e["t_ns"] < tdq]
+            kt = u.get("k", {})
+            gb = kt.get("giveback")
+            if row["cancel"] == "ok" and row["status"] == "ok" and gb is not None:
+                # Where the completion interrupt overtook the cancel path
+                # (usb_kill_urb -> usb_hcd_unlink_urb -> dwc2 dequeue, which
+                # only runs while urb->use_count > 0).
+                row["lost_race"] = (
+                    "before_unlink" if kt.get("unlink", gb + 1) > gb
+                    else "in_unlink" if kt.get("urb_dequeue", gb + 1) > gb
+                    else "in_dequeue") if "kill" in kt else None
+            if "kill" in kt and "urb_dequeue" in kt and row["status"] == "cancelled":
+                row["kill_to_dequeue_ns"] = kt["urb_dequeue"] - kt["kill"]
+                if "unlink" in kt:
+                    row["kill_to_unlink_ns"] = kt["unlink"] - kt["kill"]
             if "cancel" in u:
                 row.update({k: u["cancel"].get(k) for k in (
                     "phase_at_dequeue", "phase_label_certainty", "runs_started_before_dequeue",
@@ -139,6 +153,9 @@ def cancel_report(session_dir: str, bin_us: int = 20) -> Dict[str, Any]:
         "bin_us": bin_us,
         "accepted_not_cancelled": sum(1 for r in rows if r["cancel"] == "ok"
                                       and r["status"] != "cancelled"),
+        "lost_race": dict(Counter(r["lost_race"] for r in rows if r.get("lost_race"))),
+        "kill_to_unlink_ns": _stats(lat("kill_to_unlink_ns")),
+        "kill_to_dequeue_ns": _stats(lat("kill_to_dequeue_ns")),
         "dequeue_to_halt_ns": _stats(lat("dequeue_to_halt_ns")),
         "dequeue_to_release_ns": _stats(lat("dequeue_to_release_ns")),
         "giveback_before_channel_release": dict(Counter(
@@ -162,6 +179,9 @@ def format_cancel(r: Dict[str, Any]) -> str:
          f"profile {r['profile']}",
          f"  classes: {r['classes']}",
          f"  DISCARDURB accepted but URB not cancelled: {r['accepted_not_cancelled']}",
+         f"  accepted-but-completed lost the race: {r['lost_race']}",
+         f"  kill->unlink: {r['kill_to_unlink_ns']}",
+         f"  kill->dequeue: {r['kill_to_dequeue_ns']}",
          f"  dequeue->halt: {r['dequeue_to_halt_ns']}",
          f"  dequeue->release: {r['dequeue_to_release_ns']}",
          f"  giveback before channel release: {r['giveback_before_channel_release']}",
