@@ -33,7 +33,7 @@ from . import __version__
 from .analyze import analyze
 from .tracefs import PROFILES
 
-DEFAULT_PROFILES = ["none", "fphase", "minimal", "phase", "channel", "full"]
+DEFAULT_PROFILES = ["none", "idle", "fphase", "minimal", "phase", "channel", "full"]
 
 
 def percentile(xs: List[int], p: float) -> Optional[int]:

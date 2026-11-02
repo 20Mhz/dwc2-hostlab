@@ -111,6 +111,9 @@ PROFILES: Dict[str, Dict[str, Any]] = {
               "about": "URB join and one event per channel run (phase reconstruction)"},
     "minimal": {"kprobes": ["urb_enqueue", "giveback"] + RARE, "functions": [], "hits": 2,
                 "about": "URB join only; no phases"},
+    "idle": {"kprobes": RARE, "functions": [], "hits": 0,
+             "about": "diagnostic: tracing on and rare-path probes registered, no hits on "
+                      "a normal transfer; isolates the fixed cost of tracing"},
     "fphase": {"kprobes": RARE, "functions": ["dwc2_hc_start_transfer"], "hits": 3,
                "about": "function-tracer channel starts; URB windows from usbmon; "
                         "no channel numbers"},
