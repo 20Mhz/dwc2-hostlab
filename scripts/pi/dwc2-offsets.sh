@@ -29,7 +29,10 @@ struct dwc2_host_chan hostlab_chan;
 struct dwc2_qtd hostlab_qtd;
 MODULE_LICENSE("GPL");
 EOF
-printf 'obj-m := hostlab_offsets.o\nccflags-y := -g -gdwarf-4\n' > "$work/Kbuild"
+# DWARF 5 states bitfield positions as DW_AT_data_bit_offset (bits from the
+# start of the struct); older versions use the MSB-relative DW_AT_bit_offset,
+# which is converted below if it appears.
+printf 'obj-m := hostlab_offsets.o\nccflags-y := -g -gdwarf-5\n' > "$work/Kbuild"
 make -s -C "$kdir" M="$work" hostlab_offsets.o >/dev/null
 python3 - "$work/hostlab_offsets.o" "$(uname -r)" "$out" <<'PY'
 import json, re, subprocess, sys
@@ -59,12 +62,21 @@ for line in dump.splitlines():
         continue
     if member is None or cur not in want:
         continue
-    for attr in ("name", "data_member_location", "data_bit_offset", "bit_size", "byte_size"):
+    for attr in ("name", "data_member_location", "data_bit_offset", "bit_offset", "bit_size",
+                 "byte_size"):
         a = re.search(rf"DW_AT_{attr}\s*:\s*(?:\(indirect string, offset: 0x[0-9a-f]+\):\s*)?(\S+)\s*$", line)
         if a:
             member[attr] = a.group(1) if attr == "name" else int(a.group(1), 0)
             if attr == "name" and a.group(1) in want[cur]:
                 res.setdefault(cur, {})[a.group(1)] = member
+for m in res.values():
+    for v in m.values():
+        if "bit_offset" in v:  # DWARF 2-4, little-endian: count from the LSB
+            v["data_bit_offset"] = (v.get("data_member_location", 0) * 8
+                                    + v["byte_size"] * 8 - v.pop("bit_offset") - v["bit_size"])
+        if "data_bit_offset" in v:
+            v.pop("data_member_location", None)
+            v.pop("byte_size", None)
 res = {s: {k: {kk: vv for kk, vv in v.items() if kk != "name"} for k, v in m.items()}
        for s, m in res.items()}
 missing = {s: sorted(want[s] - set(res.get(s, {}))) for s in want}
