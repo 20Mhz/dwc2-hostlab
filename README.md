@@ -5,12 +5,13 @@ the Synopsys DesignWare HS OTG (DWC2) controller under Linux. The primary target
 is the Raspberry Pi Zero W v1.1 (BCM2835, ARM1176JZF-S).
 
 **Status: early (v0.1.0-dev).** Source analysis is complete, the tools are
-built and unit-tested, and the first hardware session ran on a Pi Zero W
-(Raspberry Pi OS trixie, kernel 6.12.47) on 2026-11-01. dwc2 binding,
-kprobe registration, usbmon capture, clock alignment and overlay recovery
-are verified on hardware. Channel-level traces of a real peripheral are
-still open: no device was attached
-([bring-up log](docs/m1-bringup.md), [plan](docs/plan.md)).
+built and unit-tested, and hardware bring-up (M1) is complete on a Pi Zero W
+(Raspberry Pi OS trixie, kernel 6.12.47): 100 control transfers to a USB
+device traced down to channel level, every phase on its own host channel
+([bring-up log](docs/m1-bringup.md),
+[evidence](docs/evidence/m1-20261101-ch340/test-summary.md),
+[plan](docs/plan.md)). The full kprobe profile costs about 5 µs per probe hit
+on the ARM1176, so timings taken with it are inflated.
 
 ## What it does
 
@@ -93,7 +94,7 @@ Deployment, first hardware run and recovery: [docs/environment.md](docs/environm
 
 | Board | Driver | Status |
 |---|---|---|
-| Raspberry Pi Zero W v1.1 | dwc2 (`dtoverlay=dwc2,dr_mode=host`) | primary target; binding, tracing setup and recovery verified on 6.12.47; device traffic not yet captured |
+| Raspberry Pi Zero W v1.1 | dwc2 (`dtoverlay=dwc2,dr_mode=host`) | primary target; verified on 6.12.47 with a full-speed device |
 | Raspberry Pi Zero W v1.1 | dwc_otg (default) | usbfs/usbmon layers only |
 | Any Linux host | any HCD | `hostlab-ctl`, `hostlab-mon` (usbfs/usbmon); smoke-tested on an xHCI root hub |
 

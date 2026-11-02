@@ -117,6 +117,5 @@ watch it.
 
 | Blocker | Impact | Workaround / next step |
 |---|---|---|
-| No USB peripheral attached to the Pi during the 2026-11-01 session | No dwc2 channel events yet: H7, H8 and the M1 trace/analysis checks are open | Attach a device, run `scripts/pi/m1-run.sh` |
 | Docker VM kernel has no dummy_hcd / usbmon | No software-only end-to-end test | Issue draft 1 in [plan.md](plan.md#issue-drafts) |
 | CI workflow not executed on GitHub | Workflow syntax unverified by GitHub | Steps run locally with the same commands |

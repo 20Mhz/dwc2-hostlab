@@ -11,7 +11,10 @@ the kernel tree in [references.md](references.md)).
 - OS: Raspberry Pi OS Lite 32-bit, Raspbian 13 (trixie), kernel
   `6.12.47+rpt-rpi-v6` (raspberrypi/linux `359f37f`), not the 6.18 tree M0
   analysed. Differences: [references.md](references.md#the-kernel-actually-running-on-the-target).
-- Instruments: none attached. No USB peripheral attached during the session.
+- Instruments: none attached. Test peripheral (attached later in the
+  session): a CH340 USB-serial adapter, QinHeng `1a86:7523`, USB 1.10,
+  full speed, bound to `ch341` as `/dev/ttyUSB0`. Only GET_DESCRIPTOR(DEVICE)
+  requests were sent to it; its serial port was never opened.
 - Tools deployed with `scripts/deploy.sh`; the bundle records the exact commit.
 
 ## What was run
@@ -27,7 +30,9 @@ the kernel tree in [references.md](references.md)).
 | 7 | `enable-dwc2.sh --revert`, reboot (20:28) | `config.txt` MD5 identical to the pre-apply backup; dwc_otg bound | `states/reverted.json` |
 | 8 | `enable-dwc2.sh --apply`, reboot (20:31) | dwc2 bound again | `states/reapplied.json` |
 | 9 | `m1-run.sh` smoke test against the root hub (refused by policy, as intended) | script ran end to end; exposed defects 4 and 5 | — (deleted) |
-| 10 | Partial evidence bundle | [evidence/m1-20261101-partial](evidence/m1-20261101-partial/test-summary.md) | — |
+| 10 | Partial evidence bundle (root hub only) | [evidence/m1-20261101-partial](evidence/m1-20261101-partial/test-summary.md), superseded by step 12 | — |
+| 11 | CH340 attached (20:41); `m1-run.sh 1:2` | M1 checks all PASS; the run without probes lost its last transfer (defect 7) | — (kept on the Pi only) |
+| 12 | Defect 7 fixed, `m1-run.sh 1:2` repeated | M1 checks all PASS; 200/200 usbmon events in both sessions | [evidence/m1-20261101-ch340](evidence/m1-20261101-ch340/test-summary.md) |
 
 The Pi was left with the dwc2 overlay applied (hostlab block in
 `config.txt`, backups `config.txt.hostlab-*` next to it).
@@ -35,9 +40,10 @@ The Pi was left with the dwc2 overlay applied (hostlab block in
 ## Defects found on hardware
 
 None of these showed up in unit tests, emulation or the Docker smoke test.
-Each now has a regression test, except that for defect 1 only the write
-path and the warning are tested: tracefs's seek behaviour cannot be
-reproduced on a regular file.
+Defects 2–6 have regression tests. For defect 1 only the write path and the
+warning are tested, because tracefs's seek behaviour cannot be reproduced on
+a regular file. Defect 7 needs a live usbmon and was verified on the Pi
+(`queued: 0`, 200 of 200 events).
 
 1. **Every kprobe registration failed with EINVAL.** Python's `open(path,
    "a")` seeks to the end of the file; tracefs's `kprobe_events` rejects
@@ -70,6 +76,11 @@ reproduced on a regular file.
    device URBs there would have failed H7. Join checks now cover only the
    window between the start and stop markers.
 
+7. **usbmon lost the last transfer.** `hostlab-mon` exited on SIGINT with
+   events still queued in the kernel (`stats.queued` = 2), so one session
+   had 99 of 100 transfers. On a stop signal it now reads the events
+   queued at that moment before exiting.
+
 Also fixed: `hostlab-mon` takes `-h`, not `--help` (preflight reported it
 as not runnable); macOS tar extended attributes in the deploy archive;
 preflight treated unreadable root-only tracefs files as failures for
@@ -94,33 +105,52 @@ the probe falls back to `/boot/config-RELEASE`.
 - Boot with the dwc2 overlay took about 2 minutes to SSH availability
   (load average ~5 at login), the same as with dwc_otg.
 
+## Device run (CH340, 100 × GET_DESCRIPTOR(DEVICE))
+
+From [evidence/m1-20261101-ch340](evidence/m1-20261101-ch340/test-summary.md)
+(hostlab `99b3779`):
+
+- Every one of the 100 control URBs ran as **three channel runs**: SETUP,
+  DATA and STATUS. Every run used a **different channel** than the phase
+  before, cycling through channels 0–7 (SETUP@hc0, DATA@hc1, STATUS@hc2,
+  then SETUP@hc3, …). This confirms on hardware that dwc2 releases the
+  channel between phases and takes the next free one
+  ([usb-control-transfers.md](usb-control-transfers.md)).
+- Channel releases: 200 with reason 1 (COMPLETE, after SETUP and DATA) and
+  100 with reason 2 (URB_COMPLETE, after STATUS).
+- Channel start → transfer-complete IRQ, medians (with probes, so including
+  probe cost): SETUP 54.5 µs, DATA 78 µs, STATUS 23 µs.
+- Enqueue → first channel start: median 16 µs. IRQ-side giveback → BH
+  giveback: median 22 µs.
+- usbmon submit → complete: median 257 µs with the 18 kprobes, 168.5 µs
+  without (n=100 each). **H8 fails**: the probes add about 88 µs per
+  transfer, which is 17 probe hits at roughly 5 µs each on the ARM1176.
+- Join: 100/100 usbmon URBs matched a dwc2 enqueue, 0 unpaired, 0 ambiguous
+  channel events; all 100 URBs shared one address.
+
 ## Definition of done
 
 | Criterion | Status | Evidence |
 |---|---|---|
 | Physical Pi Zero W identified | PASS | `preflight.json` board, revision `9000c1` |
 | DWC2 binding verified on the running kernel | PASS | `preflight.json` `driver_binding` |
-| A benign USB peripheral enumerates | **open** (none attached) | — |
-| usbmon and kprobe traces captured | partial: captured for root-hub traffic; no dwc2 channel events without a device | `sessions/roothub/` |
-| Analysis pipeline processes actual hardware traces | partial: 110 root-hub URB instances; no channel phases | `analysis.json` |
-| Evidence supports the relevant hypotheses | H1, H2, H9, H10 PASS; H7, H8 need the device run | `hypothesis-results.json` |
+| A benign USB peripheral enumerates | PASS | CH340 `1a86:7523` as 1:2, `usb-topology.txt` |
+| usbmon and kprobe traces captured | PASS | 204 usbmon records, 1702 trace events, 1300 channel events |
+| Analysis pipeline processes actual hardware traces | PASS | 100 URB instances, 100 with exact phase labels |
+| Evidence supports the relevant hypotheses | H1, H2, H7, H9, H10 PASS; H8 FAIL; H3–H6 BLOCKED (M3) | `hypothesis-results.json` |
 | Recovery procedures validated | PASS | `states/reverted.json`, `states/reapplied.json` |
 
-**M1 is partially complete.**
+**M1 is complete.** The Pi is left with the dwc2 overlay applied and the
+CH340 attached.
 
-## Next action
+## Consequences for M3
 
-Attach an ordinary USB peripheral (keyboard, mouse or flash drive) to the
-Zero W's **USB** port through an OTG adapter, then:
-
-```
-ssh pizero
-cd ~/dwc2-hostlab
-bin/hostlab-ctl list                       # note BUS:DEV of the device, e.g. 1:2
-sudo scripts/pi/m1-run.sh 1:2
-cat evidence/m1-*/test-summary.md
-```
-
-Copy the bundle back with `scp -r pizero:dwc2-hostlab/evidence/m1-DATE
-docs/evidence/` and commit it. M1 is complete when every row of its
-`test-summary.md` M1 table is PASS.
+- H8 failing means timing taken with the full profile is inflated by about
+  5 µs per probe hit. Phase durations and latencies from kprobe sessions
+  need either a reduced profile (for example only `hc_start`,
+  `xfercomp`, `hc_release` for E2) or a correction measured against
+  `--no-ftrace` runs. This meets the C1 trigger in [plan.md](plan.md): if
+  the reduced profile is still too costly, propose dwc2 tracepoints.
+- The CH340 is a full-speed device on the high-speed root port with no hub,
+  so no split transactions are involved. That keeps E1–E3 simple but leaves
+  the split path untested.

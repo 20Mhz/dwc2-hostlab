@@ -2,8 +2,8 @@
 
 Status as of 2026-11-01 (evening). "Done" means implemented **and** its tests
 run. The first hardware session ran on a Pi Zero W on 2026-11-01
-([m1-bringup.md](m1-bringup.md)); no USB peripheral was attached, so the
-dwc2 channel-level results are still open.
+([m1-bringup.md](m1-bringup.md)), ending with a CH340 USB-serial adapter
+as the test device: M1 is complete.
 
 ## Smallest useful prototype (built)
 
@@ -42,7 +42,7 @@ removes only hostlab's kprobes and restores the tracefs settings it changed.
 [kernel-integration-options.md](kernel-integration-options.md),
 [references.md](references.md), [evidence/](evidence/).
 
-### M1 — Reproducible environment and hardware bring-up — **partially complete**
+### M1 — Reproducible environment and hardware bring-up — **done**
 
 | Item | Status |
 |---|---|
@@ -51,18 +51,17 @@ removes only hostlab's kprobes and restores the tracefs settings it changed.
 | Deploy script (ssh + tar) | done, **used on hardware** |
 | Overlay apply / revert (`enable-dwc2.sh`) | done, **validated on hardware**: apply → dwc2 bound; revert → byte-identical `config.txt`, dwc_otg bound; re-apply → dwc2 |
 | Preflight (`hostlab-preflight`, read-only, text + JSON) | done, run on hardware under dwc_otg and dwc2 |
-| Evidence bundle (`hostlab-evidence`) and one-command run (`scripts/pi/m1-run.sh`) | done; partial bundle [evidence/m1-20261101-partial](evidence/m1-20261101-partial/test-summary.md) |
+| Evidence bundle (`hostlab-evidence`) and one-command run (`scripts/pi/m1-run.sh`) | done; [evidence/m1-20261101-ch340](evidence/m1-20261101-ch340/test-summary.md) |
 | Recovery instructions | [environment.md](environment.md#recovery), revert path validated |
 | CI workflow | written ([.github/workflows/ci.yml](../.github/workflows/ci.yml)); **not executed** (no remote). Its Linux, macOS and ARMv6 steps were run locally with the same commands |
 | Unit tests (C 127 checks + CLI 9, Python 42, script 11) | done, passing |
-| A benign USB peripheral enumerating under dwc2, with usbmon + kprobe traces analysed | **open**: no peripheral was attached |
+| A benign USB peripheral enumerating under dwc2, with usbmon + kprobe traces analysed | done: CH340 (`1a86:7523`, full speed), 100 control URBs, 1300 channel events |
 | Software-only USB loopback (dummy_hcd + g_zero) for integration tests | **blocked**: Docker VM kernel has no dummy_hcd/usbmon modules; needs a QEMU VM with a custom kernel |
 
 M1 definition of done ([m1-bringup.md](m1-bringup.md#definition-of-done)):
-hardware identified, dwc2 bound, recovery validated and stability are PASS;
-peripheral enumeration, trace capture and analysis of device URBs are open.
+all criteria PASS.
 
-### M2 — Instrumentation — **implemented; kprobe and usbmon capture verified on hardware (root hub only)**
+### M2 — Instrumentation — **done, verified on hardware**
 
 Done: `hostlab-mon`, `hostlab-ctl`, `hostlab-probe`, `hostlab-preflight`,
 `hostlab-session`, `hostlab-analyze`, `hostlab-evidence`, trace format v1
@@ -70,7 +69,8 @@ Done: `hostlab-mon`, `hostlab-ctl`, `hostlab-probe`, `hostlab-preflight`,
 
 Fixed after the first hardware run: kprobe registration (EINVAL from
 Python's append-mode seek on tracefs), URB address reuse in the analyser,
-the overlay script's `[cm5]` false positive. Details in
+the overlay script's `[cm5]` false positive, usbmon events lost at stop.
+Details in
 [m1-bringup.md](m1-bringup.md#defects-found-on-hardware).
 
 ### M3 — Controller experiments
@@ -97,13 +97,15 @@ Benign test devices, in order of preference:
 | E8 | FS device on a Saleae Logic Pro 8, GPIO marker for clock alignment | wire tokens vs `hc_start` | which phase reached the bus at cancel |
 | E9 | E1 + E3 on dwc_otg (usbmon only) | comparison | driver differences visible above the HCD |
 
-**M3 readiness (2026-11-01).** M3 starts after the M1 device run
-(H7 PASS and H8 measured). With the tools as they are:
+**M3 readiness (2026-11-01).** M1 is complete; M3 can start. Because H8
+failed, E2 timing must use a reduced probe profile or be corrected against
+`--no-ftrace` runs, and the C1 decision below is now due. With the tools as
+they are:
 
 | Experiment | Ready? | Needs |
 |---|---|---|
-| E1 baseline, E2 per-phase timing | yes | a peripheral; `m1-run.sh` already records E1 at n=100 with and without probes |
-| E3 cancellation sweep | yes (`hostlab-ctl cancel-sweep`) | a peripheral; read-only GET_DESCRIPTOR only |
+| E1 baseline, E2 per-phase timing | yes; E2 needs a reduced profile option | the CH340 (attached); `m1-run.sh` already records E1 at n=100 with and without probes |
+| E3 cancellation sweep | yes (`hostlab-ctl cancel-sweep`) | the CH340; read-only GET_DESCRIPTOR only |
 | E6 port reset | tool ready (`hostlab-ctl reset --allow-reset`) | a disposable peripheral; reset re-enumerates the device |
 | E7 unplug | manual | someone at the Pi |
 | E4 timeout, E5 STALL | no | a gadget (second Pi Zero with `g_zero` or FunctionFS); not an M1 dependency |
@@ -142,7 +144,7 @@ patch if it is still needed and not yet upstream.
 
 ## Hypotheses to verify on hardware
 
-Status from [evidence/m1-20261101-partial](evidence/m1-20261101-partial/hypothesis-results.json)
+Status from [evidence/m1-20261101-ch340](evidence/m1-20261101-ch340/hypothesis-results.json)
 (PASS: supported by recorded evidence; FAIL: contradicted; BLOCKED: not
 executed; INCONCLUSIVE: executed, evidence insufficient).
 
@@ -154,8 +156,8 @@ executed; INCONCLUSIVE: executed, evidence insufficient).
 | H4 | An IN channel can DMA into the URB buffer after giveback on dequeue | E3 with MMAP buffers + canary | BLOCKED (MMAP variant not implemented) |
 | H5 | Enumeration sequence after reset depends on usbcore parameters | E6, usbmon | BLOCKED (M3) |
 | H6 | Behaviour of URBs pending across `USBDEVFS_RESET` | E6 variant | BLOCKED (M3) |
-| H7 | The register-fetch kprobe profile is valid on the shipped kernel (AAPCS args preserved for static functions; `hc` < host_channels; enqueue `urb` = usbmon id) | analyser `consistency` block | INCONCLUSIVE: all 18 probes register and fire on usbcore paths; no device URBs, so no dwc2 events yet. Source check: prototypes unchanged in 6.12.47 |
-| H8 | kprobe overhead is small relative to transfer latency (median usbmon latency with probes ≤ 1.20 × without, ≥ 30 device control URBs each) | `m1-run.sh` with / without probes | BLOCKED (needs a device) |
+| H7 | The register-fetch kprobe profile is valid on the shipped kernel (AAPCS args preserved for static functions; `hc` < host_channels; enqueue `urb` = usbmon id) | analyser `consistency` block | **PASS**: 100/100 device URBs joined to a dwc2 enqueue, channels 0–7 only, 100/100 control URBs with exactly one channel run per phase |
+| H8 | kprobe overhead is small relative to transfer latency (median usbmon latency with probes ≤ 1.20 × without, ≥ 30 device control URBs each) | `m1-run.sh` with / without probes | **FAIL**: median 257 µs with probes vs 168.5 µs without (ratio 1.53, n=100 each), about 5 µs per probe hit |
 | H9 | The shipped kernel's traceable dwc2 functions match our build | `probe.json` `hostlab_probes_missing` | **PASS**: 18 of 18 traceable |
 | H10 | `trace_clock=mono` equals CLOCK_MONOTONIC | marker inside the CLOCK_MONOTONIC bracket of its write | **PASS**: both markers inside brackets of ~0.3 ms |
 
@@ -171,7 +173,7 @@ submit time.
    arm64 or x86 kernel with `USB_DUMMY_HCD`, `USB_ZERO`, `USB_MON`,
    `KPROBE_EVENTS`; run hostlab-ctl/mon/session against the dummy device.
    (Not dwc2, but exercises usbfs/usbmon/tracefs end to end.)
-2. **M1: finish the hardware run with a peripheral** (`scripts/pi/m1-run.sh`); commit the bundle.
+2. **M3: reduced kprobe profile** (`hostlab-session --profile channel`) so E2 timing is not dominated by probe cost (H8).
 3. **M3: kprobe offsets for struct fields.** Generate `offsetof` values for
    `dwc2_qtd.control_phase`, `dwc2_host_chan.{xfer_len,data_pid_start,hcint}`
    by compiling against the exact RPi tree and config (asm-offsets style), and
