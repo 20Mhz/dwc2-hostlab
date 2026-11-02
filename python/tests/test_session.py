@@ -58,11 +58,23 @@ class FtraceSessionTests(unittest.TestCase):
             self.assertEqual(tfs.read("kprobe_events").count("hostlab/hl_submit"), 1)
 
 
+# Shape of scripts/pi/dwc2-offsets.sh output (values illustrative, not measured).
+STATE_OFFSETS = {
+    "dwc2_host_chan": {"dev_addr": {"data_bit_offset": 8, "bit_size": 7},
+                       "ep_num": {"data_bit_offset": 15, "bit_size": 4},
+                       "ep_is_in": {"data_bit_offset": 19, "bit_size": 1},
+                       "data_pid_start": {"data_bit_offset": 43, "bit_size": 2},
+                       "xfer_len": {"data_member_location": 20},
+                       "hcint": {"data_member_location": 56}},
+    "dwc2_qtd": {"control_phase": {"data_member_location": 0}},
+}
+
+
 class RunTests(unittest.TestCase):
     def _args(self, root, out, **kw):
         a = argparse.Namespace(root=root, out=out, bus=0, snaplen=64, buffer_kb=1024,
                                bindir=None, no_ftrace=False, no_usbmon=True, profile="full",
-                               kprobes=None, functions=None,
+                               kprobes=None, functions=None, offsets=None,
                                cmd=[sys.executable, "-c",
                                     "print('{\"src\":\"user\",\"ev\":\"meta\"}')"])
         for key, v in kw.items():
@@ -92,6 +104,8 @@ class RunTests(unittest.TestCase):
     def test_profiles_register_subsets(self):
         from hostlab.tracefs import PROFILES
         for name, prof in PROFILES.items():
+            if name == "state":
+                continue  # needs --offsets; tested below
             with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as out:
                 make_dwc2_system(root)
                 with mock.patch.object(session, "TraceFS", FakeTraceFS):
@@ -101,6 +115,23 @@ class RunTests(unittest.TestCase):
                 self.assertEqual(info["profile"], name)
                 self.assertEqual(sorted(info["kprobes"]["registered"]),
                                  sorted("hl_" + k for k in prof["kprobes"]), name)
+
+    def test_state_profile_needs_matching_offsets(self):
+        off = {"kernel_release": "6.18.59+", "missing": {}, "structs": STATE_OFFSETS}
+        with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as out:
+            make_dwc2_system(root)  # osrelease 6.18.59+
+            path = os.path.join(out, "off.json")
+            with open(path, "w") as f:
+                json.dump(dict(off, kernel_release="6.12.47+rpt-rpi-v6"), f)
+            with mock.patch.object(session, "TraceFS", FakeTraceFS):
+                with self.assertRaises(SystemExit):
+                    session.run(self._args(root, out, profile="state", offsets=path))
+                with open(path, "w") as f:
+                    json.dump(off, f)
+                session.run(self._args(root, out, profile="state", offsets=path))
+            with open(os.path.join(out, "session.json")) as f:
+                info = json.load(f)
+        self.assertIn("hl_xfercomp", info["kprobes"]["registered"])
 
     def test_custom_probe_set(self):
         with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as out:
@@ -168,6 +199,17 @@ class RunTests(unittest.TestCase):
             with open(os.path.join(out, "session.json")) as f:
                 info = json.load(f)
             self.assertTrue(any("tracefs" in w for w in info["warnings"]))
+
+
+class StateProbeTests(unittest.TestCase):
+    def test_fetch_strings(self):
+        from hostlab.tracefs import state_probes
+        probes = {p.name: p for p in state_probes({"structs": STATE_OFFSETS})}
+        self.assertEqual(probes["hc_start"].fetch,
+                         "hc=+0(%r1):u8 dev=+0(%r1):b7@8/32 ep=+0(%r1):b4@15/32 "
+                         "in=+0(%r1):b1@19/32 pid=+4(%r1):b2@11/32 len=+20(%r1):u32")
+        self.assertEqual(probes["xfercomp"].fetch,
+                         "hc=%r2:s32 phase=+0(%r3):u32 hcint=+56(%r1):x32")
 
 
 if __name__ == "__main__":

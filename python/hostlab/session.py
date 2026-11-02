@@ -32,7 +32,7 @@ from typing import Any, Dict, List, Optional
 from . import __version__
 from .probe import probe
 from .tracefs import (ARM32_PROFILE, PROFILES, TraceFS, find_tracefs, read_filter_functions,
-                      usable_probes)
+                      state_probes, usable_probes)
 
 DEFAULT_BUFFER_KB = 4096
 DEFAULT_PROFILE = "full"
@@ -60,8 +60,10 @@ def _find_tool(name: str, bindir: Optional[str]) -> Optional[str]:
 class FtraceSession:
     def __init__(self, tfs: TraceFS, buffer_kb: int = DEFAULT_BUFFER_KB,
                  profile: str = DEFAULT_PROFILE, kprobes: Optional[List[str]] = None,
-                 functions: Optional[List[str]] = None):
+                 functions: Optional[List[str]] = None,
+                 offsets: Optional[Dict[str, Any]] = None):
         self.tfs = tfs
+        self.offsets = offsets
         self.buffer_kb = buffer_kb
         self.profile = profile
         # Explicit lists (profile "custom") override the named profile.
@@ -83,8 +85,9 @@ class FtraceSession:
 
     def setup(self) -> None:
         funcs = read_filter_functions(self.tfs.path)
+        catalogue = state_probes(self.offsets) if self.offsets else ARM32_PROFILE
         usable, missing = usable_probes(
-            funcs, [p for p in ARM32_PROFILE if p.name in set(self.kprobe_names)])
+            funcs, [p for p in catalogue if p.name in set(self.kprobe_names)])
         self.missing = [p.symbol for p in missing]
         wanted = self.function_names
         self.functions = [f for f in wanted if funcs is not None and f in funcs]
@@ -176,10 +179,15 @@ def run(args: argparse.Namespace) -> int:
             else:
                 custom = args.kprobes is not None or args.functions is not None
                 profile = "custom" if custom else args.profile
+                offsets = None
+                if args.profile == "state":
+                    offsets = _load_offsets(args.offsets, caps.get("kernel_release"))
+                    info["offsets"] = args.offsets
                 ftrace = FtraceSession(
                     TraceFS(path), args.buffer_kb, args.profile,
                     kprobes=_names(args.kprobes) if custom else None,
-                    functions=_names(args.functions) if custom else None)
+                    functions=_names(args.functions) if custom else None,
+                    offsets=offsets)
                 ftrace.setup()
                 info["profile"] = profile
                 info["kprobes"] = {"registered": ftrace.registered, "failed": ftrace.failed,
@@ -233,6 +241,21 @@ def run(args: argparse.Namespace) -> int:
     return rc
 
 
+def _load_offsets(path: Optional[str], release: Optional[str]) -> Dict[str, Any]:
+    """Offsets for profile "state"; refused unless generated for this kernel."""
+    if not path:
+        raise SystemExit("hostlab-session: --profile state needs --offsets FILE "
+                         "(scripts/pi/dwc2-offsets.sh)")
+    with open(path) as f:
+        off = json.load(f)
+    if off.get("kernel_release") != release:
+        raise SystemExit(f"hostlab-session: {path} is for {off.get('kernel_release')}, "
+                         f"running {release}")
+    if off.get("missing"):
+        raise SystemExit(f"hostlab-session: {path} lacks members {off['missing']}")
+    return off
+
+
 def _names(arg: Optional[str]) -> List[str]:
     return [n for n in (arg or "").split(",") if n]
 
@@ -261,6 +284,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     r.add_argument("--bindir", help="directory containing hostlab-mon")
     r.add_argument("--profile", choices=sorted(PROFILES), default=DEFAULT_PROFILE,
                    help="instrumentation profile (default %(default)s); see tracefs.PROFILES")
+    r.add_argument("--offsets", help="dwc2 struct offsets JSON for --profile state")
     r.add_argument("--kprobes", help="comma-separated probe names (tracefs.ARM32_PROFILE); "
                                      "with --functions, replaces --profile")
     r.add_argument("--functions", help="comma-separated functions for the function tracer")

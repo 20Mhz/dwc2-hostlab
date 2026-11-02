@@ -111,6 +111,10 @@ PROFILES: Dict[str, Dict[str, Any]] = {
               "about": "URB join and one event per channel run (phase reconstruction)"},
     "minimal": {"kprobes": ["urb_enqueue", "giveback"] + RARE, "functions": [], "hits": 2,
                 "about": "URB join only; no phases"},
+    "state": {"kprobes": ["urb_enqueue", "giveback", "hc_start", "xfercomp", "hc_release"]
+              + RARE, "functions": [], "hits": 11,
+              "about": "channel/endpoint/PID/length at each start and control_phase at each "
+                       "completion; needs --offsets from scripts/pi/dwc2-offsets.sh"},
     "idle": {"kprobes": RARE, "functions": [], "hits": 0,
              "about": "diagnostic: tracing on and rare-path probes registered, no hits on "
                       "a normal transfer; isolates the fixed cost of tracing"},
@@ -122,6 +126,41 @@ PROFILES: Dict[str, Dict[str, Any]] = {
 # Function-tracer events are mapped onto the kprobe event names (without args).
 FUNCTION_EVENTS = {"dwc2_hc_start_transfer": "hc_start", "dwc2_release_channel": "hc_release",
                    "dwc2_hc_halt": "hc_halt", "dwc2_hc_xfercomp_intr": "xfercomp"}
+
+
+def _member_fetch(reg: str, m: Dict[str, int], kind: str = "u32") -> str:
+    """Kprobe fetch for a struct member described by dwc2-offsets.sh output.
+    Bitfields use the "b<width>@<bit>/32" form on the 32-bit word holding
+    them (little-endian ARM, GCC allocates from bit 0 up)."""
+    if "data_bit_offset" in m:
+        bit = m["data_bit_offset"]
+        return f"+{bit // 32 * 4}({reg}):b{m['bit_size']}@{bit % 32}/32"
+    return f"+{m['data_member_location']}({reg}):{kind}"
+
+
+def state_probes(offsets: Dict[str, Any]) -> List[Probe]:
+    """Probes that read dwc2's own state (profile "state"): channel setup at
+    each start (device, endpoint, direction, starting PID, length) and the
+    QTD's control_phase at each transfer-complete interrupt. Offsets must come
+    from scripts/pi/dwc2-offsets.sh for the running kernel; the prototypes
+    are the 6.12.47 ones (docs/references.md)."""
+    ch, qtd = offsets["structs"]["dwc2_host_chan"], offsets["structs"]["dwc2_qtd"]
+    r1 = lambda name, kind="u32": _member_fetch("%r1", ch[name], kind)
+    start = (f"hc=+0(%r1):u8 dev={r1('dev_addr')} ep={r1('ep_num')} in={r1('ep_is_in')} "
+             f"pid={r1('data_pid_start')} len={r1('xfer_len')}")
+    comp = (f"hc=%r2:s32 phase={_member_fetch('%r3', qtd['control_phase'])} "
+            f"hcint={_member_fetch('%r1', ch['hcint'], 'x32')}")
+    return [
+        Probe("urb_enqueue", "_dwc2_hcd_urb_enqueue", "urb=%r1:x32", "dwc2", "enqueue"),
+        Probe("giveback", "usb_hcd_giveback_urb", "urb=%r1:x32 status=%r2:s32", "usbcore",
+              "IRQ-side giveback"),
+        Probe("hc_start", "dwc2_hc_start_transfer", start, "dwc2",
+              "channel start with its programmed endpoint, direction, PID and length"),
+        Probe("xfercomp", "dwc2_hc_xfercomp_intr", comp, "dwc2",
+              "transfer complete: qtd->control_phase being completed, latched HCINT"),
+        Probe("hc_release", "dwc2_release_channel", "hc=+0(%r1):u8 reason=%r3:u32", "dwc2",
+              "release"),
+    ] + [p for p in ARM32_PROFILE if p.name in RARE]
 
 
 def profile_probes(name: str) -> List[Probe]:
