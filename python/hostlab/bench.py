@@ -186,6 +186,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     ap.add_argument("--rounds", type=int, default=5)
     ap.add_argument("--repeat", type=int, default=200)
     ap.add_argument("--seed", type=int, default=1)
+    ap.add_argument("--offsets", help="offsets JSON, passed to sessions of profile 'state'")
     args = ap.parse_args(argv)
     if args.reanalyze:
         res = reanalyze(args.out)
@@ -218,7 +219,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         random.Random(args.seed * 1000 + rnd).shuffle(order)
         for p in order:
             rd = os.path.join(args.out, "runs", f"r{rnd}-{p}")
-            cmd = [session_bin, "run", "--out", rd] + session_args(p) + [
+            extra = ["--offsets", args.offsets] if p == "state" and args.offsets else []
+            cmd = [session_bin, "run", "--out", rd] + session_args(p) + extra + [
                 "--", ctl_bin, "get-descriptor", args.device, "--repeat", str(args.repeat)]
             rc = subprocess.call(cmd, stdout=subprocess.DEVNULL)
             rep = analyze(rd)
