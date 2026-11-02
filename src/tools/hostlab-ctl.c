@@ -8,7 +8,7 @@
  *   hostlab-ctl [options] get-descriptor DEVICE [--type device|config] [--length N]
  *   hostlab-ctl [options] control DEVICE --setup BM,BREQ,WVAL,WIDX,WLEN [--data HEX]
  *   hostlab-ctl [options] cancel-sweep DEVICE --delays-us A:B:STEP [--setup ...]
- *   hostlab-ctl [options] reset DEVICE --allow-reset
+ *   hostlab-ctl [options] reset DEVICE --allow-reset [--pending K] [--repeat N]
  *
  * DEVICE: /dev/bus/usb/BBB/DDD, BUS:DEV, or VVVV:PPPP.
  * Requests are restricted by include/hostlab/policy.h unless relaxed with
@@ -40,6 +40,7 @@ struct opts {
 	unsigned repeat;
 	unsigned timeout_ms;
 	unsigned policy;
+	unsigned pending;
 	int allow_reset;
 };
 
@@ -60,6 +61,7 @@ static void usage(FILE *f)
 		"  --type device|config  get-descriptor type (default device)\n"
 		"  --length N            get-descriptor wLength (default 18)\n"
 		"  --delays-us A:B:STEP  cancel-sweep delays between submit and cancel\n"
+		"  --pending K           reset: queue K GET_DESCRIPTOR(DEVICE) URBs first (<= 16)\n"
 		"  --allow-write --allow-nonstandard --allow-hub --allow-reset\n");
 }
 
@@ -222,6 +224,73 @@ static int do_control(struct hl_usb_dev *dev, const struct opts *o,
 	return r < 0 ? -1 : 0;
 }
 
+/* Bounds for reset experiments: each reset re-enumerates the device. */
+#define RESET_MAX_REPEAT 10
+#define RESET_MAX_PENDING 16
+
+/* One port reset (USBDEVFS_RESET), optionally with `pending` GET_DESCRIPTOR
+ * (DEVICE) URBs queued on ep0 just before it, each reaped afterwards and
+ * reported with its final status (H6: what happens to URBs across a reset). */
+static int do_reset(struct hl_usb_dev *dev, const struct opts *o, unsigned seq)
+{
+	static const struct hl_setup gd = { 0x80, 0x06, 0x0100, 0, 18 };
+	uint8_t bufs[RESET_MAX_PENDING][18], sb[8];
+	struct hl_xfer x[RESET_MAX_PENDING];
+	struct hl_error err;
+	unsigned queued = 0;
+	uint64_t t0, t1;
+	int r, failed = 0;
+
+	memset(x, 0, sizeof(x));
+	setup_bytes(&gd, sb);
+	for (; queued < o->pending; queued++) {
+		x[queued].setup = gd;
+		x[queued].data = bufs[queued];
+		if (hl_usb_submit_control(dev, &x[queued], &err)) {
+			emit_error("submit", &err);
+			failed = 1;
+			break;
+		}
+	}
+	t0 = hl_usb_now_ns(dev);
+	r = hl_usb_reset_device(dev, &err);
+	t1 = hl_usb_now_ns(dev);
+
+	hl_jsonl_begin(&J);
+	hl_jsonl_str(&J, "src", "user");
+	hl_jsonl_str(&J, "ev", "reset");
+	hl_jsonl_u64(&J, "seq", seq);
+	hl_jsonl_u64(&J, "pending", queued);
+	hl_jsonl_u64(&J, "t_start_ns", t0);
+	hl_jsonl_u64(&J, "t_done_ns", t1);
+	hl_jsonl_str(&J, "status", hl_status_name(r ? err.status : HL_OK));
+	hl_jsonl_i64(&J, "errno", r ? err.sys_errno : 0);
+	hl_jsonl_end(&J);
+
+	for (unsigned i = 0; i < queued; i++) {
+		struct hl_xfer *done = NULL;
+
+		if (hl_usb_reap(dev, o->timeout_ms ? (int)o->timeout_ms : -1, &done, &err)) {
+			emit_error("reap", &err);
+			return 1;
+		}
+		hl_jsonl_begin(&J);
+		hl_jsonl_str(&J, "src", "user");
+		hl_jsonl_str(&J, "ev", "xfer");
+		hl_jsonl_str(&J, "op", "pending_across_reset");
+		hl_jsonl_u64(&J, "seq", seq);
+		hl_jsonl_u64(&J, "index", (uint64_t)(done - x));
+		hl_jsonl_hex(&J, "setup", sb, sizeof(sb));
+		hl_jsonl_u64(&J, "t_submit_ns", done->t_submit_ns);
+		hl_jsonl_u64(&J, "t_reap_ns", done->t_reap_ns);
+		hl_jsonl_str(&J, "status", hl_status_name(done->status));
+		hl_jsonl_i64(&J, "urb_status", done->urb_status);
+		hl_jsonl_u64(&J, "actual", done->actual_length);
+		hl_jsonl_end(&J);
+	}
+	return r || failed ? 1 : 0;
+}
+
 static int cancel_sweep(struct hl_backend *be, struct hl_usb_dev *dev,
 			const struct opts *o, const struct hl_setup *s)
 {
@@ -302,7 +371,7 @@ static int cancel_sweep(struct hl_backend *be, struct hl_usb_dev *dev,
 int main(int argc, char **argv)
 {
 	enum { O_BACKEND = 256, O_REPEAT, O_TIMEOUT, O_SETUP, O_DATA, O_TYPE,
-	       O_LENGTH, O_DELAYS, O_AW, O_ANS, O_AH, O_AR };
+	       O_LENGTH, O_DELAYS, O_AW, O_ANS, O_AH, O_AR, O_PENDING };
 	static const struct option longopts[] = {
 		{ "backend", required_argument, NULL, O_BACKEND },
 		{ "out", required_argument, NULL, 'o' },
@@ -317,6 +386,7 @@ int main(int argc, char **argv)
 		{ "allow-nonstandard", no_argument, NULL, O_ANS },
 		{ "allow-hub", no_argument, NULL, O_AH },
 		{ "allow-reset", no_argument, NULL, O_AR },
+		{ "pending", required_argument, NULL, O_PENDING },
 		{ "help", no_argument, NULL, 'h' },
 		{ NULL, 0, NULL, 0 },
 	};
@@ -354,6 +424,7 @@ int main(int argc, char **argv)
 		case O_ANS: o.policy |= HL_POLICY_ALLOW_NONSTANDARD; break;
 		case O_AH: o.policy |= HL_POLICY_ALLOW_HUB; break;
 		case O_AR: o.allow_reset = 1; break;
+		case O_PENDING: o.pending = (unsigned)strtoul(optarg, NULL, 10); break;
 		case 'h': usage(stdout); return 0;
 		default: usage(stderr); return 2;
 		}
@@ -456,21 +527,15 @@ int main(int argc, char **argv)
 			rc = 1;
 			goto out;
 		}
-		{
-			uint64_t t0 = hl_usb_now_ns(dev);
-			int r = hl_usb_reset_device(dev, &err);
-			uint64_t t1 = hl_usb_now_ns(dev);
-
-			hl_jsonl_begin(&J);
-			hl_jsonl_str(&J, "src", "user");
-			hl_jsonl_str(&J, "ev", "reset");
-			hl_jsonl_u64(&J, "t_start_ns", t0);
-			hl_jsonl_u64(&J, "t_done_ns", t1);
-			hl_jsonl_str(&J, "status", hl_status_name(r ? err.status : HL_OK));
-			hl_jsonl_i64(&J, "errno", r ? err.sys_errno : 0);
-			hl_jsonl_end(&J);
-			rc = r ? 1 : 0;
+		if (o.repeat > RESET_MAX_REPEAT || o.pending > RESET_MAX_PENDING) {
+			fprintf(stderr, "hostlab-ctl: reset allows --repeat <= %d, --pending <= %d\n",
+				RESET_MAX_REPEAT, RESET_MAX_PENDING);
+			rc = 2;
+			goto out;
 		}
+		rc = 0;
+		for (unsigned rep = 0; rep < o.repeat && !rc; rep++)
+			rc = do_reset(dev, &o, rep);
 	} else {
 		fprintf(stderr, "hostlab-ctl: unknown command '%s'\n", cmd);
 		rc = 2;

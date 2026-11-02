@@ -317,7 +317,9 @@ def analyze(session_dir: str) -> Dict[str, Any]:
                     or u.mon_submit_ns or 0):
         starts = [e for e in t.channel if e.event == "hc_start"]
         rec: Dict[str, Any] = {
-            "urb": hex(t.urb), "instance": t.instance, "xfer": t.xfer, "dev": t.dev, "ep": t.ep, "in": t.is_in,
+            "urb": hex(t.urb), "instance": t.instance,
+            "t_start_ns": t.k_start() if t.k_start() is not None else t.mon_submit_ns,
+            "xfer": t.xfer, "dev": t.dev, "ep": t.ep, "in": t.is_in,
             "setup": t.setup, "status": t.status,
             "channel_runs": len(starts),
             "channels_used": sorted({e.int_field("hc") for e in starts} - {None}),
@@ -349,12 +351,19 @@ def analyze(session_dir: str) -> Dict[str, Any]:
             }
             # The halted channel may be released after the URB was given back,
             # i.e. outside its window, so search all channel events.
+            dq = HALT_STATUS.index("URB_DEQUEUE")
+            halt = [e for e in channel_events if e.event == "hc_halt" and e.ts_ns >= tdq
+                    and e.int_field("reason") == dq][:1]
+            if halt:
+                cancel["dequeue_to_halt_ns"] = halt[0].ts_ns - tdq
+                cancel["halted_hc"] = halt[0].int_field("hc")
             rel = [e for e in channel_events if e.event == "hc_release" and e.ts_ns >= tdq
-                   and e.int_field("reason") == HALT_STATUS.index("URB_DEQUEUE")][:1]
+                   and e.int_field("reason") == dq][:1]
             if rel:
                 cancel["dequeue_to_release_ns"] = rel[0].ts_ns - tdq
-                if "giveback_bh" in t.k:
-                    cancel["giveback_before_channel_release"] = t.k["giveback_bh"] < rel[0].ts_ns
+                gb = t.k.get("giveback_bh", t.k.get("giveback"))
+                if gb is not None:
+                    cancel["giveback_before_channel_release"] = gb < rel[0].ts_ns
             rec["cancel"] = cancel
         report_urbs.append(rec)
 

@@ -40,4 +40,17 @@ else
     echo "tools: reset without --allow-reset is refused ok"
 fi
 
+$CTL reset 1:2 --allow-reset --repeat 2 > "$tmp/rs.jsonl"
+check "reset repeats and reports each" sh -c "grep -c '\"ev\":\"reset\".*\"status\":\"ok\"' '$tmp/rs.jsonl' | grep -qx 2"
+if $CTL reset 1:2 --allow-reset --repeat 11 > /dev/null 2>&1; then
+    echo "tools: reset --repeat 11 was accepted FAILED"; fail=1
+else
+    echo "tools: reset --repeat above the bound is refused ok"
+fi
+# The mock refuses a reset with transfers pending (H6 is not modelled); the
+# queued URBs must still be reaped and reported.
+$CTL reset 1:2 --allow-reset --pending 2 > "$tmp/rp.jsonl" || true
+check "reset --pending reports the refused reset" grep -q '"ev":"reset".*"pending":2.*"status":"unsupported"' "$tmp/rp.jsonl"
+check "reset --pending reaps every queued URB" sh -c "grep -c '\"op\":\"pending_across_reset\"' '$tmp/rp.jsonl' | grep -qx 2"
+
 exit $fail
