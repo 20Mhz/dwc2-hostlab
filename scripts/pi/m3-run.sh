@@ -5,8 +5,9 @@
 #   sudo scripts/pi/m3-run.sh STAGE BUS:DEV OUT_DIR
 #
 # STAGE:
-#   e3   cancel sweep 0..300 us step 5, 5 repeats, with the channel profile,
-#        then the same sweep without ftrace (outcomes without probe delay)
+#   e3   cancel sweep 0..300 us step 5, 5 repeats, three times: profile
+#        "state" (needs OFFSETS=file from scripts/pi/dwc2-offsets.sh), the
+#        default "fast" profile, and without ftrace
 #   e6   5 resets, then 5 resets with 4 GET_DESCRIPTOR URBs pending
 #   h5   e6's 5 plain resets with usbcore old_scheme_first=1 (runtime module
 #        parameter, restored on exit even on failure)
@@ -33,12 +34,14 @@ check_device() {
 
 case "$stage" in
 e3)
-    $S --profile channel --out "$out/e3-channel" -- \
-        $C cancel-sweep "$dev" --delays-us 0:300:5 --repeat 5 || true
-    $S --no-ftrace --out "$out/e3-noprobe" -- \
-        $C cancel-sweep "$dev" --delays-us 0:300:5 --repeat 5 || true
-    bin/hostlab-report cancel "$out/e3-channel" --json "$out/e3-channel/cancel.json"
-    bin/hostlab-report cancel "$out/e3-noprobe" --json "$out/e3-noprobe/cancel.json"
+    : "${OFFSETS:?set OFFSETS to the dwc2-offsets.sh JSON for this kernel}"
+    sweep="$C cancel-sweep $dev --delays-us 0:300:5 --repeat 5"
+    $S --profile state --offsets "$OFFSETS" --out "$out/e3-state" -- $sweep || true
+    $S --profile fast --out "$out/e3-fast" -- $sweep || true
+    $S --no-ftrace --out "$out/e3-noprobe" -- $sweep || true
+    for r in e3-state e3-fast e3-noprobe; do
+        bin/hostlab-report cancel "$out/$r" --json "$out/$r/cancel.json"
+    done
     check_device e3
     ;;
 e6)
