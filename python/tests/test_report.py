@@ -111,6 +111,7 @@ class ModelReportTests(unittest.TestCase):
         self.assertIn("'pid': (0, 2)", r["violations"][0]["problems"][0])
         self.assertEqual(r["unattributed_channel_events"], 0)  # STATUS release inside window
         self.assertEqual(r["next_phase_channel"], {"different": 4})
+        self.assertEqual(r["release_to_next_start_ns"]["DATA"]["median"], 5_000)
         self.assertEqual(r["hcint_at_xfercomp"], {"XFERCOMPL|CHHLTD|ACK": 6})
         self.assertEqual(r["transitions"]["start[SETUP,pid=SETUP,out,len=8] -> "
                                           "xfercomp[control_phase=SETUP]"], 2)

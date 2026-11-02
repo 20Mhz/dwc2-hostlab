@@ -335,6 +335,7 @@ def model_report(session_dir: str) -> Dict[str, Any]:
     transitions = Counter()
     hcint_at_comp = Counter()
     same_channel_next = Counter()
+    gaps: Dict[str, List[int]] = defaultdict(list)  # release -> next start, by next phase
     for u in urbs:
         evs = [e for e in u["events"] if e["ev"] in ("hc_start", "xfercomp", "hc_release",
                                                        "hc_halt")]
@@ -358,6 +359,7 @@ def model_report(session_dir: str) -> Dict[str, Any]:
         # Per channel run: start -> xfercomp(phase) -> release(reason).
         labels = []
         prev_hc = None
+        t_release = None
         for i, e in enumerate(evs):
             hc = f(e, "hc")
             if e["ev"] == "hc_start":
@@ -365,6 +367,8 @@ def model_report(session_dir: str) -> Dict[str, Any]:
                 if len(exp) == 2 and len(labels) == 1:
                     ph = "STATUS"
                 labels.append(ph)
+                if t_release is not None:
+                    gaps[ph].append(e["t_ns"] - t_release)
                 if prev_hc is not None:
                     same_channel_next["same" if hc == prev_hc else "different"] += 1
                 label = f"start[{ph},pid={PID_NAMES.get(f(e, 'pid'))},"
@@ -378,6 +382,7 @@ def model_report(session_dir: str) -> Dict[str, Any]:
             elif e["ev"] == "hc_release":
                 label = f"release[reason={f(e, 'reason')}]"
                 prev_hc = hc
+                t_release = e["t_ns"]
             else:
                 label = f"halt[reason={f(e, 'reason')}]"
             if i:
@@ -394,6 +399,7 @@ def model_report(session_dir: str) -> Dict[str, Any]:
             "transitions": dict(transitions.most_common()),
             "hcint_at_xfercomp": dict(hcint_at_comp),
             "next_phase_channel": dict(same_channel_next),
+            "release_to_next_start_ns": {k: _stats(v) for k, v in gaps.items()},
             "unattributed_channel_events": rep["channel_events"]["unattributed"],
             "ambiguous_channel_events": rep["channel_events"]["ambiguous"]}
 
@@ -404,7 +410,8 @@ def format_model(r: Dict[str, Any]) -> str:
          f"unattributed {r['unattributed_channel_events']}, "
          f"ambiguous {r['ambiguous_channel_events']}",
          f"  HCINT at transfer-complete: {r['hcint_at_xfercomp']}",
-         f"  next phase on: {r['next_phase_channel']}", "  transitions:"]
+         f"  next phase on: {r['next_phase_channel']}",
+         f"  release -> next phase start: {r['release_to_next_start_ns']}", "  transitions:"]
     L += [f"    {n:6d}  {t}" for t, n in r["transitions"].items()]
     for v in r["violations"][:5]:
         L.append(f"  violation {v['urb']}#{v['instance']}: {v['problems']}")
